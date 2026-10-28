@@ -8,7 +8,7 @@ The requested six milestones have functional software implementations. Remaining
 2. Implemented and native-tested: simplify monthly cash flow, received income, forecast scenarios, goals and calculators. Keep basic inputs first, save/calculate actions reachable, assumptions/notes expandable, and summaries of hidden saved values visible.
 3. Implemented and native-tested: add an explicit bulk forecast-return action for current investment holdings; never silently replace contract rates or specific assumptions.
 4. Verified unchanged: retain schema 7, all financial formulae, decimal validation, historical revisions and completeness requirements. No inferred financial transactions or automatic device writes.
-5. 129 JVM tests and all 47 distinct native UI cases have final passing results. Visual review covers 75 fictional captures. Final debug/release builds and lint passed. Existing-key production signing is waiting for local passphrase entry; the development APK is verified.
+5. 129 JVM tests and all 47 distinct native UI cases have final passing results. Visual review covers 75 fictional captures. Final debug/release builds and lint passed. Existing-key production signing and independent package/payload verification completed on 29 October 2026; both matching APKs are available.
 6. Refresh current progress and guided checks without marking unexecuted physical checks as passed.
 
 ## Acceptance still requiring external evidence

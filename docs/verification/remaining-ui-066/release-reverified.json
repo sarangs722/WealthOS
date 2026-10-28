@@ -1,0 +1,25 @@
+{
+  "status": "PACKAGE_AND_SIGNATURE_VERIFIED",
+  "applicationId": "com.wealthos.app.release",
+  "versionName": "0.6.6",
+  "versionCode": 12,
+  "apkSha256": "25a0334a4132561f8b8480d52781e74343e4489e42c14abefc51a32ed469a796",
+  "certificateSha256": "cf06385769b4d9e0992910521f210a77407cb284e2963290fbb10006b8d88054",
+  "minSdk": 29,
+  "targetSdk": 37,
+  "debuggable": false,
+  "testOnly": false,
+  "osBackupExcluded": true,
+  "cleartext": false,
+  "permissions": [
+    "android.permission.INTERNET",
+    "android.permission.USE_BIOMETRIC",
+    "com.wealthos.app.release.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+  ],
+  "componentInventory": "reviewed",
+  "nativeLibraries": 8,
+  "elfAndZip16KiB": "passed",
+  "phoneAccessed": false,
+  "physicalDeviceReview": "pending",
+  "independentSecurityReview": "pending"
+}

@@ -1,8 +1,8 @@
 # WealthOS
 
-**Current code: [0.6.6 remaining-form refinement](docs/RELEASE_0_6_6.md)** shortens cash flow, received income, scenarios, goals and calculators. Builds and tests passed; production signing is waiting for local passphrase entry. The signed 0.6.5 update remains available below.
+**Latest signed update: [0.6.6 remaining-form refinement](docs/RELEASE_0_6_6.md)** shortens cash flow, received income, scenarios, goals and calculators. Builds, tests and signature verification passed; the update retains the existing signing identity.
 
-Native, offline-first Android personal wealth tracker. **Latest: [0.6.5 quick entry](docs/RELEASE_0_6_5.md)** starts investment holdings with name and current value, keeps other figures optional and uses shorter native forms. The signed update retains the existing release identity; [0.6.4](docs/RELEASE_0_6_4.md) is retained. **Milestone 6 (0.6.0)** adds password-protected portable backups, validated transactional restore, encrypted pre-restore safety copies and release hardening. Existing bank, portfolio, income, protection, planning and optional public-data features remain local and offline-first.
+Native, offline-first Android personal wealth tracker. **Previous data-entry refinement: [0.6.5 quick entry](docs/RELEASE_0_6_5.md)** starts investment holdings with name and current value, keeps other figures optional and uses shorter native forms. The signed update retains the existing release identity; [0.6.4](docs/RELEASE_0_6_4.md) is retained. **Milestone 6 (0.6.0)** adds password-protected portable backups, validated transactional restore, encrypted pre-restore safety copies and release hardening. Existing bank, portfolio, income, protection, planning and optional public-data features remain local and offline-first.
 
 **Updating from 0.1.0–0.5.0:** install the new APK over the existing app, retaining the same application/signing identity. Do not uninstall or clear storage: the encrypted vault and device key are reused, and explicit migrations reach schema 7. After updating, create a portable backup and validate its original password/records before relying on it. Network refresh defaults off.
 
@@ -50,7 +50,7 @@ Records use SQLCipher and a Keystore-protected random key. Portable files use pa
 
 ## Documentation
 
-* [Latest signed WealthOS 0.6.4, revised UI and verified updates](docs/RELEASE_0_6_4.md)
+* [Latest signed WealthOS 0.6.6 and verification](docs/RELEASE_0_6_6.md)
 * [Guided phone checks to run personally](docs/DEVICE_CHECKS.md)
 * [Original 0.6.0 signing and migration record](docs/PRODUCTION_RELEASE.md)
 * [Milestone 6 verified progress and remaining release requirements](docs/PROGRESS_MILESTONE_6.md)

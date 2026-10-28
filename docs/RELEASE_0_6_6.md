@@ -1,6 +1,6 @@
 # WealthOS 0.6.6 - simpler planning and cash flow
 
-Version code 12. Database schema 7, encryption, portable-backup format and all financial mathematics are unchanged from 0.6.5. Debug and minified release builds are verified. Production signing is waiting for the existing-key passphrase in the local signing window; no signed 0.6.6 release is claimed yet.
+Version code 12. Database schema 7, encryption, portable-backup format and all financial mathematics are unchanged from 0.6.5. Debug and minified release builds are verified. The release is signed with the existing production certificate and independently verified.
 
 ## Changes
 
@@ -21,10 +21,12 @@ Version code 12. Database schema 7, encryption, portable-backup format and all f
 
 ## Build and artifacts
 
-Debug and minified release builds passed. Debug/release lint each have zero errors and one existing Gradle-version warning. The unchanged development certificate verifies successfully. The unsigned release passed ZIP/ELF 16 KiB alignment for all eight native libraries; production signature verification remains pending.
+Debug and minified release builds passed. Debug/release lint each have zero errors and one existing Gradle-version warning. The unchanged development certificate verifies successfully. Independent SDK verification passed the existing certificate pin, single v3 signer, application identity, reviewed permissions/components, disabled cleartext and OS backups, and all eight native libraries' ZIP/ELF 16 KiB alignment. All 98 unsigned payload entries are byte-identical in the signed APK; only the three expected signing entries and APK signing block were added.
 
 - [Original WealthOS development-app update](../.tools/WealthOS-0.6.6-development.apk), same development identity. Install over the matching existing app; retain its storage.
-- The unsigned Release candidate is not installable. The local WealthOS 0.6.6 signing prompt requires the existing production-key passphrase; no new key is created and no password belongs in chat or GitHub.
+- [Signed WealthOS Release 0.6.6](../.tools/production-release/WealthOS-0.6.6.apk), `com.wealthos.app.release`, SHA-256 `25a0334a4132561f8b8480d52781e74343e4489e42c14abefc51a32ed469a796`.
+- Existing production certificate SHA-256: `cf06385769b4d9e0992910521f210a77407cb284e2963290fbb10006b8d88054`. The user entered the passphrase only in the masked local console. No private key/password was read into chat; no new signing identity was created. The previous 0.6.5 APK remains byte-identical.
+- Signature/payload verification completed on 29 October 2026. Install over the matching existing app, retaining its storage. No phone installation or physical acceptance is implied by these package checks.
 - [Verification and artifact SHA-256 values](verification/remaining-ui-066/verification.json), [latest result for each UI case](verification/remaining-ui-066/ui-case-results.json).
 - Fictional previews: [scenario](screenshots/remaining-066-scenario-light-1.0.png), [cash flow](screenshots/remaining-066-cash-light-1.0.png), [goal](screenshots/remaining-066-goal-dark-1.0.png), [SIP](screenshots/remaining-066-sip-light-1.0.png), [large-text EMI result](screenshots/remaining-066-emi-result-light-1.5.png).
 

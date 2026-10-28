@@ -2,7 +2,7 @@
 
 These checks are for the user to run locally. They have **not** been executed or marked passed by the agent. Report only pass/fail, the phone model and Android version; do not send financial amounts, passwords, keystores, backup files or screenshots of personal records.
 
-The [0.6.6 source, development APK and emulator verification](RELEASE_0_6_6.md) are ready. Production signing is waiting for the local key passphrase; use the verified signed Release update only after it becomes available. Phone results below still require your own checks.
+The [verified signed 0.6.6 Release and matching development update](RELEASE_0_6_6.md) are ready. Phone results below still require your own checks.
 
 ## Preparation
 

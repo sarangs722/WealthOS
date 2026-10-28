@@ -53,9 +53,44 @@
   "debugBuild": "passed",
   "minifiedReleaseBuild": "passed",
   "debugReleaseLint": "0 errors and 1 existing Gradle-version warning each",
-  "releaseSigning": "pending local key passphrase",
+  "releaseSigning": "verified existing production certificate",
   "phoneAccessed": false,
   "physicalDeviceReview": "pending",
   "independentSecurityReview": "pending",
-  "developmentSignature": "verified unchanged development identity; v2"
+  "developmentSignature": "verified unchanged development identity; v2",
+  "signedRelease": {
+    "status": "PACKAGE_AND_SIGNATURE_VERIFIED",
+    "applicationId": "com.wealthos.app.release",
+    "versionName": "0.6.6",
+    "versionCode": 12,
+    "apkSha256": "25a0334a4132561f8b8480d52781e74343e4489e42c14abefc51a32ed469a796",
+    "certificateSha256": "cf06385769b4d9e0992910521f210a77407cb284e2963290fbb10006b8d88054",
+    "minSdk": 29,
+    "targetSdk": 37,
+    "debuggable": false,
+    "testOnly": false,
+    "osBackupExcluded": true,
+    "cleartext": false,
+    "permissions": [
+      "android.permission.INTERNET",
+      "android.permission.USE_BIOMETRIC",
+      "com.wealthos.app.release.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    ],
+    "componentInventory": "reviewed",
+    "nativeLibraries": 8,
+    "elfAndZip16KiB": "passed",
+    "phoneAccessed": false,
+    "physicalDeviceReview": "pending",
+    "independentSecurityReview": "pending"
+  },
+  "payloadComparison": {
+    "unsignedSha256": "f2f3acd2c305dbbbf2565052b613708e46342f432b014072dcbbaf594c93ecfe",
+    "signedSha256": "25a0334a4132561f8b8480d52781e74343e4489e42c14abefc51a32ed469a796",
+    "payloadEntriesByteIdentical": 98,
+    "addedEntries": [
+      "META-INF/MANIFEST.MF",
+      "META-INF/WEALTHOS.RSA",
+      "META-INF/WEALTHOS.SF"
+    ]
+  }
 }
