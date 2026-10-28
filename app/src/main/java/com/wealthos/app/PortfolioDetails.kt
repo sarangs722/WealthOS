@@ -52,6 +52,17 @@ private fun number(value:BigDecimal,hidden:Boolean)=if(hidden)"•••••�
                 TextButton(onClick={onAction("edit-asset")}) {Text("Edit asset details")}
             }
         }
+        if(instrument.tracking==TrackingMode.OBSERVED && HoldingSnapshots.availableForSnapshot(instrument.category)) item {
+            SectionCard("Holding summary") {
+                val summary=value.snapshot
+                Text("Reported invested amount: ${money(summary?.reportedInvested,instrument.currency,hidden)}")
+                summary?.reportedInvested?.let {Text("Difference vs reported investment: ${money(value.nativeValue?.minus(it),instrument.currency,hidden)}")}
+                summary?.reportedUnits?.let {Text("Reported units: ${number(it,hidden)}")}
+                summary?.reportedPrice?.let {Text("Reported NAV / price: ${if(hidden)"••••••" else Amounts.formatQuote(it,instrument.currency)}")}
+                DetailsDisclosure("About this summary") {Text("These are the figures you copied on the input date, not a purchase history. The difference excludes any unrecorded withdrawals or distributions. FIFO gains and annualised returns are unavailable.")}
+                if(!state.demo) TextButton(onClick={onAction("unit-tracking")}) {Text("Track purchases & sales")}
+            }
+        }
         value.holding?.let {holding ->
             item {SectionCard("Holdings & book cost") {
                 Text("${number(holding.units,hidden)} ${instrument.unit}",style=MaterialTheme.typography.titleLarge)
@@ -105,6 +116,10 @@ private fun number(value:BigDecimal,hidden:Boolean)=if(hidden)"•••••�
         if(valuations.isNotEmpty())item {DisclosureHeader("Valuation history",prices,{prices=!prices},"${valuations.size} observations")}
         if(prices)items(valuations,key={it.id}) {observation -> SectionCard("${dateLabel(observation.date)} · Revision ${observation.revision}") {
             Text((if(observation.kind==ValuationKind.UNIT_PRICE && !hidden)Amounts.formatQuote(observation.value,instrument.currency) else money(observation.value,instrument.currency,hidden))+(if(observation.kind==ValuationKind.UNIT_PRICE)" per ${instrument.unit}" else " observed total"))
+            observation.reportedInvested?.let {Text("Reported invested amount: ${money(it,instrument.currency,hidden)}")}
+            observation.reportedUnits?.let {Text("Reported units: ${number(it,hidden)}")}
+            observation.reportedPrice?.let {Text("Reported NAV / price: ${if(hidden)"••••••" else Amounts.formatQuote(it,instrument.currency)}")}
+            if(observation.calculatedTotal)Text("Total calculated from reported units × price")
             if(observation.note.isNotBlank())Text(if(hidden)"Note hidden" else observation.note)
             observation.source?.let {Text(PublicRules.describe(it,today));Text("Source date ${it.datum.date} · Retrieved ${recordedLabel(it.retrievedAt)}")}
             Text("Recorded ${recordedLabel(observation.recordedAt)}",style=MaterialTheme.typography.bodyMedium)

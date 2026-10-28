@@ -29,45 +29,28 @@ import java.time.LocalDate
     val kind=AccountKind.valueOf(kindName)
     val editing=mode=="edit"
     val balance=mode=="balance"
-    val enabled=!state.saving && !state.demo
-    LazyColumn(Modifier.fillMaxSize().imePadding().testTag("account-form"),contentPadding=PaddingValues(24.dp),verticalArrangement=Arrangement.spacedBy(18.dp)) {
-        item {
-            Text(when { editing -> "Edit account"; balance -> "Update balance"; else -> "Add bank account" },style=MaterialTheme.typography.headlineMedium)
-            Text(if(balance) "${account?.name} · Record a dated observation" else if(editing) "Account identity stays the same. Balance history is preserved." else "Quick Add · Start from a known balance",color=MaterialTheme.colorScheme.onSurfaceVariant)
-        }
-        if(!balance) {
-            item { OutlinedTextField(name,{if(it.length<=80)name=it},label={Text("Account name")},placeholder={Text("e.g. Everyday savings")},singleLine=true,enabled=enabled,modifier=Modifier.fillMaxWidth()) }
-            item { OutlinedTextField(institution,{if(it.length<=80)institution=it},label={Text("Bank name (optional)")},singleLine=true,enabled=enabled,modifier=Modifier.fillMaxWidth()) }
-            item { Text("Account type",style=MaterialTheme.typography.titleMedium)
-                Row(Modifier.horizontalScroll(rememberScrollState()),horizontalArrangement=Arrangement.spacedBy(12.dp)) {
-                    AccountKind.entries.forEach { type -> FilterChip(kind==type,{kindName=type.name},enabled=enabled,label={Text(type.label)}) }
-                }
-                if(kind==AccountKind.BROKER_CASH)Text("Cash only. Add holdings separately.")
-            }
-            if(!editing) item {
-                Text("Native currency",style=MaterialTheme.typography.titleMedium)
-                Row(Modifier.horizontalScroll(rememberScrollState()),horizontalArrangement=Arrangement.spacedBy(8.dp)) {
-                    CurrencyCode.entries.forEach { code -> FilterChip(currency==code,{currencyName=code.name},enabled=enabled,label={Text(code.name)}) }
-                }
-                if(currency!=CurrencyCode.INR) Text("An exchange rate is needed for your INR total.",style=MaterialTheme.typography.bodyMedium)
-            }
-            if(editing) item { Text("Currency: $currency · Immutable to preserve balance history.") }
-        }
-        if(!editing) {
-            item { OutlinedTextField(amount,{amount=it.take(40)},label={Text("Balance in $currency")},supportingText={Text("No commas. Up to ${currency.scale} decimal places. Negative = overdraft.")},keyboardOptions=KeyboardOptions(keyboardType=KeyboardType.Decimal),singleLine=true,enabled=enabled,modifier=Modifier.fillMaxWidth()) }
-            item { OutlinedTextField(date,{date=it.take(10)},label={Text("Balance date (YYYY-MM-DD)")},singleLine=true,enabled=enabled,modifier=Modifier.fillMaxWidth()) }
-            if(balance) item { OutlinedTextField(note,{if(it.length<=500)note=it},label={Text("Note / correction explanation")},supportingText={Text("Required when correcting an existing balance on the same date.")},enabled=enabled,modifier=Modifier.fillMaxWidth(),minLines=2) }
-        }
-        item {DetailsDisclosure("About balance updates"){Text(if(editing)"Changing the nickname or bank does not change balances." else "Enter the full balance shown by your bank on this date, including any recorded transfers or purchases. This replaces the carried-forward balance for that date; previous observations and corrections remain in history. A difference is not automatically income or expense.")}}
-        if(state.formError!=null) item { Text(state.formError,color=MaterialTheme.colorScheme.error,modifier=Modifier.semanticsLabel("Validation error: ${state.formError}")) }
-        item { Button(onClick={ when {
+    Form(when {editing->"Edit account";balance->"Update balance";else->"Add bank account"},
+        if(balance)account?.name.orEmpty() else "Start with the balance shown in your bank app.",state,if(editing)"Save account" else "Save balance",{
+        when {
             editing && account!=null -> model.edit(account.id,name,institution,kind,done)
             balance && account!=null -> model.balance(account.id,currency,amount,date,note,done)
             else -> model.add(name,institution,currency,kind,amount,date,done)
-        } },enabled=enabled,modifier=Modifier.fillMaxWidth().heightIn(min=52.dp)) {
-            if(state.saving) { CircularProgressIndicator(Modifier.size(20.dp),strokeWidth=2.dp); Spacer(Modifier.width(12.dp)) }
-            Text(if(state.saving) "Saving…" else if(editing) "Save account" else "Save balance")
-        } }
+        }
+    }) {
+        if(!balance)Field("Account name",name,{name=it})
+        if(!editing) {
+            Field("Balance in $currency",amount,{amount=it},true,"Full balance, not the change since last time. Negative amounts represent overdrafts.")
+            DateChoice("Balance date",date,{date=it})
+            val correction=balance && state.book.observations.any {it.accountId==account?.id && it.effectiveDate.toString()==date}
+            if(balance)Field("Note / correction explanation",note,{note=it},hint=if(correction)"Required: a balance already exists for this date. Both versions are retained." else "Optional unless correcting a balance on the same date.")
+        }
+        if(!balance)FormDetails("Account details") {
+            Field("Bank name (optional)",institution,{institution=it})
+            Choice("Account type",kindName,AccountKind.entries.map {it.name to it.label}) {kindName=it}
+            if(!editing)Choice("Currency",currencyName,CurrencyCode.entries.map {it.name to it.name}) {currencyName=it}
+            else Text("Currency: $currency")
+            if(kind==AccountKind.BROKER_CASH)Text("Cash only. Add holdings separately.")
+        }
     }
 }
 

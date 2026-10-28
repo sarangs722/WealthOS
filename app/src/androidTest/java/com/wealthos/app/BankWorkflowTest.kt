@@ -16,15 +16,14 @@ class BankWorkflowTest {
     @get:Rule val rule=createAndroidComposeRule<MainActivity>()
     private fun writeForm(label:String,value:String) {
         rule.activity.dismissKeyboardForTest()
-        rule.onNodeWithTag("account-form").performScrollToNode(hasText(label))
+        rule.onNodeWithText(label).performScrollTo()
         rule.onNodeWithText(label).performTextReplacement(value)
         rule.activity.dismissKeyboardForTest()
         rule.onNodeWithText(label).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(value)))
     }
     private fun save(label:String) {
         rule.activity.dismissKeyboardForTest()
-        rule.onNodeWithTag("account-form").performScrollToNode(hasText(label))
-        rule.onNodeWithText(label).performScrollTo().assertIsDisplayed().performClick()
+        rule.onNodeWithText(label).assertIsDisplayed().performClick()
     }
     @Test fun addUpdateCorrectHistoryAndEditPersistAcrossActivityRecreation() {
         val name="UI savings ${System.currentTimeMillis()}"
@@ -42,7 +41,7 @@ class BankWorkflowTest {
         save("Save balance")
         val correctionError="Explain the same-day correction; earlier revisions are retained."
         rule.waitUntil(30_000){ViewModelProvider(rule.activity)[BankViewModel::class.java].state.value.formError==correctionError}
-        rule.onNodeWithTag("account-form").performScrollToNode(hasText(correctionError));rule.onNodeWithText(correctionError).assertExists()
+        rule.onNodeWithText(correctionError).assertIsDisplayed()
         writeForm("Note / correction explanation","Corrected statement")
         save("Save balance")
         try{rule.waitUntil(30_000) {

@@ -182,7 +182,7 @@ internal fun pct(value:BigDecimal?,hidden:Boolean=false)=if(hidden)"••••
             }}
             item {SectionCard("Transaction-investment portfolio XIRR") {
                 Text(pct(xirr.rate,hidden),style=MaterialTheme.typography.headlineMedium);Text(xirr.status)
-                Text("Scope: unit-tracked investments only, in INR. Every flow uses dated FX; bank cash, property, deposits and loans are excluded. No time-weighted or benchmark return is invented.")
+                Text("Investment holdings need dated transaction history and FX. Value-only investment snapshots make this return unavailable. Cash, property, deposits and loans are excluded.")
                 xirr.flows.forEach {Text("${dateLabel(it.date)} · ${money(it.amount,hidden=hidden)}")}
             }}
             items(data.second.entries.toList(),key={it.key.id}) {(i,p)->SectionCard(i.name) {

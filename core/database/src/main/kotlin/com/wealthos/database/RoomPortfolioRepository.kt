@@ -24,6 +24,9 @@ class RoomPortfolioRepository(private val db:BankDatabase,private val clock:Cloc
             val account=requireNotNull(book.accounts.find {it.id==id}) {"Custody cash account is unavailable."}
             require(account.kind==AccountKind.BROKER_CASH && account.currency==i.currency) {"Choose a brokerage cash account in the instrument's currency."}
         }
+        require(input.snapshot==null || (i.tracking==TrackingMode.OBSERVED && HoldingSnapshots.availableForSnapshot(i.category))) {"Holding summary requires value tracking."}
+        require(i.tracking!=TrackingMode.OBSERVED || (input.openingUnits.signum()==0 && input.openingCost==null)) {"Value snapshots do not create acquisition units or cost."}
+        input.snapshot?.let { require(it.instrumentId==i.id && it.date==i.openedOn && it.kind==ValuationKind.OBSERVED_TOTAL && it.value.compareTo(requireNotNull(input.initialValue))==0); HoldingSnapshots.validate(it,i.currency) }
         dao.insert(i.entity())
         audit(i.id,"CREATE_INSTRUMENT",i.toString())
         when(i.tracking) {
@@ -57,8 +60,27 @@ class RoomPortfolioRepository(private val db:BankDatabase,private val clock:Cloc
         input.initialValue?.let {amount ->
             require(i.tracking!=TrackingMode.LOAN) {"Use the loan's opening principal."}
             validateValue(i,amount)
-            val value=AssetValuation(UUID.randomUUID(),i.id,if(i.tracking==TrackingMode.TRANSACTIONS) ValuationKind.UNIT_PRICE else ValuationKind.OBSERVED_TOTAL,amount,i.openedOn,1,clock.instant(),"Opening manual valuation")
+            val value=input.snapshot?.copy(id=UUID.randomUUID(),revision=1,recordedAt=clock.instant()) ?: AssetValuation(UUID.randomUUID(),i.id,if(i.tracking==TrackingMode.TRANSACTIONS) ValuationKind.UNIT_PRICE else ValuationKind.OBSERVED_TOTAL,amount,i.openedOn,1,clock.instant(),"Opening manual valuation")
             dao.insert(value.entity());audit(value.id,"VALUE_ASSET",value.toString())
+        }
+    }
+
+    override suspend fun startUnitTracking(id:UUID,date:LocalDate,units:BigDecimal,cost:BigDecimal?,price:BigDecimal?):Unit = db.withTransaction {
+        val p=db.readBook().portfolio;val old=instrument(p,id)
+        require(old.tracking==TrackingMode.OBSERVED && HoldingSnapshots.availableForSnapshot(old.category)) {"This holding already uses detailed tracking."}
+        date(date);require(date>=old.openedOn && p.valuations.filter {it.instrumentId==id}.all {it.date<=date}) {"Start on or after your latest value update."}
+        require(p.entries.none {it.instrumentId==id});DecimalInput.positive(units.toPlainString())
+        cost?.let {money(it,old.currency);require(it>=BigDecimal.ZERO)}
+        price?.let {DecimalInput.parse(it.toPlainString());require(it>=BigDecimal.ZERO)}
+        val updated=old.copy(tracking=TrackingMode.TRANSACTIONS)
+        val entry=InvestmentEntry(UUID.randomUUID(),id,TradeKind.OPENING,date,1,units,cost,note="Unit tracking starts here; earlier value snapshots retained, earlier cash flows unknown",recordedAt=clock.instant())
+        Holdings.calculate(listOf(entry),date)
+        dao.update(updated.entity());dao.insert(entry.entity());audit(entry.id,"START_UNIT_TRACKING",entry.toString())
+        db.bankDao().insertAudit(AuditEntity(UUID.randomUUID().toString(),id.toString(),"UPGRADE_TRACKING",clock.instant().toString(),old.toString(),updated.toString()))
+        price?.let {
+            val revision=(p.valuations.filter {it.instrumentId==id && it.date==date}.maxOfOrNull {it.revision} ?: 0)+1
+            val quote=AssetValuation(UUID.randomUUID(),id,ValuationKind.UNIT_PRICE,it,date,revision,clock.instant(),"Price at start of unit tracking",includedInvestmentSequence=1)
+            dao.insert(quote.entity());audit(quote.id,"VALUE_ASSET",quote.toString())
         }
     }
 
@@ -67,6 +89,8 @@ class RoomPortfolioRepository(private val db:BankDatabase,private val clock:Cloc
         val i=instrument(p,entry.instrumentId)
         require(i.tracking==TrackingMode.TRANSACTIONS && entry.kind!=TradeKind.OPENING) {"Add a transaction after the opening position."}
         date(entry.date); require(entry.date>=i.openedOn) {"Transactions cannot precede the known opening position."}
+        val cutover=p.entries.filter {it.instrumentId==i.id && it.kind==TradeKind.OPENING}.minOfOrNull {it.date}
+        require(cutover==null || entry.date>=cutover) {"Transactions cannot precede the start of unit tracking."}
         entry.gross?.let {money(it,i.currency)};money(entry.fees,i.currency)
         val entries=p.entries.filter {it.instrumentId==i.id}
         val actual=entry.copy(sequence=(entries.maxOfOrNull {it.sequence} ?: 0)+1,recordedAt=clock.instant())
@@ -83,6 +107,8 @@ class RoomPortfolioRepository(private val db:BankDatabase,private val clock:Cloc
         date(value.date);require(value.date>=i.openedOn || i.tracking==TrackingMode.TRANSACTIONS) {"Observed totals cannot precede the opening date. Unit quotes have their own financial dates."}
         require(value.kind==if(i.tracking==TrackingMode.TRANSACTIONS) ValuationKind.UNIT_PRICE else ValuationKind.OBSERVED_TOTAL)
         validateValue(i,value.value); require(value.note.length<=500)
+        HoldingSnapshots.validate(value,i.currency)
+        require(HoldingSnapshots.availableForSnapshot(i.category) || (value.reportedInvested==null && value.reportedUnits==null && value.reportedPrice==null && !value.calculatedTotal))
         val revision=p.valuations.filter {it.instrumentId==i.id && it.date==value.date}.maxOfOrNull {it.revision} ?: 0
         require(revision==0 || value.note.isNotBlank()) {"Explain this same-day valuation correction."}
         val actual=value.copy(revision=revision+1,recordedAt=clock.instant(),

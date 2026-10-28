@@ -9,15 +9,15 @@ class AddNavigationTest {
     @get:Rule val rule=createAndroidComposeRule<MainActivity>()
     @Test fun categorySelectionAndLiquidityDefaultsSurviveNavigation(){
         rule.waitForHome();rule.openAddRecord();rule.onNodeWithText("Property").performClick()
-        rule.onNodeWithText("Asset category: Real estate").assertExists()
+        rule.onNodeWithText("Add real estate").assertExists()
         rule.onNodeWithText("More options").performScrollTo().performClick()
         rule.onNodeWithContentDescription("Include in liquid assets").performScrollTo().assertIsOff()
         rule.onNodeWithContentDescription("Back").performClick();rule.openAddRecord()
         rule.onNodeWithText("Investment").performClick();rule.onNodeWithText("Stocks").performClick()
-        rule.onNodeWithText("Asset category: Stocks").assertExists()
-        rule.onNodeWithText("More options").performScrollTo().performClick()
+        rule.onNodeWithText("Add stock").assertExists()
+        rule.onNodeWithText("More details (optional)").performScrollTo().performClick()
         rule.onNodeWithContentDescription("Include in liquid assets").performScrollTo().assertIsOn()
         rule.activityRule.scenario.recreate()
-        rule.onNodeWithText("Asset category: Stocks").assertExists()
+        rule.onNodeWithText("Add stock").assertExists()
     }
 }

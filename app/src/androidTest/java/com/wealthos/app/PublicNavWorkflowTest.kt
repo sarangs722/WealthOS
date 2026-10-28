@@ -24,7 +24,7 @@ class PublicNavWorkflowTest {
         rule.waitUntil(20_000){ViewModelProvider(rule.activity)[BankViewModel::class.java].state.value.book.portfolio.instruments.any {it.id==id}}
         rule.onNodeWithContentDescription("Settings").performClick();rule.onNodeWithText("Public data & sources").performScrollTo().performClick()
         rule.onNodeWithTag("public-data-list").performScrollToNode(hasTestTag("nav-binding:$id"));rule.onNodeWithTag("nav-binding:$id").performClick()
-        rule.onNodeWithText("AMFI scheme code").performTextInput("123456");rule.onNodeWithText("ISIN (optional)").performTextInput("INF000000001");rule.onNodeWithText("Save NAV binding").performScrollTo().performClick()
+        rule.onNodeWithText("AMFI scheme code").performTextInput("123456");rule.onNodeWithText("ISIN (optional)").performTextInput("INF000000001");rule.onNodeWithText("Save NAV binding").performClick()
         rule.waitUntil(20_000){rule.onAllNodesWithTag("public-data-list").fetchSemanticsNodes().isNotEmpty()}
         rule.waitUntil(20_000){ViewModelProvider(rule.activity)[BankViewModel::class.java].state.value.book.publicData.currentBindings().any {it.instrumentId==id}}
         val file=java.io.File(context.filesDir,"synthetic-selected-nav.txt")

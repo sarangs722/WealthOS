@@ -75,7 +75,7 @@ interface BankDao {
     TransferEntity::class, FxEntity::class, ReferenceEntity::class,IncomeSourceEntity::class,IncomeRateEntity::class,IncomeRecordEntity::class,
     CashFlowEntity::class,EmergencyTargetEntity::class,AllocationEntity::class,PolicyEntity::class,TermsEntity::class,SettlementEntity::class,
     ScenarioEntity::class,ForecastAssetEntity::class,ForecastFxEntity::class,WithdrawalEntity::class,GoalEntity::class,
-    PublicSettingsEntity::class,PublicObservationEntity::class,NavBindingEntity::class,PublicRunEntity::class,PublicApplicationEntity::class], version = 6, exportSchema = true)
+    PublicSettingsEntity::class,PublicObservationEntity::class,NavBindingEntity::class,PublicRunEntity::class,PublicApplicationEntity::class], version = 7, exportSchema = true)
 abstract class BankDatabase : RoomDatabase() {
     abstract fun bankDao(): BankDao
     abstract fun portfolioDao(): PortfolioDao
@@ -93,7 +93,7 @@ abstract class BankDatabase : RoomDatabase() {
             System.loadLibrary("sqlcipher")
             return Room.databaseBuilder(context, BankDatabase::class.java, name)
                 .openHelperFactory(SupportOpenHelperFactory(passphrase))
-                .addMigrations(MIGRATION_1_2, PortfolioMigrations.FROM_2_TO_3, HouseholdMigrations.FROM_3_TO_4,PlanningMigrations.FROM_4_TO_5,PublicMigrations.FROM_5_TO_6)
+                .addMigrations(MIGRATION_1_2, PortfolioMigrations.FROM_2_TO_3, HouseholdMigrations.FROM_3_TO_4,PlanningMigrations.FROM_4_TO_5,PublicMigrations.FROM_5_TO_6,SnapshotMigrations.FROM_6_TO_7)
                 .build()
         }
     }

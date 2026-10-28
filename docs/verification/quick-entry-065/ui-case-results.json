@@ -1,0 +1,174 @@
+{
+  "com.wealthos.app.AddNavigationTest#categorySelectionAndLiquidityDefaultsSurviveNavigation": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.BankWorkflowTest#addUpdateCorrectHistoryAndEditPersistAcrossActivityRecreation": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.BackupWorkflowTest#exportReadbackPreviewCancelAndConfirmedReplacementKeepHistory": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.BackupWorkflowTest#truncatedDocumentProviderCannotReportExportSuccessOrChangeVault": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.BackupWorkflowTest#passwordConfirmationAndRecreationDoNotPersistPassword": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.CalculatorWorkflowTest#sipZeroInterestAndChangedInputsDoNotDisplayStaleOutput": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.DashboardUiTest#fictionalDemoAndObscuringAmounts": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.DashboardUiTest#emptyStateDoesNotDisplayDemoAsRealWealth": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.ForecastAccessibilityTest#darkChartMeetsGraphicalContrastAtDoubleFontSize": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.ForecastAccessibilityTest#lightChartMeetsGraphicalContrastAndExplainsLineStyles": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.ForecastAccessibilityTest#obscuredChartExposesNeitherSeriesNorPlot": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.HouseholdPrivacyTest#reserveAndInsuranceReadViewsObscureAllCurrencyAmounts": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.HouseholdWorkflowTest#salarySummaryEarmarksAndInsuranceRemainSeparateFromBankCash": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.PlanningPrivacyTest#forecastAndGoalOutputsRespectObscuredAmounts": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.PlanningWorkflowTest#independentScenarioAndGoalRevisionsPersist": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.PortfolioWorkflowTest#openingPositionPurchaseSaleAndManualPricePersist": {
+    "status": 0,
+    "log": "affected-ui-tests.log"
+  },
+  "com.wealthos.app.PortfolioWorkflowTest#propertyAndLoanCanBeAddedWithoutInventingCashFlows": {
+    "status": 0,
+    "log": "affected-ui-tests.log"
+  },
+  "com.wealthos.app.PortfolioWorkflowTest#fixedDepositKeepsEstimateSeparateFromObservedValue": {
+    "status": 0,
+    "log": "affected-ui-tests.log"
+  },
+  "com.wealthos.app.PrivacyGateTest#persistedAccessLockGatesRecordsAndWindowIsSecure": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.PrivacyPreferencesRecoveryTest#committedBackupWinsOverIncompleteBase": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.PrivacyPreferencesRecoveryTest#genuinelyNewPreferencesUseDefaultsWithoutCreatingFiles": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.PrivacyPreferencesRecoveryTest#backupOnlyInterruptedWriteRetainsLockAndAmountPrivacy": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.PublicNavWorkflowTest#linkImportReviewAndApplyOnlySelectedNavWithoutNetwork": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.PublicReferencePrivacyTest#cachedReferenceAmountsAndRawInputsAreObscured": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.PublicReferenceWorkflowTest#manualEconomicReferencePersistsWithoutEnablingNetwork": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.QuickEntryWorkflowTest#detailedTrackingUpgradesSameHoldingAndPreservesUnknownCost": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.QuickEntryWorkflowTest#unitsAndNavAlternativeUsesExactDecimalAndOptionalInvestment": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.QuickEntryWorkflowTest#twoFieldFundEntryPersistsAndCorrectionKeepsBothVersions": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.QuickFormsUiTest#essentialFormsShowConciseInputsAndReachableSave[dark=false,font=1]": {
+    "status": 0,
+    "log": "calendar-ui-tests.log"
+  },
+  "com.wealthos.app.QuickFormsUiTest#essentialFormsShowConciseInputsAndReachableSave[dark=true,font=1]": {
+    "status": 0,
+    "log": "calendar-ui-tests.log"
+  },
+  "com.wealthos.app.QuickFormsUiTest#essentialFormsShowConciseInputsAndReachableSave[dark=false,font=1.5]": {
+    "status": 0,
+    "log": "calendar-ui-tests.log"
+  },
+  "com.wealthos.app.RedesignUiTest#largeExactAmountsFitWithoutSplittingDigits[dark=false, font=1]": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.RedesignUiTest#categorizedAddMenuPreservesExplicitChoice[dark=false, font=1]": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.RedesignUiTest#bankEntryAndRetainedHistoryRemainUsable[dark=false, font=1]": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.RedesignUiTest#fiveDestinationsAndDetailsStayReachable[dark=false, font=1]": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.RedesignUiTest#largeExactAmountsFitWithoutSplittingDigits[dark=true, font=1]": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.RedesignUiTest#categorizedAddMenuPreservesExplicitChoice[dark=true, font=1]": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.RedesignUiTest#bankEntryAndRetainedHistoryRemainUsable[dark=true, font=1]": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.RedesignUiTest#fiveDestinationsAndDetailsStayReachable[dark=true, font=1]": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.RedesignUiTest#largeExactAmountsFitWithoutSplittingDigits[dark=false, font=1.5]": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.RedesignUiTest#categorizedAddMenuPreservesExplicitChoice[dark=false, font=1.5]": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.RedesignUiTest#bankEntryAndRetainedHistoryRemainUsable[dark=false, font=1.5]": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  },
+  "com.wealthos.app.RedesignUiTest#fiveDestinationsAndDetailsStayReachable[dark=false, font=1.5]": {
+    "status": 0,
+    "log": "all-ui-tests.log"
+  }
+}

@@ -64,7 +64,7 @@ internal fun percentText(value:BigDecimal)=value.movePointRight(2).stripTrailing
         } else Text("Contributions and loan payments are funded outside the modeled starting wealth. Salary, expenses and premiums are ignored in this mode.")
         Toggle("Reinvest estimated deposit maturities",fields["reinvest"]=="true") {fields["reinvest"]=it.toString()}
         Toggle("Withdraw shared financial goals when due",fields["goals"]=="true") {fields["goals"]=it.toString()}
-        DetailsDisclosure("Asset-specific assumptions"){
+        FormDetails("Asset-specific assumptions"){
         state.book.portfolio.instruments.forEach {i->
             Text("${i.name} · ${i.currency}",style=MaterialTheme.typography.titleMedium)
             if(i.tracking==TrackingMode.LOAN)Text("Uses the recorded contract rate. Enter the planned monthly total repayment, including interest. Zero means no planned payment.")
@@ -72,10 +72,10 @@ internal fun percentText(value:BigDecimal)=value.movePointRight(2).stripTrailing
             if(i.category!=AssetCategory.FD)PlanField(assetFields,"amount:${i.id}",if(i.tracking==TrackingMode.LOAN)"${i.name}: monthly repayment" else "${i.name}: monthly contribution",hint="${i.currency}. Cash-flow mode needs available cash in this native currency; no FX cash conversion is inferred.")
         }
         }
-        if(fxFields.isNotEmpty())DetailsDisclosure("Currency assumptions"){
+        if(fxFields.isNotEmpty())FormDetails("Currency assumptions"){
         fxFields.keys.toList().forEach {currency->PlanField(fxFields,currency,"$currency: annual change in INR per unit %",hint="Starting rate comes from the dated applied FX observation. Positive means this currency strengthens against INR.")}
         }
-        DetailsDisclosure("Planned withdrawals"){
+        FormDetails("Planned withdrawals"){
         Text("Month end, after contributions. Cash withdrawals are INR; named asset withdrawals use native currency. No assumed borrowing covers a shortfall.")
         eventFields.keys.toList().forEach {key->val p=eventFields.getValue(key).split('|',limit=4);val source=sources.find {it.id.toString()==p[1]};Text("${p.getOrElse(3){"Withdrawal"}} · Month ${p[0]} · ${source?.name ?: "INR cash"} · ${p[2]} ${source?.currency ?: CurrencyCode.INR}");TextButton(onClick={eventFields.remove(key)}) {Text("Remove withdrawal ${key.toInt()+1}")}}
         PlanField(eventInput,"label","Withdrawal label",false)
@@ -85,7 +85,7 @@ internal fun percentText(value:BigDecimal)=value.movePointRight(2).stripTrailing
         OutlinedButton(onClick={if(eventFields.size<200){val k=((eventFields.keys.mapNotNull {it.toIntOrNull()}.maxOrNull() ?: -1)+1).toString();eventFields[k]="${eventInput["month"]}|${eventInput["source"]}|${eventInput["amount"]}|${eventInput["label"]}"}}) {Text("Add planned withdrawal")}
         }
         Field("Scenario note / revision explanation",fields.getValue("note"),{fields["note"]=it},multi=true)
-        DetailsDisclosure("Timing & calculation details"){Text("Monthly effective growth = (1 + annual rate)^(1/12) − 1. Contributions occur at month end; step-ups begin in month 13. Unfunded cash stops the projection. Changing a saved scenario appends a revision and preserves its old assumptions.")}
+        FormDetails("Timing & calculation details"){Text("Monthly effective growth = (1 + annual rate)^(1/12) − 1. Contributions occur at month end; step-ups begin in month 13. Unfunded cash stops the projection. Changing a saved scenario appends a revision and preserves its old assumptions.")}
     }
 }
 

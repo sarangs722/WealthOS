@@ -30,8 +30,9 @@ class PreparedRestore internal constructor(internal val data:VaultSnapshot,inter
 
 /** Consistent logical backups; never copies a live SQLite/WAL file or changes the receiving key. */
 class RoomBackupRepository(private val context:Context,private val db:BankDatabase,private val clock:Clock=Clock.systemUTC(),private val safetyDirectory:File=File(context.noBackupFilesDir,"restore-safety")) {
-    private val schema6 by lazy {JSONObject(context.assets.open("com.wealthos.database.BankDatabase/6.json").bufferedReader().use {it.readText()}).getJSONObject("database")}
-    private val names by lazy {val e=schema6.getJSONArray("entities");(0 until e.length()).map {e.getJSONObject(it).getString("tableName")}.toSet()}
+    private fun schema(version:Int)=JSONObject(context.assets.open("com.wealthos.database.BankDatabase/$version.json").bufferedReader().use {it.readText()}).getJSONObject("database")
+    private val schema7 by lazy {schema(7)}
+    private val names by lazy {val e=schema7.getJSONArray("entities");(0 until e.length()).map {e.getJSONObject(it).getString("tableName")}.toSet()}
     private data class Column(val name:String,val type:String,val pk:Int)
     private data class Table(val name:String,val columns:List<Column>,val parents:Set<String>)
 
@@ -45,7 +46,7 @@ class RoomBackupRepository(private val context:Context,private val db:BankDataba
     suspend fun prepare(file:ByteArray,password:CharArray):PreparedRestore {
         val payload=BackupEnvelope.decrypt(file,password)
         val incoming=try{SnapshotCodec.decode(payload)}finally{payload.fill(0)}
-        require(incoming.schema==6){"This backup's schema is unsupported. Update WealthOS before restoring; existing records were not changed."}
+        require(incoming.schema in 6..7){"This backup's schema is unsupported. Update WealthOS before restoring; existing records were not changed."}
         val validated=stage(incoming)
         val current=db.withTransaction {capture(db.openHelper.writableDatabase)}
         return PreparedRestore(validated,SnapshotCodec.fingerprint(current),password.copyOf(),current.records)
@@ -89,19 +90,20 @@ class RoomBackupRepository(private val context:Context,private val db:BankDataba
         var helper:SupportSQLiteOpenHelper?=null;var opened:BankDatabase?=null
         try {
             System.loadLibrary("sqlcipher")
-            helper=SupportOpenHelperFactory(key).create(SupportSQLiteOpenHelper.Configuration.builder(context).name(name).callback(object:SupportSQLiteOpenHelper.Callback(6){
+            helper=SupportOpenHelperFactory(key).create(SupportSQLiteOpenHelper.Configuration.builder(context).name(name).callback(object:SupportSQLiteOpenHelper.Callback(input.schema){
                 override fun onConfigure(db:SupportSQLiteDatabase){db.setForeignKeyConstraintsEnabled(true)}
                 override fun onCreate(db:SupportSQLiteDatabase){
-                    val entities=schema6.getJSONArray("entities")
+                    val trusted=schema(input.schema)
+                    val entities=trusted.getJSONArray("entities")
                     for(n in 0 until entities.length()){val e=entities.getJSONObject(n);val table=e.getString("tableName");db.execSQL(e.getString("createSql").replace("\${TABLE_NAME}",table));val indices=e.optJSONArray("indices");if(indices!=null)for(j in 0 until indices.length())db.execSQL(indices.getJSONObject(j).getString("createSql").replace("\${TABLE_NAME}",table))}
-                    val setup=schema6.getJSONArray("setupQueries");for(n in 0 until setup.length())db.execSQL(setup.getString(n))
+                    val setup=trusted.getJSONArray("setupQueries");for(n in 0 until setup.length())db.execSQL(setup.getString(n))
                 }
                 override fun onUpgrade(db:SupportSQLiteDatabase,oldVersion:Int,newVersion:Int)=error("Use explicit Room migrations")
             }).build())
             val sql=helper.writableDatabase;sql.beginTransaction()
             try{replace(sql,input);integrity(sql);sql.setTransactionSuccessful()}finally{sql.endTransaction()}
             helper.close();helper=null
-            // Future schema versions migrate this trusted v6 database through the normal chain.
+            // Migrate trusted older backups through the same explicit Room migration chain.
             opened=BankDatabase.open(context,key,name)
             return opened.withTransaction {integrity(opened.openHelper.writableDatabase);validateRestoredBook(opened);capture(opened.openHelper.writableDatabase).copy(createdAt=input.createdAt)}
         }finally{opened?.close();helper?.close();context.deleteDatabase(name);key.fill(0)}
@@ -150,8 +152,8 @@ class RoomBackupRepository(private val context:Context,private val db:BankDataba
         sql.query("PRAGMA cipher_integrity_check").use {require(!it.moveToFirst()){"Encrypted staging database integrity check failed."}}
     }
     companion object {
-        private val booleanColumns=setOf("liquid","applyToAnchor","incomeConfirmed","expensesConfirmed","active","reinvestDeposits","includeGoals","targetInTodayMoney","networkEnabled","success")
+        private val booleanColumns=setOf("calculatedTotal","liquid","applyToAnchor","incomeConfirmed","expensesConfirmed","active","reinvestDeposits","includeGoals","targetInTodayMoney","networkEnabled","success")
         private val uuidColumns=setOf("id","accountId","instrumentId","entryId","contractEventId","transferId","sourceId","policyId","scenarioId","scenarioKey","goalKey","observationId","valuationId","fxId","anchorObservationId","custodyAccountId","entityId")
-        private val decimalColumns=setOf("amount","units","gross","fees","ratioDenominator","value","openingPrincipal","annualRate","scheduledInstallment","principal","interest","inrPerUnit","total","monthlyNet","net","deductions","manualIncome","essential","discretionary","premiums","loanPrincipal","loanInterest","otherOutflows","investments","targetInr","nativeAmount","cover","premium","inflation","cashReturn","investmentReturn","monthlyContribution","stepUp","salary","salaryGrowth","expenseInflation","annualReturn","monthlyAmount","annualChange","target","allocated")
+        private val decimalColumns=setOf("reportedInvested","reportedUnits","reportedPrice","amount","units","gross","fees","ratioDenominator","value","openingPrincipal","annualRate","scheduledInstallment","principal","interest","inrPerUnit","total","monthlyNet","net","deductions","manualIncome","essential","discretionary","premiums","loanPrincipal","loanInterest","otherOutflows","investments","targetInr","nativeAmount","cover","premium","inflation","cashReturn","investmentReturn","monthlyContribution","stepUp","salary","salaryGrowth","expenseInflation","annualReturn","monthlyAmount","annualChange","target","allocated")
     }
 }

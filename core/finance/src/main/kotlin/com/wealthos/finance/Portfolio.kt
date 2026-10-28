@@ -39,7 +39,7 @@ data class Instrument(
             AssetCategory.FD, AssetCategory.RD -> tracking == TrackingMode.DEPOSIT
             AssetCategory.LOAN -> tracking == TrackingMode.LOAN
             AssetCategory.EPF, AssetCategory.PPF, AssetCategory.NPS, AssetCategory.PROPERTY -> tracking == TrackingMode.OBSERVED
-            else -> tracking == TrackingMode.TRANSACTIONS
+            else -> tracking in listOf(TrackingMode.TRANSACTIONS,TrackingMode.OBSERVED)
         }) { "Tracking mode does not match the asset category." }
     }
 }
@@ -139,7 +139,9 @@ object Holdings {
 enum class ValuationKind { UNIT_PRICE, OBSERVED_TOTAL }
 data class AssetValuation(val id: UUID, val instrumentId: UUID, val kind: ValuationKind, val value: BigDecimal,
                           val date: LocalDate, val revision: Int, val recordedAt: Instant, val note: String = "",
-                          val includedContractSequence:Int=0,val includedInvestmentSequence:Int=0,val source:PublicObservation?=null)
+                          val includedContractSequence:Int=0,val includedInvestmentSequence:Int=0,val source:PublicObservation?=null,
+                          val reportedInvested:BigDecimal?=null,val reportedUnits:BigDecimal?=null,val reportedPrice:BigDecimal?=null,
+                          val calculatedTotal:Boolean=false)
 enum class DepositConvention(val label: String, val periods: Int) {
     SIMPLE_ACT_365("Simple ACT/365",0), MONTHLY("Monthly + ACT/365 stub",12),
     QUARTERLY("Quarterly + ACT/365 stub",4), ANNUAL("Annual + ACT/365 stub",1)
@@ -172,12 +174,13 @@ data class PortfolioBook(
 data class CashLink(val accountId: UUID, val applyToSnapshot: Boolean)
 data class NewInstrument(val instrument: Instrument, val openingUnits: BigDecimal = ZERO, val openingCost: BigDecimal? = null,
                          val initialValue: BigDecimal? = null, val contract: FinancialContract? = null,
-                         val funding: CashLink? = null)
+                         val funding: CashLink? = null,val snapshot:AssetValuation?=null)
 interface PortfolioRepository {
     suspend fun addInstrument(input: NewInstrument)
     suspend fun editInstrument(id: UUID, name: String, unit: String, region: MarketRegion, liquid: Boolean, custodyAccountId: UUID?)
     suspend fun addEntry(entry: InvestmentEntry, cash: CashLink? = null)
     suspend fun addValuation(value: AssetValuation)
+    suspend fun startUnitTracking(id:UUID,date:LocalDate,units:BigDecimal,cost:BigDecimal?,price:BigDecimal?)
     suspend fun addContractEvent(event: ContractEvent, cash: CashLink? = null)
     suspend fun addFx(currency: CurrencyCode, rate: BigDecimal, date: LocalDate, note: String)
     suspend fun transfer(from: CashLink, to: CashLink, amount: BigDecimal, date: LocalDate, note: String)

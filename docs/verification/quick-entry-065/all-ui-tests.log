@@ -1,0 +1,818 @@
+INSTRUMENTATION_STATUS: class=com.wealthos.app.AddNavigationTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.AddNavigationTest:
+INSTRUMENTATION_STATUS: test=categorySelectionAndLiquidityDefaultsSurviveNavigation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.AddNavigationTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=categorySelectionAndLiquidityDefaultsSurviveNavigation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.BankWorkflowTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.BankWorkflowTest:
+INSTRUMENTATION_STATUS: test=addUpdateCorrectHistoryAndEditPersistAcrossActivityRecreation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.BankWorkflowTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=addUpdateCorrectHistoryAndEditPersistAcrossActivityRecreation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.BackupWorkflowTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.BackupWorkflowTest:
+INSTRUMENTATION_STATUS: test=exportReadbackPreviewCancelAndConfirmedReplacementKeepHistory
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.BackupWorkflowTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=exportReadbackPreviewCancelAndConfirmedReplacementKeepHistory
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.BackupWorkflowTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=truncatedDocumentProviderCannotReportExportSuccessOrChangeVault
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.BackupWorkflowTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=truncatedDocumentProviderCannotReportExportSuccessOrChangeVault
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.BackupWorkflowTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=passwordConfirmationAndRecreationDoNotPersistPassword
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.BackupWorkflowTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=passwordConfirmationAndRecreationDoNotPersistPassword
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.CalculatorWorkflowTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.CalculatorWorkflowTest:
+INSTRUMENTATION_STATUS: test=sipZeroInterestAndChangedInputsDoNotDisplayStaleOutput
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.CalculatorWorkflowTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=sipZeroInterestAndChangedInputsDoNotDisplayStaleOutput
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.DashboardUiTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.DashboardUiTest:
+INSTRUMENTATION_STATUS: test=fictionalDemoAndObscuringAmounts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.DashboardUiTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=fictionalDemoAndObscuringAmounts
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.DashboardUiTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=emptyStateDoesNotDisplayDemoAsRealWealth
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.DashboardUiTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=emptyStateDoesNotDisplayDemoAsRealWealth
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.ForecastAccessibilityTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.ForecastAccessibilityTest:
+INSTRUMENTATION_STATUS: test=darkChartMeetsGraphicalContrastAtDoubleFontSize
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.ForecastAccessibilityTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=darkChartMeetsGraphicalContrastAtDoubleFontSize
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.ForecastAccessibilityTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=lightChartMeetsGraphicalContrastAndExplainsLineStyles
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.ForecastAccessibilityTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=lightChartMeetsGraphicalContrastAndExplainsLineStyles
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.ForecastAccessibilityTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=obscuredChartExposesNeitherSeriesNorPlot
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.ForecastAccessibilityTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=obscuredChartExposesNeitherSeriesNorPlot
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.HouseholdPrivacyTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.HouseholdPrivacyTest:
+INSTRUMENTATION_STATUS: test=reserveAndInsuranceReadViewsObscureAllCurrencyAmounts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.HouseholdPrivacyTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=reserveAndInsuranceReadViewsObscureAllCurrencyAmounts
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.HouseholdWorkflowTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.HouseholdWorkflowTest:
+INSTRUMENTATION_STATUS: test=salarySummaryEarmarksAndInsuranceRemainSeparateFromBankCash
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.HouseholdWorkflowTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=salarySummaryEarmarksAndInsuranceRemainSeparateFromBankCash
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PlanningPrivacyTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.PlanningPrivacyTest:
+INSTRUMENTATION_STATUS: test=forecastAndGoalOutputsRespectObscuredAmounts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PlanningPrivacyTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=forecastAndGoalOutputsRespectObscuredAmounts
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PlanningWorkflowTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.PlanningWorkflowTest:
+INSTRUMENTATION_STATUS: test=independentScenarioAndGoalRevisionsPersist
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PlanningWorkflowTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=independentScenarioAndGoalRevisionsPersist
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PortfolioWorkflowTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.PortfolioWorkflowTest:
+INSTRUMENTATION_STATUS: test=openingPositionPurchaseSaleAndManualPricePersist
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PortfolioWorkflowTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=openingPositionPurchaseSaleAndManualPricePersist
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PortfolioWorkflowTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=propertyAndLoanCanBeAddedWithoutInventingCashFlows
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PortfolioWorkflowTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (Text + InputText + EditableText contains 'Property' (ignoreCase: false))
+Nodes found:
+1) Node #7572 at (l=1226.0, t=473.0, r=1450.0, b=557.0)px
+Focused = 'false'
+Role = 'Checkbox'
+Selected = 'false'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 8.0.dp), topEnd = CornerSize(size = 8.0.dp), bottomEnd = CornerSize(size = 8.0.dp), bottomStart = CornerSize(size = 8.0.dp))'
+Text = '[Property]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 6 siblings
+2) Node #7663 at (l=53.0, t=1332.0, r=1027.0, b=1500.0)px
+Focused = 'false'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+Text = '[Property]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 7 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:403)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:61)
+	at com.wealthos.app.PortfolioWorkflowTest.propertyAndLoanCanBeAddedWithoutInventingCashFlows(PortfolioWorkflowTest.kt:68)
+
+INSTRUMENTATION_STATUS: stream=
+Error in propertyAndLoanCanBeAddedWithoutInventingCashFlows(com.wealthos.app.PortfolioWorkflowTest):
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (Text + InputText + EditableText contains 'Property' (ignoreCase: false))
+Nodes found:
+1) Node #7572 at (l=1226.0, t=473.0, r=1450.0, b=557.0)px
+Focused = 'false'
+Role = 'Checkbox'
+Selected = 'false'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 8.0.dp), topEnd = CornerSize(size = 8.0.dp), bottomEnd = CornerSize(size = 8.0.dp), bottomStart = CornerSize(size = 8.0.dp))'
+Text = '[Property]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 6 siblings
+2) Node #7663 at (l=53.0, t=1332.0, r=1027.0, b=1500.0)px
+Focused = 'false'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+Text = '[Property]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 7 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:403)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:61)
+	at com.wealthos.app.PortfolioWorkflowTest.propertyAndLoanCanBeAddedWithoutInventingCashFlows(PortfolioWorkflowTest.kt:68)
+
+INSTRUMENTATION_STATUS: test=propertyAndLoanCanBeAddedWithoutInventingCashFlows
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PortfolioWorkflowTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=fixedDepositKeepsEstimateSeparateFromObservedValue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PortfolioWorkflowTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=fixedDepositKeepsEstimateSeparateFromObservedValue
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PrivacyGateTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.PrivacyGateTest:
+INSTRUMENTATION_STATUS: test=persistedAccessLockGatesRecordsAndWindowIsSecure
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PrivacyGateTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=persistedAccessLockGatesRecordsAndWindowIsSecure
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PrivacyPreferencesRecoveryTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.PrivacyPreferencesRecoveryTest:
+INSTRUMENTATION_STATUS: test=committedBackupWinsOverIncompleteBase
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PrivacyPreferencesRecoveryTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=committedBackupWinsOverIncompleteBase
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PrivacyPreferencesRecoveryTest
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=genuinelyNewPreferencesUseDefaultsWithoutCreatingFiles
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PrivacyPreferencesRecoveryTest
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=genuinelyNewPreferencesUseDefaultsWithoutCreatingFiles
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PrivacyPreferencesRecoveryTest
+INSTRUMENTATION_STATUS: current=22
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=backupOnlyInterruptedWriteRetainsLockAndAmountPrivacy
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PrivacyPreferencesRecoveryTest
+INSTRUMENTATION_STATUS: current=22
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=backupOnlyInterruptedWriteRetainsLockAndAmountPrivacy
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PublicNavWorkflowTest
+INSTRUMENTATION_STATUS: current=23
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.PublicNavWorkflowTest:
+INSTRUMENTATION_STATUS: test=linkImportReviewAndApplyOnlySelectedNavWithoutNetwork
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PublicNavWorkflowTest
+INSTRUMENTATION_STATUS: current=23
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=linkImportReviewAndApplyOnlySelectedNavWithoutNetwork
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PublicReferencePrivacyTest
+INSTRUMENTATION_STATUS: current=24
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.PublicReferencePrivacyTest:
+INSTRUMENTATION_STATUS: test=cachedReferenceAmountsAndRawInputsAreObscured
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PublicReferencePrivacyTest
+INSTRUMENTATION_STATUS: current=24
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=cachedReferenceAmountsAndRawInputsAreObscured
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PublicReferenceWorkflowTest
+INSTRUMENTATION_STATUS: current=25
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.PublicReferenceWorkflowTest:
+INSTRUMENTATION_STATUS: test=manualEconomicReferencePersistsWithoutEnablingNetwork
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PublicReferenceWorkflowTest
+INSTRUMENTATION_STATUS: current=25
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=manualEconomicReferencePersistsWithoutEnablingNetwork
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.QuickEntryWorkflowTest
+INSTRUMENTATION_STATUS: current=26
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.QuickEntryWorkflowTest:
+INSTRUMENTATION_STATUS: test=detailedTrackingUpgradesSameHoldingAndPreservesUnknownCost
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.QuickEntryWorkflowTest
+INSTRUMENTATION_STATUS: current=26
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=detailedTrackingUpgradesSameHoldingAndPreservesUnknownCost
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.QuickEntryWorkflowTest
+INSTRUMENTATION_STATUS: current=27
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unitsAndNavAlternativeUsesExactDecimalAndOptionalInvestment
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.QuickEntryWorkflowTest
+INSTRUMENTATION_STATUS: current=27
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unitsAndNavAlternativeUsesExactDecimalAndOptionalInvestment
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.QuickEntryWorkflowTest
+INSTRUMENTATION_STATUS: current=28
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=twoFieldFundEntryPersistsAndCorrectionKeepsBothVersions
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.QuickEntryWorkflowTest
+INSTRUMENTATION_STATUS: current=28
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=twoFieldFundEntryPersistsAndCorrectionKeepsBothVersions
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.QuickFormsUiTest
+INSTRUMENTATION_STATUS: current=29
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.QuickFormsUiTest:
+INSTRUMENTATION_STATUS: test=essentialFormsShowConciseInputsAndReachableSave[dark=false,font=1]
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.QuickFormsUiTest
+INSTRUMENTATION_STATUS: current=29
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: ((Text + InputText + EditableText contains '1' (ignoreCase: false)) && (OnClick is defined))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:403)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:61)
+	at com.wealthos.app.QuickFormsUiTest.essentialFormsShowConciseInputsAndReachableSave(QuickFormsUiTest.kt:48)
+
+INSTRUMENTATION_STATUS: stream=
+Error in essentialFormsShowConciseInputsAndReachableSave[dark=false,font=1](com.wealthos.app.QuickFormsUiTest):
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: ((Text + InputText + EditableText contains '1' (ignoreCase: false)) && (OnClick is defined))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:403)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:61)
+	at com.wealthos.app.QuickFormsUiTest.essentialFormsShowConciseInputsAndReachableSave(QuickFormsUiTest.kt:48)
+
+INSTRUMENTATION_STATUS: test=essentialFormsShowConciseInputsAndReachableSave[dark=false,font=1]
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=com.wealthos.app.QuickFormsUiTest
+INSTRUMENTATION_STATUS: current=30
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=essentialFormsShowConciseInputsAndReachableSave[dark=true,font=1]
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.QuickFormsUiTest
+INSTRUMENTATION_STATUS: current=30
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: ((Text + InputText + EditableText contains '1' (ignoreCase: false)) && (OnClick is defined))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:403)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:61)
+	at com.wealthos.app.QuickFormsUiTest.essentialFormsShowConciseInputsAndReachableSave(QuickFormsUiTest.kt:48)
+
+INSTRUMENTATION_STATUS: stream=
+Error in essentialFormsShowConciseInputsAndReachableSave[dark=true,font=1](com.wealthos.app.QuickFormsUiTest):
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: ((Text + InputText + EditableText contains '1' (ignoreCase: false)) && (OnClick is defined))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:403)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:61)
+	at com.wealthos.app.QuickFormsUiTest.essentialFormsShowConciseInputsAndReachableSave(QuickFormsUiTest.kt:48)
+
+INSTRUMENTATION_STATUS: test=essentialFormsShowConciseInputsAndReachableSave[dark=true,font=1]
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=com.wealthos.app.QuickFormsUiTest
+INSTRUMENTATION_STATUS: current=31
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=essentialFormsShowConciseInputsAndReachableSave[dark=false,font=1.5]
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.QuickFormsUiTest
+INSTRUMENTATION_STATUS: current=31
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: ((Text + InputText + EditableText contains '1' (ignoreCase: false)) && (OnClick is defined))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:403)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:61)
+	at com.wealthos.app.QuickFormsUiTest.essentialFormsShowConciseInputsAndReachableSave(QuickFormsUiTest.kt:48)
+
+INSTRUMENTATION_STATUS: stream=
+Error in essentialFormsShowConciseInputsAndReachableSave[dark=false,font=1.5](com.wealthos.app.QuickFormsUiTest):
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: ((Text + InputText + EditableText contains '1' (ignoreCase: false)) && (OnClick is defined))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:403)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:61)
+	at com.wealthos.app.QuickFormsUiTest.essentialFormsShowConciseInputsAndReachableSave(QuickFormsUiTest.kt:48)
+
+INSTRUMENTATION_STATUS: test=essentialFormsShowConciseInputsAndReachableSave[dark=false,font=1.5]
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=32
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.RedesignUiTest:
+INSTRUMENTATION_STATUS: test=largeExactAmountsFitWithoutSplittingDigits[dark=false, font=1]
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=32
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=largeExactAmountsFitWithoutSplittingDigits[dark=false, font=1]
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=33
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=categorizedAddMenuPreservesExplicitChoice[dark=false, font=1]
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=33
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=categorizedAddMenuPreservesExplicitChoice[dark=false, font=1]
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=34
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=bankEntryAndRetainedHistoryRemainUsable[dark=false, font=1]
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=34
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=bankEntryAndRetainedHistoryRemainUsable[dark=false, font=1]
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=35
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=fiveDestinationsAndDetailsStayReachable[dark=false, font=1]
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=35
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=fiveDestinationsAndDetailsStayReachable[dark=false, font=1]
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=36
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=largeExactAmountsFitWithoutSplittingDigits[dark=true, font=1]
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=36
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=largeExactAmountsFitWithoutSplittingDigits[dark=true, font=1]
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=37
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=categorizedAddMenuPreservesExplicitChoice[dark=true, font=1]
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=37
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=categorizedAddMenuPreservesExplicitChoice[dark=true, font=1]
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=38
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=bankEntryAndRetainedHistoryRemainUsable[dark=true, font=1]
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=38
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=bankEntryAndRetainedHistoryRemainUsable[dark=true, font=1]
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=39
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=fiveDestinationsAndDetailsStayReachable[dark=true, font=1]
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=39
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=fiveDestinationsAndDetailsStayReachable[dark=true, font=1]
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=40
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=largeExactAmountsFitWithoutSplittingDigits[dark=false, font=1.5]
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=40
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=largeExactAmountsFitWithoutSplittingDigits[dark=false, font=1.5]
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=41
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=categorizedAddMenuPreservesExplicitChoice[dark=false, font=1.5]
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=41
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=categorizedAddMenuPreservesExplicitChoice[dark=false, font=1.5]
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=42
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=bankEntryAndRetainedHistoryRemainUsable[dark=false, font=1.5]
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=42
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=bankEntryAndRetainedHistoryRemainUsable[dark=false, font=1.5]
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=43
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=fiveDestinationsAndDetailsStayReachable[dark=false, font=1.5]
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.RedesignUiTest
+INSTRUMENTATION_STATUS: current=43
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=43
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=fiveDestinationsAndDetailsStayReachable[dark=false, font=1.5]
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 352.018
+There were 4 failures:
+1) propertyAndLoanCanBeAddedWithoutInventingCashFlows(com.wealthos.app.PortfolioWorkflowTest)
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (Text + InputText + EditableText contains 'Property' (ignoreCase: false))
+Nodes found:
+1) Node #7572 at (l=1226.0, t=473.0, r=1450.0, b=557.0)px
+Focused = 'false'
+Role = 'Checkbox'
+Selected = 'false'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 8.0.dp), topEnd = CornerSize(size = 8.0.dp), bottomEnd = CornerSize(size = 8.0.dp), bottomStart = CornerSize(size = 8.0.dp))'
+Text = '[Property]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 6 siblings
+2) Node #7663 at (l=53.0, t=1332.0, r=1027.0, b=1500.0)px
+Focused = 'false'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+Text = '[Property]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 7 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:403)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:61)
+	at com.wealthos.app.PortfolioWorkflowTest.propertyAndLoanCanBeAddedWithoutInventingCashFlows(PortfolioWorkflowTest.kt:68)
+2) essentialFormsShowConciseInputsAndReachableSave[dark=false,font=1](com.wealthos.app.QuickFormsUiTest)
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: ((Text + InputText + EditableText contains '1' (ignoreCase: false)) && (OnClick is defined))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:403)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:61)
+	at com.wealthos.app.QuickFormsUiTest.essentialFormsShowConciseInputsAndReachableSave(QuickFormsUiTest.kt:48)
+3) essentialFormsShowConciseInputsAndReachableSave[dark=true,font=1](com.wealthos.app.QuickFormsUiTest)
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: ((Text + InputText + EditableText contains '1' (ignoreCase: false)) && (OnClick is defined))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:403)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:61)
+	at com.wealthos.app.QuickFormsUiTest.essentialFormsShowConciseInputsAndReachableSave(QuickFormsUiTest.kt:48)
+4) essentialFormsShowConciseInputsAndReachableSave[dark=false,font=1.5](com.wealthos.app.QuickFormsUiTest)
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: ((Text + InputText + EditableText contains '1' (ignoreCase: false)) && (OnClick is defined))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:403)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:61)
+	at com.wealthos.app.QuickFormsUiTest.essentialFormsShowConciseInputsAndReachableSave(QuickFormsUiTest.kt:48)
+
+FAILURES!!!
+Tests run: 43,  Failures: 4
+
+
+INSTRUMENTATION_CODE: -1

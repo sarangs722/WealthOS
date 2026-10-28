@@ -11,7 +11,17 @@ internal suspend fun validateRestoredBook(db:BankDatabase){
     b.observations.forEach {o->require(o.revision>0 && o.effectiveDate.year>=1900);val a=requireNotNull(b.accounts.find {it.id==o.accountId});require(o.currency==a.currency);Amounts.parse(o.amount.toPlainString(),o.currency)}
     fun money(v:BigDecimal,c:CurrencyCode){require(v>=BigDecimal.ZERO);Amounts.parse(v.toPlainString(),c)}
     p.instruments.forEach {i->require(i.openedOn.year>=1900);val entries=p.entries.filter {it.instrumentId==i.id};entries.forEach {e->require(e.sequence>0 && e.date>=i.openedOn);money(e.fees,i.currency);e.gross?.let {money(it,i.currency)}};val through=(entries.map {it.date}+i.openedOn).max();if(i.tracking==TrackingMode.TRANSACTIONS)Holdings.calculate(entries,through) else require(entries.isEmpty());if(i.tracking in listOf(TrackingMode.DEPOSIT,TrackingMode.LOAN))require(p.contracts.count {it.instrumentId==i.id && it.start==i.openedOn}==1)}
-    p.valuations.forEach {v->val i=p.instruments.single {it.id==v.instrumentId};require(v.revision>0 && v.value>=BigDecimal.ZERO && v.date.year>=1900);if(v.kind==ValuationKind.UNIT_PRICE)DecimalInput.parse(v.value.toPlainString())else money(v.value,i.currency);require(i.tracking!=TrackingMode.LOAN && v.kind==if(i.tracking==TrackingMode.TRANSACTIONS)ValuationKind.UNIT_PRICE else ValuationKind.OBSERVED_TOTAL);require(v.date>=i.openedOn || v.kind==ValuationKind.UNIT_PRICE)}
+    p.valuations.forEach {v->
+        val i=p.instruments.single {it.id==v.instrumentId}
+        require(v.revision>0 && v.value>=BigDecimal.ZERO && v.date.year>=1900)
+        if(v.kind==ValuationKind.UNIT_PRICE)DecimalInput.parse(v.value.toPlainString())else money(v.value,i.currency)
+        val cutover=p.entries.filter {it.instrumentId==i.id && it.kind==TradeKind.OPENING}.minOfOrNull {it.date}
+        val preservedSnapshot=i.tracking==TrackingMode.TRANSACTIONS && v.kind==ValuationKind.OBSERVED_TOTAL && cutover!=null && v.date<=cutover
+        require(i.tracking!=TrackingMode.LOAN && (preservedSnapshot || v.kind==if(i.tracking==TrackingMode.TRANSACTIONS)ValuationKind.UNIT_PRICE else ValuationKind.OBSERVED_TOTAL))
+        require(v.date>=i.openedOn || v.kind==ValuationKind.UNIT_PRICE)
+        HoldingSnapshots.validate(v,i.currency)
+        require(HoldingSnapshots.availableForSnapshot(i.category) || (v.reportedInvested==null && v.reportedUnits==null && v.reportedPrice==null && !v.calculatedTotal))
+    }
     p.contracts.forEach {c->Contracts.validate(c);val i=p.instruments.single {it.id==c.instrumentId};require(i.tracking in listOf(TrackingMode.LOAN,TrackingMode.DEPOSIT));val events=p.contractEvents.filter {it.instrumentId==i.id};events.forEach {e->require(e.principal>=BigDecimal.ZERO && e.interest>=BigDecimal.ZERO && e.fees>=BigDecimal.ZERO && e.date>=c.start && e.sequence>0)};if(i.tracking==TrackingMode.LOAN)require(Contracts.loanPrincipal(c,events,(events.map {it.date}+c.start).max())!!>=BigDecimal.ZERO)}
     p.instruments.forEach {i->i.custodyAccountId?.let {id->require(b.accounts.any {it.id==id && it.currency==i.currency && it.kind==AccountKind.BROKER_CASH})}}
     p.contracts.forEach {c->val i=p.instruments.single {it.id==c.instrumentId};money(c.openingPrincipal,i.currency);money(c.scheduledInstallment,i.currency);require(c.openingPrincipal>BigDecimal.ZERO && (i.tracking!=TrackingMode.LOAN || c.termMonths>0));val events=p.contractEvents.filter {it.instrumentId==i.id};events.forEach {e->listOf(e.principal,e.interest,e.fees).forEach {money(it,i.currency)}};RoomPortfolioRepository(db).validateEvents(i,c,events)}

@@ -88,7 +88,7 @@ class PlanningRepositoryTest {
             execSQL("INSERT INTO audit_events VALUES (?, ?, 'OLD_AUDIT', ?, NULL, 'Keep audit')",arrayOf(audit,source,stamp))
         };helper.close()
         db=BankDatabase.open(context,key,name);bank=RoomBankRepository(db,clock);val b=bank.observe().first()
-        assertEquals(6,db.openHelper.readableDatabase.version);assertEquals(account,b.accounts.single().id.toString());assertEquals("10000.25",b.observations.single().amount.toPlainString());assertEquals("5.00",b.portfolio.entries.single().units.toPlainString());assertEquals("100.123456",b.portfolio.valuations.single().value.toPlainString())
+        assertEquals(7,db.openHelper.readableDatabase.version);assertEquals(account,b.accounts.single().id.toString());assertEquals("10000.25",b.observations.single().amount.toPlainString());assertEquals("5.00",b.portfolio.entries.single().units.toPlainString());assertEquals("100.123456",b.portfolio.valuations.single().value.toPlainString())
         assertEquals(source,b.household.sources.single().id.toString());assertEquals("90000.00",b.household.income.single().net.toPlainString());assertEquals("5000.00",b.household.allocations.single().nativeAmount.toPlainString());assertEquals(policy,b.household.policies.single().id.toString());assertEquals("500.00",b.household.settlements.single().amount.toPlainString());assertEquals(audit,db.bankDao().audits().single().id);assertTrue(b.planning.scenarios.isEmpty());assertTrue(b.planning.goals.isEmpty())
         assertEquals(0,"10500.86728".toBigDecimal().compareTo(WealthValuation.at(b,today).netWorthInr!!));assertFalse(String(context.getDatabasePath(name).readBytes().take(16).toByteArray()).startsWith("SQLite format"))
     }

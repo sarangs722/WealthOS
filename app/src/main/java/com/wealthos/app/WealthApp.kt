@@ -51,7 +51,7 @@ import java.util.UUID
     LaunchedEffect(state.openPublicScreen){if(state.openPublicScreen){route="public-data";model.consumePublicNavigation()}}
     fun parent()=when(route) {
         "balance","edit"->"detail"
-        "investment-entry","asset-valuation","contract-event","edit-asset"->"asset-detail"
+        "unit-tracking","investment-entry","asset-valuation","contract-event","edit-asset"->"asset-detail"
         "cashflow-edit"->"cashflow"
         "income-sources"->"cashflow"
         "add-income-source","income-source-detail"->"income-sources"
@@ -99,6 +99,7 @@ import java.util.UUID
                 route == "edit-asset" && asset!=null -> InstrumentForm(state,model,asset) {navigate("asset-detail")}
                 route == "asset-detail" && asset!=null -> InstrumentDetails(asset,state,hidden) {navigate(it)}
                 route == "investment-entry" && asset!=null -> InvestmentEntryForm(asset,state,model) {navigate("asset-detail")}
+                route == "unit-tracking" && asset!=null -> UnitTrackingForm(asset,state,model) {navigate("asset-detail")}
                 route == "asset-valuation" && asset!=null -> ValuationForm(asset,state,model) {navigate("asset-detail")}
                 route == "contract-event" && asset!=null -> ContractEventForm(asset,state,model) {navigate("asset-detail")}
                 route == "transfer" -> TransferForm(state,model) {navigate("main")}

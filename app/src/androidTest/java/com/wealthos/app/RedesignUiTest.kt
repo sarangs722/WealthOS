@@ -112,9 +112,9 @@ class RedesignUiTest(private val dark:Boolean,private val textScale:Float) {
             }
         }
         rule.onNodeWithText("Account name").performTextReplacement("Fictional savings")
-        rule.onNodeWithTag("account-form").performScrollToNode(hasText("Balance in INR"));rule.onNodeWithText("Balance in INR").performTextReplacement("100.10")
+        rule.onNodeWithText("Balance in INR").performScrollTo();rule.onNodeWithText("Balance in INR").performTextReplacement("100.10")
         // Focus only; no save occurs and no fictional form data enters the vault.
-        rule.runOnIdle{clearEntryFocus()};rule.onNodeWithTag("account-form").performScrollToIndex(0);capture("bank-entry")
+        rule.runOnIdle{clearEntryFocus()};rule.onNodeWithText("Account name").performScrollTo();capture("bank-entry")
         rule.runOnIdle{details=true};rule.onNodeWithText("Current balance").assertExists();capture("bank-detail")
         rule.onNodeWithTag("account-detail").performScrollToNode(hasText("Balance history"));rule.onNodeWithText("Balance history").performClick()
         rule.onNodeWithTag("account-detail").performScrollToNode(hasText("${dateLabel(java.time.LocalDate.now().minusDays(60))} · Revision 1"))

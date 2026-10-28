@@ -17,7 +17,9 @@ data class EntryEntity(@PrimaryKey val id:String,val instrumentId:String,val kin
 @Entity(tableName="asset_valuations",foreignKeys=[ForeignKey(entity=InstrumentEntity::class,parentColumns=["id"],childColumns=["instrumentId"],onDelete=ForeignKey.RESTRICT)],indices=[Index(value=["instrumentId","date","revision"],unique=true)])
 data class ValuationEntity(@PrimaryKey val id:String,val instrumentId:String,val kind:String,val value:String,val date:String,
     val revision:Int,val recordedAt:String,val note:String,@ColumnInfo(defaultValue="0") val includedContractSequence:Int=0,
-    @ColumnInfo(defaultValue="0") val includedInvestmentSequence:Int=0)
+    @ColumnInfo(defaultValue="0") val includedInvestmentSequence:Int=0,
+    val reportedInvested:String?=null,val reportedUnits:String?=null,val reportedPrice:String?=null,
+    @ColumnInfo(defaultValue="0") val calculatedTotal:Boolean=false)
 
 @Entity(tableName="financial_contracts",foreignKeys=[ForeignKey(entity=InstrumentEntity::class,parentColumns=["id"],childColumns=["instrumentId"],onDelete=ForeignKey.RESTRICT)])
 data class ContractEntity(@PrimaryKey val instrumentId:String,val openingPrincipal:String,val annualRate:String,val start:String,
@@ -74,8 +76,8 @@ internal fun InstrumentEntity.domain()=Instrument(UUID.fromString(id),name,Asset
 internal fun Instrument.entity()=InstrumentEntity(id.toString(),name,category.name,currency.name,tracking.name,openedOn.toString(),createdAt.toString(),liquid,region.name,unit,custodyAccountId?.toString())
 internal fun EntryEntity.domain()=InvestmentEntry(UUID.fromString(id),UUID.fromString(instrumentId),TradeKind.valueOf(kind),LocalDate.parse(date),sequence,units.toBigDecimal(),gross?.toBigDecimal(),fees.toBigDecimal(),ratioDenominator.toBigDecimal(),note,Instant.parse(recordedAt))
 internal fun InvestmentEntry.entity()=EntryEntity(id.toString(),instrumentId.toString(),kind.name,date.toString(),sequence,units.toPlainString(),gross?.toPlainString(),fees.toPlainString(),ratioDenominator.toPlainString(),note,recordedAt.toString())
-internal fun ValuationEntity.domain()=AssetValuation(UUID.fromString(id),UUID.fromString(instrumentId),ValuationKind.valueOf(kind),value.toBigDecimal(),LocalDate.parse(date),revision,Instant.parse(recordedAt),note,includedContractSequence,includedInvestmentSequence)
-internal fun AssetValuation.entity()=ValuationEntity(id.toString(),instrumentId.toString(),kind.name,value.toPlainString(),date.toString(),revision,recordedAt.toString(),note,includedContractSequence,includedInvestmentSequence)
+internal fun ValuationEntity.domain()=AssetValuation(UUID.fromString(id),UUID.fromString(instrumentId),ValuationKind.valueOf(kind),value.toBigDecimal(),LocalDate.parse(date),revision,Instant.parse(recordedAt),note,includedContractSequence,includedInvestmentSequence,reportedInvested=reportedInvested?.toBigDecimal(),reportedUnits=reportedUnits?.toBigDecimal(),reportedPrice=reportedPrice?.toBigDecimal(),calculatedTotal=calculatedTotal)
+internal fun AssetValuation.entity()=ValuationEntity(id.toString(),instrumentId.toString(),kind.name,value.toPlainString(),date.toString(),revision,recordedAt.toString(),note,includedContractSequence,includedInvestmentSequence,reportedInvested?.toPlainString(),reportedUnits?.toPlainString(),reportedPrice?.toPlainString(),calculatedTotal)
 internal fun ContractEntity.domain()=FinancialContract(UUID.fromString(instrumentId),openingPrincipal.toBigDecimal(),annualRate.toBigDecimal(),LocalDate.parse(start),LocalDate.parse(end),DepositConvention.valueOf(convention),scheduledInstallment.toBigDecimal(),termMonths)
 internal fun FinancialContract.entity()=ContractEntity(instrumentId.toString(),openingPrincipal.toPlainString(),annualRate.toPlainString(),start.toString(),end.toString(),convention.name,scheduledInstallment.toPlainString(),termMonths)
 internal fun ContractEventEntity.domain()=ContractEvent(UUID.fromString(id),UUID.fromString(instrumentId),ContractEventKind.valueOf(kind),LocalDate.parse(date),sequence,principal.toBigDecimal(),interest.toBigDecimal(),fees.toBigDecimal(),Instant.parse(recordedAt),note)

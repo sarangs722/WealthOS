@@ -22,13 +22,15 @@ import java.util.UUID
             expected.takeIf {source==null && it.isNotBlank()}?.let {Amounts.parse(it,CurrencyCode.valueOf(currency))})}
     }) {
         Field("Income source name",name,{name=it})
-        if(source==null) {
-            Choice("Income kind",kind,IncomeKind.entries.map {it.name to it.label}) {kind=it}
-            Choice("Income currency",currency,CurrencyCode.entries.map {it.name to it.name}) {currency=it}
-            Field("First-known date (YYYY-MM-DD)",start,{start=it})
-            Field("Expected monthly net (optional)",expected,{expected=it},true,"Planning amount effective from the first-known date. Leave unknown if necessary; this is not actual income.")
-        } else Text("${source.kind.label} · ${source.currency} · Known from ${dateLabel(source.startedOn)}. Change expected amounts through a dated rate record.")
-        Field("Source end date (optional)",end,{end=it},hint="YYYY-MM-DD. Later actual back-pay may still be recorded; future salary is not invented.")
+        if(source==null)Field("Expected monthly net (optional)",expected,{expected=it},true,"Planning only. Received income is recorded separately.")
+        FormDetails("Income details (optional)") {
+            if(source==null) {
+                Choice("Income kind",kind,IncomeKind.entries.map {it.name to it.label}) {kind=it}
+                Choice("Income currency",currency,CurrencyCode.entries.map {it.name to it.name}) {currency=it}
+                DateChoice("Known from",start,{start=it})
+            } else Text("${source.kind.label} · ${source.currency}")
+            Field("Source end date (optional)",end,{end=it},hint="YYYY-MM-DD. Leave blank for an ongoing source.")
+        }
     }
 }
 @Composable fun IncomeRateForm(source:IncomeSource,state:BankUiState,model:BankViewModel,done:()->Unit) {
@@ -130,23 +132,27 @@ import java.util.UUID
                 PremiumFrequency.valueOf(frequency),due.takeIf {it.isNotBlank()}?.let(LocalDate::parse),CoverageScope.valueOf(scope),active,0,Instant.now(),note,lastDue.takeIf {it.isNotBlank()}?.let(LocalDate::parse)))}
     }) {
         Field("Policy nickname",name,{name=it},hint="No full policy number, health diagnosis or bank credentials are needed.")
-        Field("Insurer",insurer,{insurer=it})
         if(policy==null) {
             Choice("Insurance kind",kind,PolicyKind.entries.map {it.name to it.label}) {kind=it;scope=CoverageScope.INDIVIDUAL.name}
-            Choice("Policy currency",currency,CurrencyCode.entries.map {it.name to it.name}) {currency=it}
+
         } else Text("${policy.kind.label} · ${policy.currency} · Existing history is retained.")
-        Field("Terms effective date (YYYY-MM-DD)",effective,{effective=it},hint="New terms take effect on this date. Future renewals are labelled planned.")
-        Field("Recorded cover start (YYYY-MM-DD)",from,{from=it})
+
+        DateChoice("Cover starts",from,{from=it;if(policy==null)effective=it})
         Field("Recorded cover end (YYYY-MM-DD)",until,{until=it})
         Field("Cover limit in $native (optional)",cover,{cover=it},true,"Blank means unknown. Health floater limits are counted once per policy, not per family member.")
         if(kind==PolicyKind.HEALTH.name)Choice("Health cover scope",scope,CoverageScope.entries.map {it.name to it.label}) {scope=it}
         Field("Premium per installment (optional)",premium,{premium=it},true,"Blank means unknown. Enter 0 only for a genuinely zero-premium policy.")
+        FormDetails("Premium schedule & other details") {
+        Field("Insurer (optional)",insurer,{insurer=it})
         Choice("Premium frequency",frequency,PremiumFrequency.entries.map {it.name to it.label}) {frequency=it}
         Field("First tracked premium due (optional)",due,{due=it},hint="YYYY-MM-DD. The first known unpaid/next due; earlier unpaid cycles are not invented.")
         Field("Last premium due (optional)",lastDue,{lastDue=it},hint="YYYY-MM-DD for limited-pay policies. Otherwise the recurring schedule runs through recorded cover end.")
         Toggle("Track this policy as active",active) {active=it}
         Field("Policy terms note / correction",note,{note=it},multi=true)
+        DateChoice("Terms effective",effective,{effective=it})
+        if(policy==null)Choice("Policy currency",currency,CurrencyCode.entries.map {it.name to it.name}) {currency=it}
         Text("Dates are an offline reminder list, not insurer confirmation of coverage, claim payout, grace period or renewal. Premium payment alone does not extend the recorded cover period. Update renewal terms explicitly.")
+        }
     }
 }
 @Composable fun PremiumSettlementForm(policy:InsurancePolicy,state:BankUiState,model:BankViewModel,done:()->Unit) {

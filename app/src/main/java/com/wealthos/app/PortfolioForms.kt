@@ -1,6 +1,10 @@
 package com.wealthos.app
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.clickable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.text.KeyboardOptions
@@ -20,15 +24,43 @@ import java.util.UUID
 
 private val LocalFormEnabled=compositionLocalOf {true}
 @Composable internal fun Form(title:String,subtitle:String,state:BankUiState,saveLabel:String="Save record",onSave:()->Unit,content:@Composable ColumnScope.()->Unit) {
-    Column(Modifier.fillMaxSize().imePadding().verticalScroll(rememberScrollState()).padding(24.dp),verticalArrangement=Arrangement.spacedBy(18.dp)) {
-        Text(title,style=MaterialTheme.typography.headlineMedium)
-        if(subtitle.length<=90)Text(subtitle,color=MaterialTheme.colorScheme.onSurfaceVariant)
-        else DetailsDisclosure("About this record"){Text(subtitle)}
-        CompositionLocalProvider(LocalFormEnabled provides (!state.saving && !state.demo)) {content()}
-        state.formError?.let {Text(it,color=MaterialTheme.colorScheme.error,modifier=Modifier.semantics {contentDescription="Validation error: $it"})}
-        Button(onClick=onSave,enabled=!state.saving && !state.demo,modifier=Modifier.fillMaxWidth().heightIn(min=52.dp)) {
-            Text(if(state.saving) "Saving…" else saveLabel)
+    Column(Modifier.fillMaxSize().imePadding()) {
+        Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal=20.dp,vertical=16.dp),verticalArrangement=Arrangement.spacedBy(14.dp)) {
+            Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.SpaceBetween,verticalAlignment=androidx.compose.ui.Alignment.CenterVertically) {
+                Text(title,Modifier.weight(1f),style=MaterialTheme.typography.titleLarge)
+                if(subtitle.length>90) InfoHelp("About this record",subtitle)
+            }
+            if(subtitle.isNotBlank() && subtitle.length<=90)Text(subtitle,style=MaterialTheme.typography.bodyMedium,color=MaterialTheme.colorScheme.onSurfaceVariant)
+            CompositionLocalProvider(LocalFormEnabled provides (!state.saving && !state.demo)) {content()}
         }
+        Surface(tonalElevation=2.dp) {
+            Column(Modifier.fillMaxWidth().padding(horizontal=20.dp,vertical=12.dp),verticalArrangement=Arrangement.spacedBy(8.dp)) {
+                state.formError?.let {Text(it,color=MaterialTheme.colorScheme.error,modifier=Modifier.semantics {contentDescription="Validation error: $it"})}
+                Button(onClick=onSave,enabled=!state.saving && !state.demo,modifier=Modifier.fillMaxWidth().heightIn(min=50.dp)) {Text(if(state.saving) "Saving…" else saveLabel)}
+            }
+        }
+    }
+}
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable internal fun DateChoice(label:String,value:String,change:(String)->Unit) {
+    var open by remember {mutableStateOf(false)}
+    val parsed=runCatching {LocalDate.parse(value)}.getOrNull()
+    TextButton(onClick={open=true},enabled=LocalFormEnabled.current,contentPadding=PaddingValues(horizontal=4.dp)) {
+        Text("$label: ${if(parsed==LocalDate.now())"Today" else parsed?.let(::dateLabel) ?: "Choose date"}")
+    }
+    if(open) {
+        val picker=rememberDatePickerState(initialSelectedDateMillis=parsed?.atStartOfDay(java.time.ZoneOffset.UTC)?.toInstant()?.toEpochMilli())
+        DatePickerDialog(onDismissRequest={open=false},confirmButton={TextButton(onClick={picker.selectedDateMillis?.let {change(Instant.ofEpochMilli(it).atZone(java.time.ZoneOffset.UTC).toLocalDate().toString())};open=false},enabled=picker.selectedDateMillis!=null){Text("Use date")}},dismissButton={TextButton(onClick={open=false}){Text("Cancel")}}) {DatePicker(picker)}
+    }
+}
+@Composable internal fun FormDetails(title:String,content:@Composable ColumnScope.()->Unit) {
+    var expanded by rememberSaveable {mutableStateOf(false)}
+    Column(Modifier.fillMaxWidth(),verticalArrangement=Arrangement.spacedBy(8.dp)) {
+        Row(Modifier.fillMaxWidth().clickable(role=androidx.compose.ui.semantics.Role.Button){expanded=!expanded}.heightIn(min=48.dp).padding(horizontal=4.dp),verticalAlignment=androidx.compose.ui.Alignment.CenterVertically) {
+            Text(title,Modifier.weight(1f),style=MaterialTheme.typography.labelLarge,color=MaterialTheme.colorScheme.primary)
+            Icon(if(expanded)Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,if(expanded)"Collapse $title" else "Expand $title",tint=MaterialTheme.colorScheme.primary)
+        }
+        if(expanded)Column(Modifier.fillMaxWidth().padding(horizontal=4.dp),verticalArrangement=Arrangement.spacedBy(14.dp),content=content)
     }
 }
 @Composable internal fun Field(label:String,value:String,change:(String)->Unit,decimal:Boolean=false,hint:String?=null,multi:Boolean=false) {
@@ -40,8 +72,13 @@ private val LocalFormEnabled=compositionLocalOf {true}
 @Composable internal fun Choice(label:String,selected:String,options:List<Pair<String,String>>,onSelect:(String)->Unit) {
     var expanded by remember {mutableStateOf(false)}
     val text=options.find {it.first==selected}?.second ?: "Choose…"
-    Box {
-        OutlinedButton(onClick={expanded=true},enabled=LocalFormEnabled.current,modifier=Modifier.fillMaxWidth()) {Text("$label: $text")}
+    Box(Modifier.fillMaxWidth()) {
+        OutlinedCard(onClick={expanded=true},enabled=LocalFormEnabled.current,modifier=Modifier.fillMaxWidth(),shape=MaterialTheme.shapes.small) {
+            Row(Modifier.fillMaxWidth().padding(horizontal=16.dp,vertical=14.dp),verticalAlignment=androidx.compose.ui.Alignment.CenterVertically) {
+                Text("$label: $text",Modifier.weight(1f),style=MaterialTheme.typography.bodyLarge)
+                Icon(Icons.Default.KeyboardArrowDown,null,tint=MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        }
         DropdownMenu(expanded,onDismissRequest={expanded=false},modifier=Modifier.heightIn(max=380.dp)) {
             options.forEach {(key,value) -> DropdownMenuItem(text={Text(value)},onClick={onSelect(key);expanded=false})}
         }
@@ -59,7 +96,7 @@ private val LocalFormEnabled=compositionLocalOf {true}
     Choice(label,selected,options,choose)
     if(selected.isNotBlank()) {
         Choice("$label treatment",mode,listOf("" to "Choose explicitly","apply" to "Apply provisional cash adjustment","reflected" to "Balance already reflects this cash flow"),treatment)
-        DetailsDisclosure("How linked cash is counted"){Text("A later balance observation absorbs cash flows through its date. Same-day or backdated flows use your choice above. Provisional amounts are labelled.")}
+        FormDetails("How linked cash is counted"){Text("A later balance observation absorbs cash flows through its date. Same-day or backdated flows use your choice above. Provisional amounts are labelled.")}
     } else if(optional) Text("Unlinked: tracked cash stays unchanged.",style=MaterialTheme.typography.bodyMedium)
 }
 internal fun cashLink(selected:String,mode:String):CashLink? {
@@ -75,6 +112,11 @@ private fun tracking(category:AssetCategory)=when(category) {
 }
 
 @Composable fun InstrumentForm(state:BankUiState,model:BankViewModel,existing:Instrument?=null,initialCategory:AssetCategory=AssetCategory.MUTUAL_FUND,done:(UUID)->Unit) {
+    var detailed by rememberSaveable {mutableStateOf(false)}
+    if(existing==null && HoldingSnapshots.availableForSnapshot(initialCategory) && !detailed) {
+        QuickInvestmentForm(state,model,initialCategory,{detailed=true},done)
+        return
+    }
     var name by rememberSaveable {mutableStateOf(existing?.name ?: "")}
     var categoryName by rememberSaveable {mutableStateOf((existing?.category ?: initialCategory).name)}
     var currencyName by rememberSaveable {mutableStateOf((existing?.currency ?: CurrencyCode.INR).name)}
@@ -94,8 +136,8 @@ private fun tracking(category:AssetCategory)=when(category) {
     var months by rememberSaveable {mutableStateOf("")}
     var cash by rememberSaveable {mutableStateOf("")};var treatment by rememberSaveable {mutableStateOf("")}
     val stableId by rememberSaveable {mutableStateOf(existing?.id?.toString() ?: UUID.randomUUID().toString())}
-    val category=AssetCategory.valueOf(categoryName);val mode=tracking(category);val currency=CurrencyCode.valueOf(currencyName)
-    Form(if(existing==null)"Add ${category.label.lowercase()}" else "Edit asset",if(existing==null)"Start from what you own today." else "Currency, opening date and tracking method are preserved.",state,onSave={
+    val category=AssetCategory.valueOf(categoryName);val mode=existing?.tracking ?: tracking(category);val currency=CurrencyCode.valueOf(currencyName)
+    Form(if(existing==null)"Add ${when(category){AssetCategory.EPF,AssetCategory.PPF,AssetCategory.NPS->category.name;AssetCategory.FD->"fixed deposit";AssetCategory.RD->"recurring deposit";AssetCategory.LOAN->"loan";else->category.label.lowercase()}}" else "Edit asset",if(existing==null)"Start from what you own today." else "Currency, opening date and tracking method are preserved.",state,onSave={
         val id=UUID.fromString(stableId)
         model.portfolio(done={done(id)}) {repo ->
             val accountId=custody.takeIf {it.isNotBlank()}?.let(UUID::fromString)
@@ -117,43 +159,40 @@ private fun tracking(category:AssetCategory)=when(category) {
         }
     }) {
         Field("Asset name",name,{name=it})
-        if(existing==null) {
-            Choice("Asset category",categoryName,AssetCategory.entries.map {it.name to it.label}) {
-                categoryName=it;custody="";liquid=AssetCategory.valueOf(it) in listOf(AssetCategory.MUTUAL_FUND,AssetCategory.STOCK,AssetCategory.ETF)
-            }
-            Choice("Currency",currencyName,CurrencyCode.entries.map {it.name to it.name}) {currencyName=it;custody="";cash="";treatment=""}
-            Field("Opening date (YYYY-MM-DD)",openingDate,{openingDate=it},hint="First known position date. Earlier history is not invented.")
-        } else Text("${category.label} · $currency · Opened ${dateLabel(existing.openedOn)}")
+        if(existing!=null) Text("${category.label} · $currency · Opened ${dateLabel(existing.openedOn)}")
         if(existing==null) when(mode) {
             TrackingMode.TRANSACTIONS -> {
-                Field("Opening units",units,{units=it},true,"Leave blank or enter 0 for a new empty instrument. Purchases go in Details.")
-                Field("Opening total cost (optional)",cost,{cost=it},true,"Acquisition cost in $currency, including known fees. Blank means unknown, not zero.")
-                Field("Opening unit price (optional)",value,{value=it},true,"Manual price in $currency, dated at the opening date. Up to 12 decimal places.")
+                Field("Units held",units,{units=it},true,"Leave blank or enter 0 for a new empty instrument. Purchases go in Details.")
+                Field("Cost of these units (optional)",cost,{cost=it},true,"Acquisition cost in $currency, including known fees. Blank means unknown, not zero.")
+                Field("NAV / unit price (optional)",value,{value=it},true,"Manual price in $currency, dated at the opening date. Up to 12 decimal places.")
                 Text("Existing holdings only. Bank cash stays unchanged.",style=MaterialTheme.typography.bodyMedium)
-                DetailsDisclosure("Adding earlier transactions"){Text("This opening position already includes your earlier purchases and corporate actions. Add only subsequent events to avoid counting holdings twice. Earlier history is not invented.")}
+                FormDetails("Adding earlier transactions"){Text("This opening position already includes your earlier purchases and corporate actions. Add only subsequent events to avoid counting holdings twice. Earlier history is not invented.")}
             }
             TrackingMode.OBSERVED -> {
-                Field("Observed total in $currency",value,{value=it},true,"Your attributable share only; enter retirement statement value or property/gold valuation.")
-                DetailsDisclosure("About observed values"){Text("No statutory EPF/PPF/NPS return or tax treatment is assumed. Enter dated statement values as they become available.")}
+                Field(if(category==AssetCategory.PROPERTY)"Your share of value in $currency" else "Current balance in $currency",value,{value=it},true,"Copy your latest statement balance, or enter only your share of a property. Returns are not assumed.")
             }
             TrackingMode.DEPOSIT,TrackingMode.LOAN -> {
-                Field(if(mode==TrackingMode.LOAN)"Opening outstanding principal" else "Opening paid principal",principal,{principal=it},true,"Known principal in $currency as of the opening date.")
+                Field(if(mode==TrackingMode.LOAN)"Outstanding principal" else "Amount deposited",principal,{principal=it},true,"Known principal in $currency as of the opening date.")
                 Field("Contract annual rate (%)",annualRate,{annualRate=it},true,"Nominal contracted rate, not a current advertised rate. Zero is supported.")
                 if(mode==TrackingMode.LOAN) {
                     Field("Remaining loan months",months,{months=it},hint="1–1200. The projected monthly schedule does not record actual payments.")
-                    DetailsDisclosure("About repayments"){Text("Start from a known outstanding principal. Add actual principal and interest components for each repayment. Future payments are never treated as paid.")}
+                    FormDetails("About repayments"){Text("Start from a known outstanding principal. Add actual principal and interest components for each repayment. Future payments are never treated as paid.")}
                 } else {
                     Field("Maturity date (YYYY-MM-DD)",endDate,{endDate=it})
+                    FormDetails("Deposit details (optional)"){
                     Choice("Estimate convention",conventionName,DepositConvention.entries.map {it.name to it.label}) {conventionName=it}
                     if(category==AssetCategory.RD) Field("Scheduled monthly installment (optional)",installment,{installment=it},true,"Only installments you actually record increase the balance.")
                     Field("Observed total (optional)",value,{value=it},true,"A bank-observed total takes precedence over the separately shown gross contract estimate.")
-                    DetailsDisclosure("Estimate assumptions"){Text("Generic estimate: completed anniversary periods plus an ACT/365 simple stub, or simple ACT/365. No tax, penalties or automatic post-maturity interest. Bank-specific amounts can differ. Interim interest payouts require the simple convention.")}
+                    FormDetails("Estimate assumptions"){Text("Generic estimate: completed anniversary periods plus an ACT/365 simple stub, or simple ACT/365. No tax, penalties or automatic post-maturity interest. Bank-specific amounts can differ. Interim interest payouts require the simple convention.")}
                     CashLinkFields(state.book.accounts,currency,cash,treatment,{cash=it;treatment=""},{treatment=it},"New deposit funding")
                     Text("Existing deposit? Leave funding unlinked.",style=MaterialTheme.typography.bodyMedium)
+                    }
                 }
             }
         }
-        DetailsDisclosure("More options"){
+        if(existing==null)DateChoice("As of",openingDate,{openingDate=it})
+        FormDetails("More options"){
+            if(existing==null)Choice("Currency",currencyName,CurrencyCode.entries.map {it.name to it.name}) {currencyName=it;custody="";cash="";treatment=""}
             Choice("Market / location",regionName,MarketRegion.entries.map {it.name to if(it==MarketRegion.INDIA)"India" else "International"}) {regionName=it}
             if(mode==TrackingMode.TRANSACTIONS) Field("Unit label",unit,{unit=it},hint="Units, shares, grams, etc.")
             if(mode!=TrackingMode.LOAN) Toggle("Include in liquid assets",liquid) {liquid=it}
@@ -190,11 +229,14 @@ private fun tracking(category:AssetCategory)=when(category) {
         if(monetary) Field("Fees / withholding in ${instrument.currency}",fees,{fees=it},true,"Buy fees add to basis; sale/distribution fees reduce proceeds. This is book cost, not a tax return.")
         Field("Explanation / note",note,{note=it},multi=true)
         if(monetary)CashLinkFields(state.book.accounts,instrument.currency,cash,mode,{cash=it;mode=""},{mode=it})
-        DetailsDisclosure("Transaction rules"){Text("Entries are retained. FIFO consumes known lots. Missing opening basis makes gains unavailable. Splits/bonus issues adjust a prior carried quote theoretically until you enter a new observed price; that valuation is labelled an estimate. Backdated events are checked against every later recorded event before saving.")}
+        FormDetails("Transaction rules"){Text("Entries are retained. FIFO consumes known lots. Missing opening basis makes gains unavailable. Splits/bonus issues adjust a prior carried quote theoretically until you enter a new observed price; that valuation is labelled an estimate. Backdated events are checked against every later recorded event before saving.")}
     }
 }
 
 @Composable fun ValuationForm(instrument:Instrument,state:BankUiState,model:BankViewModel,done:()->Unit) {
+    if(instrument.tracking==TrackingMode.OBSERVED && HoldingSnapshots.availableForSnapshot(instrument.category)) {
+        SnapshotUpdateForm(instrument,state,model,done);return
+    }
     var value by rememberSaveable {mutableStateOf("")};var date by rememberSaveable {mutableStateOf(LocalDate.now().toString())};var note by rememberSaveable {mutableStateOf("")}
     val price=instrument.tracking==TrackingMode.TRANSACTIONS
     Form(if(price)"Update unit price" else "Update observed value",instrument.name,state,"Save valuation",onSave={model.portfolio(done) {repo ->

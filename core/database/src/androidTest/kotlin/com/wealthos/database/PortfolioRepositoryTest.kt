@@ -151,6 +151,85 @@ class PortfolioRepositoryTest {
         db=BankDatabase.open(context,key,name);bank=RoomBankRepository(db,clock)
         val book=bank.observe().first();assertEquals(accountId,book.accounts.single().id.toString());assertEquals(observationId,book.observations.single().id.toString())
         assertEquals("12345678901234567890.12",book.observations.single().amount.toPlainString());assertEquals("Existing private note",book.observations.single().note)
-        assertEquals(auditId,db.bankDao().audits().single().id);assertTrue(book.portfolio.instruments.isEmpty());assertEquals(6,db.openHelper.readableDatabase.version)
+        assertEquals(auditId,db.bankDao().audits().single().id);assertTrue(book.portfolio.instruments.isEmpty());assertEquals(7,db.openHelper.readableDatabase.version)
     }
+    private fun summary(i:Instrument,value:String="1234.56",date:LocalDate=start)=AssetValuation(UUID.randomUUID(),i.id,ValuationKind.OBSERVED_TOTAL,value.toBigDecimal(),date,0,clock.instant())
+    @Test fun valueOnlyFundPersistsWithoutInventingUnitsCostOrCash()=runTest {
+        val account=cash("5000");val i=instrument(AssetCategory.MUTUAL_FUND).copy(tracking=TrackingMode.OBSERVED)
+        portfolio.addInstrument(NewInstrument(i,initialValue="1234.56".toBigDecimal(),snapshot=summary(i)))
+        db.close();db=BankDatabase.open(context,key,name);bank=RoomBankRepository(db,clock)
+        val book=bank.observe().first();number("6234.56",WealthValuation.at(book,today).netWorthInr)
+        assertTrue(book.portfolio.entries.isEmpty());assertTrue(book.portfolio.cashMovements.isEmpty())
+        assertNull(book.portfolio.valuations.single().reportedInvested)
+        number("5000",BankValuation.at(book,today).inputs.single {it.account.id==account}.value)
+    }
+    @Test fun reportedMetadataIsLosslessAndBelongsToEachDatedRevision()=runTest {
+        val i=instrument().copy(tracking=TrackingMode.OBSERVED)
+        val first=summary(i).copy(reportedInvested="1000.00".toBigDecimal(),reportedUnits="10.000000000001".toBigDecimal(),reportedPrice="123.456789012345".toBigDecimal())
+        portfolio.addInstrument(NewInstrument(i,initialValue=first.value,snapshot=first))
+        portfolio.addValuation(summary(i,"1300.00",start.plusDays(1)))
+        portfolio.addValuation(summary(i,"1301.00",start.plusDays(1)).copy(note="Fictional correction"))
+        val p=bank.observe().first().portfolio
+        assertEquals(first.reportedUnits!!.toPlainString(),p.valuations.single {it.date==start}.reportedUnits!!.toPlainString())
+        val latest=WealthValuation.asset(i,p,today);number("1301.00",latest.nativeValue);assertNull(latest.snapshot!!.reportedInvested)
+        assertEquals(listOf(1,2),p.valuations.filter {it.date==start.plusDays(1)}.map {it.revision}.sorted())
+        assertNull(latest.unrealizedGain)
+    }
+    @Test fun startUnitTrackingPreservesIdentityHistoryAndUnknownCost()=runTest {
+        val i=instrument().copy(tracking=TrackingMode.OBSERVED);portfolio.addInstrument(NewInstrument(i,initialValue="1234.56".toBigDecimal(),snapshot=summary(i).copy(reportedInvested="1000".toBigDecimal())))
+        portfolio.startUnitTracking(i.id,start.plusDays(1),"10".toBigDecimal(),null,"130".toBigDecimal())
+        val p=bank.observe().first().portfolio;val upgraded=p.instruments.single()
+        assertEquals(i.id,upgraded.id);assertEquals(i.openedOn,upgraded.openedOn);assertEquals(TrackingMode.TRANSACTIONS,upgraded.tracking)
+        number("1234.56",WealthValuation.asset(upgraded,p,start).nativeValue)
+        val current=WealthValuation.asset(upgraded,p,today);number("1300",current.nativeValue);assertNull(current.holding!!.remainingCost);assertNull(current.unrealizedGain)
+        assertTrue(p.cashMovements.isEmpty());assertEquals(1,p.entries.size);validateRestoredBook(db)
+        try{portfolio.startUnitTracking(i.id,today,BigDecimal.TEN,null,null);fail()}catch(_:IllegalArgumentException){}
+        try{portfolio.addEntry(entry(upgraded,date=start));fail()}catch(_:IllegalArgumentException){}
+        assertEquals(1,bank.observe().first().portfolio.entries.size)
+    }
+    @Test fun sameDayUpgradeUsesSeparateQuoteRevisionAndNoDuplicateValue()=runTest {
+        val i=instrument().copy(tracking=TrackingMode.OBSERVED);portfolio.addInstrument(NewInstrument(i,initialValue="1234.56".toBigDecimal()))
+        portfolio.startUnitTracking(i.id,start,BigDecimal.TEN,"1000".toBigDecimal(),"130".toBigDecimal())
+        val book=bank.observe().first();number("1300",WealthValuation.at(book,today).netWorthInr);assertEquals(2,book.portfolio.valuations.size);validateRestoredBook(db)
+    }
+    @Test fun failedUpgradeRollsBackTrackingEntryAndAudit()=runTest {
+        val i=instrument().copy(tracking=TrackingMode.OBSERVED);portfolio.addInstrument(NewInstrument(i,initialValue="1234.56".toBigDecimal()))
+        val audits=db.bankDao().audits().size
+        db.openHelper.writableDatabase.execSQL("CREATE TRIGGER fail_upgrade BEFORE INSERT ON investment_entries BEGIN SELECT RAISE(ABORT,'injected'); END")
+        try{portfolio.startUnitTracking(i.id,today,BigDecimal.TEN,null,null);fail()}catch(_:android.database.SQLException){}
+        val p=bank.observe().first().portfolio;assertEquals(TrackingMode.OBSERVED,p.instruments.single().tracking);assertTrue(p.entries.isEmpty());assertEquals(audits,db.bankDao().audits().size)
+    }
+    @Test fun badDerivedTotalAndBackdatedUpgradeLeaveVaultUnchanged()=runTest {
+        val i=instrument().copy(tracking=TrackingMode.OBSERVED)
+        try{portfolio.addInstrument(NewInstrument(i,initialValue="1234.56".toBigDecimal(),snapshot=summary(i).copy(reportedUnits=BigDecimal.TEN,reportedPrice=BigDecimal.TEN,calculatedTotal=true)));fail()}catch(_:IllegalArgumentException){}
+        assertTrue(bank.observe().first().portfolio.instruments.isEmpty())
+        portfolio.addInstrument(NewInstrument(i,initialValue="1234.56".toBigDecimal()))
+        portfolio.addValuation(summary(i,"1400.00",today))
+        try{portfolio.startUnitTracking(i.id,start,BigDecimal.TEN,null,null);fail()}catch(_:IllegalArgumentException){}
+        assertEquals(TrackingMode.OBSERVED,bank.observe().first().portfolio.instruments.single().tracking)
+    }
+    @Test fun schemaSixMigrationPreservesEncryptedRowsAndMakesNewMetadataUnknown()=runTest {
+        db.close()
+        val schema=JSONObject(InstrumentationRegistry.getInstrumentation().context.assets.open("com.wealthos.database.BankDatabase/6.json").bufferedReader().use {it.readText()}).getJSONObject("database")
+        context.deleteDatabase(name)
+        val helper=SupportOpenHelperFactory(key).create(SupportSQLiteOpenHelper.Configuration.builder(context).name(name).callback(object:SupportSQLiteOpenHelper.Callback(6){
+            override fun onCreate(sql:SupportSQLiteDatabase){
+                val entities=schema.getJSONArray("entities");for(n in 0 until entities.length()){
+                    val e=entities.getJSONObject(n);val table=e.getString("tableName");sql.execSQL(e.getString("createSql").replace("\${TABLE_NAME}",table))
+                    val indices=e.optJSONArray("indices");if(indices!=null)for(j in 0 until indices.length())sql.execSQL(indices.getJSONObject(j).getString("createSql").replace("\${TABLE_NAME}",table))
+                }
+                val setup=schema.getJSONArray("setupQueries");for(n in 0 until setup.length())sql.execSQL(setup.getString(n))
+            }
+            override fun onUpgrade(sql:SupportSQLiteDatabase,oldVersion:Int,newVersion:Int)=error("Unexpected")
+        }).build())
+        val id=UUID.randomUUID().toString();val valuation=UUID.randomUUID().toString();val sql=helper.writableDatabase
+        sql.execSQL("INSERT INTO instruments VALUES (?,?,?,?,?,?,?,?,?,?,?)",arrayOf<Any?>(id,"Fictional legacy fund","MUTUAL_FUND","INR","TRANSACTIONS",start.toString(),clock.instant().toString(),1,"INDIA","units",null))
+        sql.execSQL("INSERT INTO asset_valuations VALUES (?,?,?,?,?,?,?,?,?,?)",arrayOf<Any?>(valuation,id,"UNIT_PRICE","123.456789012345",start.toString(),1,clock.instant().toString(),"Fictional old quote",0,0))
+        helper.close();db=BankDatabase.open(context,key,name);bank=RoomBankRepository(db,clock)
+        val p=bank.observe().first().portfolio;assertEquals(7,db.openHelper.readableDatabase.version)
+        assertEquals(id,p.instruments.single().id.toString());assertEquals("123.456789012345",p.valuations.single().value.toPlainString())
+        assertNull(p.valuations.single().reportedUnits);assertFalse(p.valuations.single().calculatedTotal)
+        db.openHelper.readableDatabase.query("PRAGMA cipher_version").use {assertTrue(it.moveToFirst());assertTrue(it.getString(0).isNotBlank())}
+    }
+
 }

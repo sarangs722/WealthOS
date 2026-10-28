@@ -29,6 +29,7 @@ object Performance {
     }
     /** Unit-tracked investments only; each actual flow uses its own dated FX, never today's rate. */
     fun portfolioXirr(book:BankBook,date:LocalDate):RateResult {
+        if(book.portfolio.instruments.any{it.tracking==TrackingMode.OBSERVED && HoldingSnapshots.availableForSnapshot(it.category) && it.openedOn<=date})return RateResult(null,"Value-only holdings do not have dated transaction history; portfolio XIRR is unavailable.")
         val instruments=book.portfolio.instruments.filter {it.tracking==TrackingMode.TRANSACTIONS && it.openedOn<=date}
         if(instruments.isEmpty())return RateResult(null,"No transaction-based investments.")
         val combined=mutableListOf<DatedCashFlow>();var staleFx=false

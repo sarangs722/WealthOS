@@ -67,7 +67,7 @@ object Contracts {
 }
 
 data class AssetValue(val instrument:Instrument,val nativeValue:BigDecimal?,val date:LocalDate?,val status:String,
-                      val holding:Holding?=null,val contractEstimate:BigDecimal?=null,val unitPrice:BigDecimal?=null) {
+                      val holding:Holding?=null,val contractEstimate:BigDecimal?=null,val unitPrice:BigDecimal?=null,val snapshot:AssetValuation?=null) {
     val unrealizedGain:BigDecimal? get()=if(nativeValue!=null && holding?.remainingCost!=null) nativeValue-holding.remainingCost else null
 }
 data class WealthSnapshot(
@@ -82,9 +82,13 @@ object WealthValuation {
         if(date<instrument.openedOn) return AssetValue(instrument,null,null,"Incomplete: before opening position")
         val entries=book.entries.filter {it.instrumentId==instrument.id}
         val events=book.contractEvents.filter {it.instrumentId==instrument.id && it.date<=date}
-        val latest=book.valuations.filter {it.instrumentId==instrument.id && it.date<=date}
+        val cutover=entries.filter {it.kind==TradeKind.OPENING}.minOfOrNull {it.date}
+        val historicalSnapshot=instrument.tracking==TrackingMode.TRANSACTIONS && cutover!=null && date<cutover
+        val kind=if(instrument.tracking==TrackingMode.TRANSACTIONS && !historicalSnapshot) ValuationKind.UNIT_PRICE else ValuationKind.OBSERVED_TOTAL
+        val latest=book.valuations.filter {it.instrumentId==instrument.id && it.date<=date && it.kind==kind}
             .maxWithOrNull(compareBy<AssetValuation> {it.date}.thenBy {it.revision})
         val contract=book.contracts.find {it.instrumentId==instrument.id}
+        if(historicalSnapshot) return AssetValue(instrument,latest?.value,latest?.date,if(latest==null)"Missing historical value" else "Historical value snapshot · carried forward",snapshot=latest)
         return when(instrument.tracking) {
             TrackingMode.TRANSACTIONS -> {
                 val holding=Holdings.calculate(entries,date)
@@ -101,7 +105,7 @@ object WealthValuation {
                 else AssetValue(instrument,quote?.multiply(holding.units,MC),latest?.date,
                     if(latest==null) "Missing unit price" else if(actions.isNotEmpty())"Corporate-action-adjusted carried quote · estimate" else latest.source?.let {PublicRules.describe(it,date)} ?: "Manual unit price · ${if(latest.date==date) "observed" else "carried forward"}",holding,unitPrice=quote)
             }
-            TrackingMode.OBSERVED -> AssetValue(instrument,latest?.value,latest?.date,if(latest==null) "Missing valuation" else "Observed total · carried forward")
+            TrackingMode.OBSERVED -> AssetValue(instrument,latest?.value,latest?.date,if(latest==null) "Missing valuation" else if(latest.calculatedTotal) "Units x price snapshot - carried forward" else "Observed total - carried forward",snapshot=latest)
             TrackingMode.LOAN -> AssetValue(instrument,contract?.let {Contracts.loanPrincipal(it,events,date)},
                 events.maxOfOrNull {it.date} ?: contract?.start,"Opening principal less actual repayments")
             TrackingMode.DEPOSIT -> {

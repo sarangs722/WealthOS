@@ -81,4 +81,42 @@ class BackupRepositoryTest {
     @Test fun safetyCopyIoFailurePreservesVault()=runTest(timeout=5.minutes) {bank();val file=backup.export(password);safety.writeText("Not a directory");val plan=backup.prepare(file,password);val before=snapshot();try{backup.restore(plan);fail()}catch(_:IllegalArgumentException){};assertEquals(before.tables,snapshot().tables)}
     @Test fun cancelledRestorePreservesRecords()=runTest(timeout=5.minutes) {bank();val plan=backup.prepare(backup.export(password),password);val before=snapshot();val task=launch {backup.restore(plan)};task.cancel();task.join();plan.close();assertEquals(before.tables,snapshot().tables)}
     @Test fun unknownSchemaIsRejectedAndSafetyCopiesAreRetained()=runTest(timeout=5.minutes) {bank();val original=snapshot();try{backup.prepare(seal(original.copy(schema=999)),password);fail()}catch(_:IllegalArgumentException){};repeat(2){val plan=backup.prepare(backup.export(password),password);backup.restore(plan)};assertEquals(2,backup.safetyBackups().size);backup.safetyBackups().forEach {assertTrue(BackupEnvelope.decrypt(backup.readSafety(it.id),password).isNotEmpty())}}
+    @Test fun schemaSixPortableBackupMigratesWithoutLosingBankHistory()=runTest(timeout=5.minutes) {
+        bank();val current=snapshot()
+        val newColumns=setOf("reportedInvested","reportedUnits","reportedPrice","calculatedTotal")
+        val old=current.copy(schema=6,tables=current.tables.map {table->
+            if(table.name!="asset_valuations")table else {
+                val keep=table.columns.indices.filter {table.columns[it] !in newColumns}
+                table.copy(columns=keep.map {table.columns[it]},rows=table.rows.map {row->keep.map {row[it]}})
+            }
+        })
+        bank("77.00");val plan=backup.prepare(seal(old),password)
+        assertEquals(7,plan.info.schema);backup.restore(plan)
+        assertEquals(current.tables.single {it.name=="bank_accounts"},snapshot().tables.single {it.name=="bank_accounts"})
+        assertEquals(current.tables.single {it.name=="balance_observations"},snapshot().tables.single {it.name=="balance_observations"})
+    }
+    @Test fun holdingMetadataAndConvertedHistorySurviveEncryptedPortableRestore()=runTest(timeout=5.minutes) {
+        val p=RoomPortfolioRepository(db,clock)
+        val i=Instrument(UUID.randomUUID(),"Fictional quick fund",AssetCategory.MUTUAL_FUND,CurrencyCode.INR,TrackingMode.OBSERVED,day.minusDays(1),at)
+        val value=AssetValuation(UUID.randomUUID(),i.id,ValuationKind.OBSERVED_TOTAL,"1234.56".toBigDecimal(),i.openedOn,0,at,reportedInvested="1000.00".toBigDecimal(),reportedUnits="10.000000000001".toBigDecimal(),reportedPrice="123.456789012345".toBigDecimal())
+        p.addInstrument(NewInstrument(i,initialValue=value.value,snapshot=value))
+        p.startUnitTracking(i.id,day,BigDecimal.TEN,null,"130.123456789012".toBigDecimal())
+        val before=snapshot();val bytes=backup.export(password)
+        val plan=backup.prepare(bytes,password);backup.restore(plan)
+        val after=snapshot();for(name in listOf("instruments","investment_entries","asset_valuations"))assertEquals(before.tables.single {it.name==name},after.tables.single {it.name==name})
+        val book=db.readBook();val upgraded=book.portfolio.instruments.single()
+        assertNull(WealthValuation.asset(upgraded,book.portfolio,day).holding!!.remainingCost)
+        assertEquals("1234.56",WealthValuation.asset(upgraded,book.portfolio,i.openedOn).nativeValue!!.toPlainString())
+    }
+    @Test fun invalidHoldingMetadataIsRejectedBeforeCurrentRecordsChange()=runTest(timeout=5.minutes) {
+        val p=RoomPortfolioRepository(db,clock);val i=Instrument(UUID.randomUUID(),"Fictional snapshot",AssetCategory.STOCK,CurrencyCode.INR,TrackingMode.OBSERVED,day,at)
+        p.addInstrument(NewInstrument(i,initialValue=BigDecimal.TEN))
+        val before=snapshot();val table=before.tables.single {it.name=="asset_valuations"}
+        for((column,bad) in listOf("reportedUnits" to Cell.Text("-1"),"calculatedTotal" to Cell.Integer(2),"reportedInvested" to Cell.Text("1E+10"))) {
+            val index=table.columns.indexOf(column);val corrupt=table.copy(rows=table.rows.map {row->row.toMutableList().also {it[index]=bad}})
+            try{backup.prepare(seal(before.copy(tables=before.tables.map {if(it.name==table.name)corrupt else it})),password);fail()}catch(_:IllegalArgumentException){}
+            assertEquals(before.tables,snapshot().tables)
+        }
+    }
+
 }
