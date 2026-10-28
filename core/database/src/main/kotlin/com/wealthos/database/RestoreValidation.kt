@@ -8,17 +8,44 @@ import java.util.UUID
 /** Reject incompatible records before touching the current vault, beyond SQL/FK validation. */
 internal suspend fun validateRestoredBook(db:BankDatabase){
     val b=db.readBook();val p=b.portfolio
+    val entriesByInstrument=p.entries.groupBy {it.instrumentId}
+    val starts=entriesByInstrument.mapValues {(_,rows)->rows.filter {it.kind==TradeKind.OPENING}.minWithOrNull(compareBy<InvestmentEntry> {it.date}.thenBy {it.sequence})}
+    // Markers identify an included event, not an arbitrary count. Index by sequence
+    // so backdated records need no chronological-sequence assumption or repeated scans.
+    val investmentDates=entriesByInstrument.mapValues {(_,rows)->rows.associate {it.sequence to it.date}}
+    val contractDates=p.contractEvents.groupBy {it.instrumentId}.mapValues {(_,rows)->rows.associate {it.sequence to it.date}}
+    fun eligibleMarker(marker:Int,date:LocalDate,dates:Map<Int,LocalDate>?) = marker==0 ||
+        (marker>0 && dates?.get(marker)?.let {it<=date}==true)
     b.observations.forEach {o->require(o.revision>0 && o.effectiveDate.year>=1900);val a=requireNotNull(b.accounts.find {it.id==o.accountId});require(o.currency==a.currency);Amounts.parse(o.amount.toPlainString(),o.currency)}
     fun money(v:BigDecimal,c:CurrencyCode){require(v>=BigDecimal.ZERO);Amounts.parse(v.toPlainString(),c)}
-    p.instruments.forEach {i->require(i.openedOn.year>=1900);val entries=p.entries.filter {it.instrumentId==i.id};entries.forEach {e->require(e.sequence>0 && e.date>=i.openedOn);money(e.fees,i.currency);e.gross?.let {money(it,i.currency)}};val through=(entries.map {it.date}+i.openedOn).max();if(i.tracking==TrackingMode.TRANSACTIONS)Holdings.calculate(entries,through) else require(entries.isEmpty());if(i.tracking in listOf(TrackingMode.DEPOSIT,TrackingMode.LOAN))require(p.contracts.count {it.instrumentId==i.id && it.start==i.openedOn}==1)}
+    p.instruments.forEach {i->
+        require(i.openedOn.year>=1900)
+        val entries=entriesByInstrument[i.id].orEmpty()
+        val start=starts[i.id]
+        entries.forEach {e->
+            require(e.sequence>0 && e.date>=i.openedOn)
+            require(start==null || e.date>start.date || (e.date==start.date && e.sequence>=start.sequence)) {
+                "Backup contains a transaction before its known starting position."
+            }
+            money(e.fees,i.currency);e.gross?.let {money(it,i.currency)}
+        }
+        val through=(entries.map {it.date}+i.openedOn).max()
+        if(i.tracking==TrackingMode.TRANSACTIONS)Holdings.calculate(entries,through) else require(entries.isEmpty())
+        if(i.tracking in listOf(TrackingMode.DEPOSIT,TrackingMode.LOAN))require(p.contracts.count {it.instrumentId==i.id && it.start==i.openedOn}==1)
+    }
+
     p.valuations.forEach {v->
         val i=p.instruments.single {it.id==v.instrumentId}
         require(v.revision>0 && v.value>=BigDecimal.ZERO && v.date.year>=1900)
         if(v.kind==ValuationKind.UNIT_PRICE)DecimalInput.parse(v.value.toPlainString())else money(v.value,i.currency)
-        val cutover=p.entries.filter {it.instrumentId==i.id && it.kind==TradeKind.OPENING}.minOfOrNull {it.date}
+        val cutover=starts[i.id]?.date
         val preservedSnapshot=i.tracking==TrackingMode.TRANSACTIONS && v.kind==ValuationKind.OBSERVED_TOTAL && cutover!=null && v.date<=cutover
         require(i.tracking!=TrackingMode.LOAN && (preservedSnapshot || v.kind==if(i.tracking==TrackingMode.TRANSACTIONS)ValuationKind.UNIT_PRICE else ValuationKind.OBSERVED_TOTAL))
         require(v.date>=i.openedOn || v.kind==ValuationKind.UNIT_PRICE)
+        require(eligibleMarker(v.includedInvestmentSequence,v.date,investmentDates[i.id]) &&
+            eligibleMarker(v.includedContractSequence,v.date,contractDates[i.id])) {
+            "Backup contains valuation coverage outside its recorded financial history."
+        }
         HoldingSnapshots.validate(v,i.currency)
         require(HoldingSnapshots.availableForSnapshot(i.category) || (v.reportedInvested==null && v.reportedUnits==null && v.reportedPrice==null && !v.calculatedTotal))
     }

@@ -119,4 +119,71 @@ class BackupRepositoryTest {
         }
     }
 
+    private fun changeCell(s:VaultSnapshot,tableName:String,id:UUID,column:String,value:Cell):VaultSnapshot = s.copy(tables=s.tables.map {table->
+        if(table.name!=tableName)table else {
+            val identity=table.columns.indexOf("id");val index=table.columns.indexOf(column)
+            require(identity>=0 && index>=0 && table.rows.count {it[identity]==Cell.Text(id.toString())}==1)
+            table.copy(rows=table.rows.map {row->if(row[identity]!=Cell.Text(id.toString()))row else row.toMutableList().also {it[index]=value}})
+        }
+    })
+    private suspend fun convertedHolding():Instrument {
+        bank();val repo=RoomPortfolioRepository(db,clock)
+        val i=Instrument(UUID.randomUUID(),"Fictional history boundary",AssetCategory.MUTUAL_FUND,CurrencyCode.INR,TrackingMode.OBSERVED,day.minusDays(2),at)
+        repo.addInstrument(NewInstrument(i,initialValue="1000.00".toBigDecimal()))
+        repo.startUnitTracking(i.id,day.minusDays(1),BigDecimal.TEN,null,"100".toBigDecimal())
+        repo.addEntry(InvestmentEntry(UUID.randomUUID(),i.id,TradeKind.BUY,day,0,"5".toBigDecimal(),"500".toBigDecimal(),recordedAt=at))
+        return db.readBook().portfolio.instruments.single {it.id==i.id}
+    }
+    @Test fun restoreRejectsTransactionsBeforeTheKnownStartingPosition()=runTest(timeout=5.minutes) {
+        val i=convertedHolding();val before=snapshot();val buy=db.readBook().portfolio.entries.single {it.instrumentId==i.id && it.kind==TradeKind.BUY}
+        val invalid=changeCell(before,"investment_entries",buy.id,"date",Cell.Text(i.openedOn.toString()))
+        try{backup.prepare(seal(invalid),password).use {fail("Accepted a trade before the known starting position")}}catch(_:IllegalArgumentException){}
+        assertEquals(before.tables,snapshot().tables);assertTrue(backup.safetyBackups().isEmpty())
+    }
+    @Test fun restoreRejectsImpossibleValuationCoverageWithoutTouchingLiveRecords()=runTest(timeout=5.minutes) {
+        val i=convertedHolding();val repo=RoomPortfolioRepository(db,clock)
+        val rd=Instrument(UUID.randomUUID(),"Fictional coverage deposit",AssetCategory.RD,CurrencyCode.INR,TrackingMode.DEPOSIT,i.openedOn,at)
+        repo.addInstrument(NewInstrument(rd,initialValue="1000.00".toBigDecimal(),contract=FinancialContract(rd.id,"1000".toBigDecimal(),zero,rd.openedOn,day.plusYears(1))))
+        repo.addContractEvent(ContractEvent(UUID.randomUUID(),rd.id,ContractEventKind.CONTRIBUTION,day,0,"500".toBigDecimal(),recordedAt=at))
+        repo.addValuation(AssetValuation(UUID.randomUUID(),rd.id,ValuationKind.OBSERVED_TOTAL,"1500.00".toBigDecimal(),day,0,at))
+        val p=db.readBook().portfolio
+        val quote=p.valuations.single {it.instrumentId==i.id && it.kind==ValuationKind.UNIT_PRICE}
+        val snapshot=p.valuations.single {it.instrumentId==i.id && it.kind==ValuationKind.OBSERVED_TOTAL}
+        val deposit=p.valuations.single {it.instrumentId==rd.id && it.date==day}
+        val earlierDeposit=p.valuations.single {it.instrumentId==rd.id && it.date==rd.openedOn}
+        val before=snapshot()
+        val variants=listOf(Triple(quote.id,"includedInvestmentSequence",-1),Triple(quote.id,"includedInvestmentSequence",Int.MAX_VALUE),
+            Triple(snapshot.id,"includedInvestmentSequence",1),Triple(deposit.id,"includedContractSequence",-1),
+            Triple(deposit.id,"includedContractSequence",Int.MAX_VALUE),Triple(earlierDeposit.id,"includedContractSequence",1))
+        for((id,column,value) in variants){
+            val invalid=changeCell(before,"asset_valuations",id,column,Cell.Integer(value.toLong()))
+            try{backup.prepare(seal(invalid),password).use {fail("Accepted impossible valuation coverage: $column=$value")}}catch(_:IllegalArgumentException){}
+            assertEquals(before.tables,snapshot().tables);assertTrue(backup.safetyBackups().isEmpty())
+        }
+    }
+
+    @Test fun restoreRejectsSameDayTradeOrderedBeforeTheStartingPosition()=runTest(timeout=5.minutes) {
+        val i=convertedHolding();val before=snapshot();val entries=db.readBook().portfolio.entries.filter {it.instrumentId==i.id}
+        val opening=entries.single {it.kind==TradeKind.OPENING};val buy=entries.single {it.kind==TradeKind.BUY}
+        val quote=db.readBook().portfolio.valuations.single {it.instrumentId==i.id && it.kind==ValuationKind.UNIT_PRICE}
+        val reordered=changeCell(changeCell(changeCell(before,"investment_entries",buy.id,"date",Cell.Text(opening.date.toString())),
+            "investment_entries",opening.id,"sequence",Cell.Integer(3)),"asset_valuations",quote.id,"includedInvestmentSequence",Cell.Integer(3))
+        try{backup.prepare(seal(reordered),password).use {fail("Accepted a same-day trade ordered before its starting position")}}catch(_:IllegalArgumentException){}
+        assertEquals(before.tables,snapshot().tables);assertTrue(backup.safetyBackups().isEmpty())
+    }
+
+    @Test fun backdatedCoveragePreservesValidHistoryButRejectsAnIneligibleSequence()=runTest(timeout=5.minutes) {
+        val i=convertedHolding();val repo=RoomPortfolioRepository(db,clock)
+        // Sequence 2 is dated later than sequence 3. Numerical range alone is insufficient.
+        repo.addEntry(InvestmentEntry(UUID.randomUUID(),i.id,TradeKind.BUY,day.minusDays(1),0,BigDecimal.ONE,"100".toBigDecimal(),recordedAt=at))
+        repo.addValuation(AssetValuation(UUID.randomUUID(),i.id,ValuationKind.UNIT_PRICE,"101".toBigDecimal(),day.minusDays(1),0,at,"Fictional backdated quote correction"))
+        val quote=db.readBook().portfolio.valuations.single {it.instrumentId==i.id && it.revision==2}
+        assertEquals(3,quote.includedInvestmentSequence)
+        val before=snapshot()
+        backup.prepare(backup.export(password),password).use {assertEquals(before.records,it.info.records)}
+        val invalid=changeCell(before,"asset_valuations",quote.id,"includedInvestmentSequence",Cell.Integer(2))
+        try{backup.prepare(seal(invalid),password).use {fail("Accepted a sequence whose event occurs after the valuation date")}}catch(_:IllegalArgumentException){}
+        assertEquals(before.tables,snapshot().tables);assertTrue(backup.safetyBackups().isEmpty())
+    }
+
 }

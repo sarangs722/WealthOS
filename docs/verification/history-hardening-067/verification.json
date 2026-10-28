@@ -1,0 +1,111 @@
+{
+  "version": "0.6.7",
+  "versionCode": 13,
+  "databaseSchema": 7,
+  "encryptionAndBackupEnvelope": "unchanged",
+  "reviewType": "bounded first-party data-integrity review, not an independent security audit",
+  "redRegressionTests": {
+    "tests": 3,
+    "failuresExpectedAndObserved": 3,
+    "baseline": "0.6.6 implementation"
+  },
+  "unit": {
+    "finance": {
+      "tests": 107,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "security": {
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "network": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "encryptedPersistenceTests": 73,
+  "affectedNativeUiTests": 10,
+  "results": "all final tests passed",
+  "testDevice": "WealthOS29 / API 29 / 4 KiB / emulator-5556",
+  "phoneAccessed": false,
+  "personalDataModified": false,
+  "artifacts": {
+    "database-tests-red.apk": {
+      "sha256": "97b3f0b3edb6b0dda8d07470751e41ec904e8ba0fbf66f9015fd32e0347cc623",
+      "bytes": 24923204
+    },
+    "database-tests-final.apk": {
+      "sha256": "abc48eaa4b82e4c057053f2295ac92ac5e3dc9b5e225dfdc753c4c818f620ac9",
+      "bytes": 24923204
+    },
+    "WealthOS-0.6.7-ui-lab.apk": {
+      "sha256": "16186b0bb0cb503142b6ceb3e5f64efb51be8a2603fdb3a1dfb45f36ae16de03",
+      "bytes": 42901733
+    },
+    "WealthOS-0.6.7-ui-tests.apk": {
+      "sha256": "c7db0ab0bfacec24a35c32e0b6d27da482a63999603d5bd279a8f08b035a9089",
+      "bytes": 3017915
+    },
+    ".tools\\WealthOS-0.6.7-development.apk": {
+      "sha256": "0b645074ea13c19720a4f8a5123e91d4052fbe8eb968349154b4e096683d2cc8",
+      "bytes": 42220858
+    },
+    ".tools\\history-hardening-v067\\WealthOS-0.6.7-release-unsigned.apk": {
+      "sha256": "105e7256f5f197939725b3d1e1270ffc4a34fcf4963ea4c041eadac0abc4229c",
+      "bytes": 11379530
+    },
+    ".tools/production-release/WealthOS-0.6.7.apk": {
+      "sha256": "902c214de014392fd2c2c9c8feeff233360910600157e13a6d290782f7e8364d",
+      "bytes": 11400101
+    }
+  },
+  "releaseSigning": "passed with existing release certificate; independently reverified",
+  "physicalDeviceReview": "pending",
+  "independentSecurityReview": "pending",
+  "debugBuild": "passed",
+  "minifiedReleaseBuild": "passed",
+  "debugReleaseLint": "0 errors, 1 existing Gradle-version warning each",
+  "developmentSignature": "verified unchanged development identity; v2",
+  "releasePackage": {
+    "status": "PACKAGE_AND_SIGNATURE_VERIFIED",
+    "applicationId": "com.wealthos.app.release",
+    "versionName": "0.6.7",
+    "versionCode": 13,
+    "apkSha256": "902c214de014392fd2c2c9c8feeff233360910600157e13a6d290782f7e8364d",
+    "certificateSha256": "cf06385769b4d9e0992910521f210a77407cb284e2963290fbb10006b8d88054",
+    "minSdk": 29,
+    "targetSdk": 37,
+    "debuggable": false,
+    "testOnly": false,
+    "osBackupExcluded": true,
+    "cleartext": false,
+    "permissions": [
+      "android.permission.INTERNET",
+      "android.permission.USE_BIOMETRIC",
+      "com.wealthos.app.release.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    ],
+    "componentInventory": "reviewed",
+    "nativeLibraries": 8,
+    "elfAndZip16KiB": "passed",
+    "phoneAccessed": false,
+    "physicalDeviceReview": "pending",
+    "independentSecurityReview": "pending"
+  },
+  "releasePayload": {
+    "unsignedSha256": "105e7256f5f197939725b3d1e1270ffc4a34fcf4963ea4c041eadac0abc4229c",
+    "signedSha256": "902c214de014392fd2c2c9c8feeff233360910600157e13a6d290782f7e8364d",
+    "identicalPayloadEntries": 98,
+    "addedSigningEntries": [
+      "META-INF/MANIFEST.MF",
+      "META-INF/WEALTHOS.RSA",
+      "META-INF/WEALTHOS.SF"
+    ]
+  },
+  "previousRelease066Unchanged": true
+}

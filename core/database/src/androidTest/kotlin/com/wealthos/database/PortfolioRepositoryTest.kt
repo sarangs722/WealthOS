@@ -232,4 +232,14 @@ class PortfolioRepositoryTest {
         db.openHelper.readableDatabase.query("PRAGMA cipher_version").use {assertTrue(it.moveToFirst());assertTrue(it.getString(0).isNotBlank())}
     }
 
+    @Test fun openingSnapshotInitializesCoverageFromItsEmptyLedger()=runTest {
+        val i=instrument(AssetCategory.MUTUAL_FUND).copy(tracking=TrackingMode.OBSERVED)
+        val input=summary(i).copy(includedInvestmentSequence=17,includedContractSequence=23)
+        portfolio.addInstrument(NewInstrument(i,initialValue=input.value,snapshot=input))
+        val saved=bank.observe().first().portfolio.valuations.single()
+        assertEquals(0,saved.includedInvestmentSequence);assertEquals(0,saved.includedContractSequence)
+        assertEquals(input.value,saved.value);assertEquals(input.date,saved.date)
+        validateRestoredBook(db)
+    }
+
 }

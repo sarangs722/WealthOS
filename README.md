@@ -1,6 +1,6 @@
 # WealthOS
 
-**Latest signed update: [0.6.6 remaining-form refinement](docs/RELEASE_0_6_6.md)** shortens cash flow, received income, scenarios, goals and calculators. Builds, tests and signature verification passed; the update retains the existing signing identity.
+**Latest signed update: [0.6.7 financial-history restore hardening](docs/RELEASE_0_6_7.md)** rejects inconsistent starting-position history and invalid valuation coverage in backups. 129 JVM, 73 encrypted-storage and ten affected native workflow tests passed, along with builds, lint and signature/payload verification. Schema 7 and the existing signing identities are retained. [0.6.6](docs/RELEASE_0_6_6.md) provides the shorter cash-flow, scenario, goal and calculator forms.
 
 Native, offline-first Android personal wealth tracker. **Previous data-entry refinement: [0.6.5 quick entry](docs/RELEASE_0_6_5.md)** starts investment holdings with name and current value, keeps other figures optional and uses shorter native forms. The signed update retains the existing release identity; [0.6.4](docs/RELEASE_0_6_4.md) is retained. **Milestone 6 (0.6.0)** adds password-protected portable backups, validated transactional restore, encrypted pre-restore safety copies and release hardening. Existing bank, portfolio, income, protection, planning and optional public-data features remain local and offline-first.
 
@@ -50,7 +50,7 @@ Records use SQLCipher and a Keystore-protected random key. Portable files use pa
 
 ## Documentation
 
-* [Latest signed WealthOS 0.6.6 and verification](docs/RELEASE_0_6_6.md)
+* [Latest signed WealthOS 0.6.7 and verification](docs/RELEASE_0_6_7.md)
 * [Guided phone checks to run personally](docs/DEVICE_CHECKS.md)
 * [Original 0.6.0 signing and migration record](docs/PRODUCTION_RELEASE.md)
 * [Milestone 6 verified progress and remaining release requirements](docs/PROGRESS_MILESTONE_6.md)

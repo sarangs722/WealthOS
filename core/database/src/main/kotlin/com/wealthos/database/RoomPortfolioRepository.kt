@@ -60,7 +60,7 @@ class RoomPortfolioRepository(private val db:BankDatabase,private val clock:Cloc
         input.initialValue?.let {amount ->
             require(i.tracking!=TrackingMode.LOAN) {"Use the loan's opening principal."}
             validateValue(i,amount)
-            val value=input.snapshot?.copy(id=UUID.randomUUID(),revision=1,recordedAt=clock.instant()) ?: AssetValuation(UUID.randomUUID(),i.id,if(i.tracking==TrackingMode.TRANSACTIONS) ValuationKind.UNIT_PRICE else ValuationKind.OBSERVED_TOTAL,amount,i.openedOn,1,clock.instant(),"Opening manual valuation")
+            val value=input.snapshot?.copy(id=UUID.randomUUID(),revision=1,recordedAt=clock.instant(),includedContractSequence=0,includedInvestmentSequence=0) ?: AssetValuation(UUID.randomUUID(),i.id,if(i.tracking==TrackingMode.TRANSACTIONS) ValuationKind.UNIT_PRICE else ValuationKind.OBSERVED_TOTAL,amount,i.openedOn,1,clock.instant(),"Opening manual valuation")
             dao.insert(value.entity());audit(value.id,"VALUE_ASSET",value.toString())
         }
     }
