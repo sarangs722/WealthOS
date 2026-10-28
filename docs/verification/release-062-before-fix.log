@@ -1,0 +1,78 @@
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PrivacyPreferencesRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.PrivacyPreferencesRecoveryTest:
+INSTRUMENTATION_STATUS: test=committedBackupWinsOverIncompleteBase
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PrivacyPreferencesRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=committedBackupWinsOverIncompleteBase
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PrivacyPreferencesRecoveryTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=genuinelyNewPreferencesUseDefaultsWithoutCreatingFiles
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PrivacyPreferencesRecoveryTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=genuinelyNewPreferencesUseDefaultsWithoutCreatingFiles
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PrivacyPreferencesRecoveryTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=backupOnlyInterruptedWriteRetainsLockAndAmountPrivacy
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PrivacyPreferencesRecoveryTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: The committed access lock must survive a backup-only interrupted write
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at com.wealthos.app.PrivacyPreferencesRecoveryTest.backupOnlyInterruptedWriteRetainsLockAndAmountPrivacy$lambda$0(PrivacyPreferencesRecoveryTest.kt:33)
+	at com.wealthos.app.PrivacyPreferencesRecoveryTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at com.wealthos.app.PrivacyPreferencesRecoveryTest.fixture(PrivacyPreferencesRecoveryTest.kt:18)
+	at com.wealthos.app.PrivacyPreferencesRecoveryTest.backupOnlyInterruptedWriteRetainsLockAndAmountPrivacy(PrivacyPreferencesRecoveryTest.kt:29)
+
+INSTRUMENTATION_STATUS: stream=
+Error in backupOnlyInterruptedWriteRetainsLockAndAmountPrivacy(com.wealthos.app.PrivacyPreferencesRecoveryTest):
+java.lang.AssertionError: The committed access lock must survive a backup-only interrupted write
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at com.wealthos.app.PrivacyPreferencesRecoveryTest.backupOnlyInterruptedWriteRetainsLockAndAmountPrivacy$lambda$0(PrivacyPreferencesRecoveryTest.kt:33)
+	at com.wealthos.app.PrivacyPreferencesRecoveryTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at com.wealthos.app.PrivacyPreferencesRecoveryTest.fixture(PrivacyPreferencesRecoveryTest.kt:18)
+	at com.wealthos.app.PrivacyPreferencesRecoveryTest.backupOnlyInterruptedWriteRetainsLockAndAmountPrivacy(PrivacyPreferencesRecoveryTest.kt:29)
+
+INSTRUMENTATION_STATUS: test=backupOnlyInterruptedWriteRetainsLockAndAmountPrivacy
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 0.085
+There was 1 failure:
+1) backupOnlyInterruptedWriteRetainsLockAndAmountPrivacy(com.wealthos.app.PrivacyPreferencesRecoveryTest)
+java.lang.AssertionError: The committed access lock must survive a backup-only interrupted write
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at com.wealthos.app.PrivacyPreferencesRecoveryTest.backupOnlyInterruptedWriteRetainsLockAndAmountPrivacy$lambda$0(PrivacyPreferencesRecoveryTest.kt:33)
+	at com.wealthos.app.PrivacyPreferencesRecoveryTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at com.wealthos.app.PrivacyPreferencesRecoveryTest.fixture(PrivacyPreferencesRecoveryTest.kt:18)
+	at com.wealthos.app.PrivacyPreferencesRecoveryTest.backupOnlyInterruptedWriteRetainsLockAndAmountPrivacy(PrivacyPreferencesRecoveryTest.kt:29)
+
+FAILURES!!!
+Tests run: 3,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

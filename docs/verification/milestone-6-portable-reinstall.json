@@ -1,0 +1,15 @@
+{
+  "serial": "emulator-5556",
+  "avd": "WealthOS29",
+  "api": "29",
+  "apkSha256": "71baccb417015beac48139fc2e4855c423ab46655d0e86ce720ece30c2fe5cd0",
+  "encryptedArchiveSha256": "23868e6a6cce875eb6b1ddeb830b492a516d0ffc51964a63814291cef7956fc9",
+  "oldWrappedKeySha256": "0ac3cd9c7ef1c63c9d8d0fa9f3c25fcda50c2bd5439c145e6edec8ae8ca223da",
+  "newWrappedKeySha256": "d92c196907a9f1bf9517f00e91462f1258e0985dbad89a0f33f668f1cadd5f61",
+  "seed": "OK (1 test)",
+  "actualUninstallAndReinstall": true,
+  "restore": "OK (1 test)",
+  "retained": "Bank revisions, decimal balances, FIFO opening units/cost, NAV, net worth",
+  "network": "off",
+  "safety": "retained"
+}

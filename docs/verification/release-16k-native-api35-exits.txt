@@ -1,0 +1,12 @@
+ACTIVITY MANAGER PROCESS EXIT INFO (dumpsys activity exit-info)
+Last Timestamp of Persistence Into Persistent Storage: 2026-10-28 14:03:50.779
+  package: com.wealthos.app.release
+    Historical Process Exit for uid=10207
+        ApplicationExitInfo #0:
+          timestamp=2026-10-28 13:43:01.185 pid=4927 realUid=10207 packageUid=10207 definingUid=10207 user=0
+          process=com.wealthos.app.release reason=10 (USER REQUESTED) subreason=21 (FORCE STOP) status=0
+          importance=100 pss=0.00 rss=0.00 description=stop com.wealthos.app.release due to from pid 6053 state=empty trace=null
+        ApplicationExitInfo #1:
+          timestamp=2026-10-28 13:38:34.204 pid=2505 realUid=10207 packageUid=10207 definingUid=10207 user=0
+          process=com.wealthos.app.release reason=10 (USER REQUESTED) subreason=21 (FORCE STOP) status=0
+          importance=100 pss=0.00 rss=0.00 description=stop com.wealthos.app.release due to from pid 4917 state=empty trace=null

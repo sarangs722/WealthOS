@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-28",
+  "scope": "Native SDK UI smoke, established fictional fixture only",
+  "serial": "emulator-5556",
+  "avd": "WealthOS29",
+  "api": 29,
+  "runtimePageSize": 4096,
+  "candidateSha256": "e673987c15ba074e1083c4ce5e2cdc5c6bbbcc494912e59e8dd1b740ae50b412",
+  "candidateSigner": "Disposable test certificate; private key destroyed",
+  "sourceUid": 10136,
+  "releaseUid": 10116,
+  "nativeSafPicker": true,
+  "backupPreviewFinancialAuditRows": 12,
+  "receivingVaultInitiallyEmpty": true,
+  "explicitReplaceAcknowledgement": true,
+  "encryptedSafetyCopyObserved": true,
+  "coldStartNetWorthInr": "1152.52",
+  "bankRevisions": [
+    1,
+    2
+  ],
+  "bankAmounts": [
+    "500.01",
+    "650.02"
+  ],
+  "fundUnits": "5",
+  "remainingFifoCost": "400.00",
+  "unitPrice": "100.50",
+  "fundValue": "502.50",
+  "networking": "off",
+  "originalDatabaseSha256Before": "a4f0189bfc83c07b040af0592803cd375bbed96f6c05d7521ff9bdcf330854cd",
+  "originalDatabaseSha256After": "a4f0189bfc83c07b040af0592803cd375bbed96f6c05d7521ff9bdcf330854cd",
+  "originalWrappedKeySha256": "d92c196907a9f1bf9517f00e91462f1258e0985dbad89a0f33f668f1cadd5f61",
+  "originalCiphertextAndWrappedKeyByteIdentical": true,
+  "originalDatabaseWalAbsentBeforeAndAfter": true,
+  "originalAppReopens": true,
+  "phoneAccessed": false,
+  "environmentIssue": "One API 29 Quickstep launcher crash dialog dismissed before candidate UI; no WealthOS crash observed"
+}

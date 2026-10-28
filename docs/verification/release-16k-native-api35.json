@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-28",
+  "serial": "emulator-5558",
+  "avd": "WealthOS16K",
+  "api": 35,
+  "abi": "x86_64",
+  "userspacePageSize": 16384,
+  "runtimeScope": "Google 16 KiB x86_64 userspace simulation",
+  "applicationId": "com.wealthos.app.release",
+  "version": "0.6.0",
+  "apkSha256": "7b81b112ddcd3adfaec5c273f08ac436d808e99f1cb18dd505993c908de2af2d",
+  "signer": "Disposable setup-test identity; private key destroyed",
+  "certificateSha256": "6b7ba6f19eacea4c262bd6ba1176cc2dfc78d37c5ff6a27ffb822911c2b3ddaf",
+  "normalAnimationSettingsRestored": true,
+  "nativeSafPicker": true,
+  "sourceBackupSha256": "23868e6a6cce875eb6b1ddeb830b492a516d0ffc51964a63814291cef7956fc9",
+  "sourceFinancialAuditRows": 12,
+  "receiverInitiallyEmpty": true,
+  "explicitReplacementAcknowledged": true,
+  "encryptedSafetyCopyObserved": true,
+  "coldStartNetWorthInr": "1152.52",
+  "bankRevisions": [
+    1,
+    2
+  ],
+  "bankAmounts": [
+    "500.01",
+    "650.02"
+  ],
+  "fundUnits": "5",
+  "remainingFifoCost": "400.00",
+  "unitPrice": "100.50",
+  "fundValue": "502.50",
+  "networking": "off",
+  "releaseCrashObserved": false,
+  "phoneAccessed": false,
+  "physicalArmVerified": false,
+  "emulatorVersion": "36.3.10.0",
+  "animationTimingNote": "Cold boot showed animator_duration_scale=0 despite the prior restored/unset value. All three scales explicitly set to 1.0 during native verification, then restored to the originally saved 1.0/1.0/unset."
+}

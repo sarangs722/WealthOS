@@ -1,0 +1,7 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <!-- Test APK only. Simulates a document provider returning truncated data on readback. -->
+        <provider android:name="com.wealthos.app.TruncatedBackupProvider"
+            android:authorities="${backupTestAuthority}" android:exported="true" />
+    </application>
+</manifest>

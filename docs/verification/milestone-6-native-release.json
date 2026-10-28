@@ -1,0 +1,12 @@
+{
+  "finalLabSha256": "da400ed10bd09209cbfb9b5b616bfd2e7ff7486fe93afb80c0848612307a91d4",
+  "shrunkReleaseOpensExistingVault": true,
+  "expectedFictionalNetWorth": "INR 1152.52",
+  "pageSize": "4096",
+  "realSafImportExportCandidateSha256": "6ca6de2dba01d1c4d9ace1c13ca7a4690bf9ee16213f83fd9c87d4052cf14685",
+  "lockGatedPickerReturns": true,
+  "deviceCredentialUnlock": true,
+  "nativeExportIndependentDotNet": "passed",
+  "fontScale2Controls": "reachable",
+  "disposablePinRemoved": true
+}

@@ -1,0 +1,12 @@
+{
+  "originalApkSha256": "f764763f73c6c76847ca20077c3822ed69dc1180ae25530e145ce95e84dd78ce",
+  "updatedApkSha256": "042474cc4ebea2c814b1f665fa2ff2a24b2197a25996184296d4d23a3ade1145",
+  "signerSha256": "dd7d62a4506fd0cd64cb1dddaa11a56f838694a64b7ec8c6f79f6461c5589f73",
+  "seed": "OK (1 test)",
+  "retainedBankHistory": "OK (1 test)",
+  "retainedOpeningHoldingAndCost": "OK (1 test)",
+  "retainedIncomeHistory": "OK (1 test)",
+  "launcher": "Status: ok",
+  "serial": "emulator-5554",
+  "avd": "WealthOS"
+}

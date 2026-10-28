@@ -1,0 +1,79 @@
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PortfolioWorkflowTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.PortfolioWorkflowTest:
+INSTRUMENTATION_STATUS: test=fixedDepositKeepsEstimateSeparateFromObservedValue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PortfolioWorkflowTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.NullPointerException: Attempt to read from field 'java.lang.ref.ReferenceQueue java.lang.ref.Reference.queue' on a null object reference in method 'void java.lang.ref.ReferenceQueue.enqueuePending(java.lang.ref.Reference, java.util.concurrent.atomic.AtomicInteger)'
+	at java.lang.ref.ReferenceQueue.enqueuePending(ReferenceQueue.java:239)
+	at java.lang.Daemons$ReferenceQueueDaemon.runInternal(Daemons.java:260)
+	at java.lang.Daemons$Daemon.run(Daemons.java:131)
+	at java.lang.Thread.run(Thread.java:1012)
+
+INSTRUMENTATION_STATUS: stream=
+Process crashed while executing fixedDepositKeepsEstimateSeparateFromObservedValue(com.wealthos.app.PortfolioWorkflowTest):
+java.lang.NullPointerException: Attempt to read from field 'java.lang.ref.ReferenceQueue java.lang.ref.Reference.queue' on a null object reference in method 'void java.lang.ref.ReferenceQueue.enqueuePending(java.lang.ref.Reference, java.util.concurrent.atomic.AtomicInteger)'
+	at java.lang.ref.ReferenceQueue.enqueuePending(ReferenceQueue.java:239)
+	at java.lang.Daemons$ReferenceQueueDaemon.runInternal(Daemons.java:260)
+	at java.lang.Daemons$Daemon.run(Daemons.java:131)
+	at java.lang.Thread.run(Thread.java:1012)
+
+INSTRUMENTATION_STATUS: test=fixedDepositKeepsEstimateSeparateFromObservedValue
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: shortMsg=Process crashed.
+INSTRUMENTATION_CODE: 0
+
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PortfolioWorkflowTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.PortfolioWorkflowTest:
+INSTRUMENTATION_STATUS: test=fixedDepositKeepsEstimateSeparateFromObservedValue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PortfolioWorkflowTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=fixedDepositKeepsEstimateSeparateFromObservedValue
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 21.552
+
+OK (1 test)
+
+
+INSTRUMENTATION_CODE: -1
+
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PortfolioWorkflowTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+com.wealthos.app.PortfolioWorkflowTest:
+INSTRUMENTATION_STATUS: test=fixedDepositKeepsEstimateSeparateFromObservedValue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.wealthos.app.PortfolioWorkflowTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=fixedDepositKeepsEstimateSeparateFromObservedValue
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 13.371
+
+OK (1 test)
+
+
+INSTRUMENTATION_CODE: -1
+

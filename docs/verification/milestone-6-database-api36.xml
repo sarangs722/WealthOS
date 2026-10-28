@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="57" failures="0" errors="0" skipped="0" time="0.000" timestamp="2026-10-27T20:59:10" hostname="localhost">
+  <testsuite name="com.wealthos.database.BackupRepositoryTest" tests="11" failures="0" errors="0" skipped="0" time="506.992" timestamp="2026-10-27T20:59:10" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="everyTableAndDecimalRestoresUnderADifferentKeyWithProvenance" classname="com.wealthos.database.BackupRepositoryTest" time="32.101" />
+    <testcase name="missingTablesWrongTypesDuplicateKeysAndExponentBombAreRejectedInStaging" classname="com.wealthos.database.BackupRepositoryTest" time="117.676" />
+    <testcase name="auditFailureRollsBackReplacementAndSafetyCopyContainsPreviousVault" classname="com.wealthos.database.BackupRepositoryTest" time="63.288" />
+    <testcase name="cancelledRestorePreservesRecords" classname="com.wealthos.database.BackupRepositoryTest" time="34.123" />
+    <testcase name="liveChangesAfterPreviewRejectReplacementWithoutSafetyOverwrite" classname="com.wealthos.database.BackupRepositoryTest" time="32.422" />
+    <testcase name="incorrectPasswordAndDamagedFileNeverChangeCurrentRecords" classname="com.wealthos.database.BackupRepositoryTest" time="26.055" />
+    <testcase name="missingParentAndInvalidFinancialContentsNeverReachLiveVault" classname="com.wealthos.database.BackupRepositoryTest" time="38.781" />
+    <testcase name="unknownSchemaIsRejectedAndSafetyCopiesAreRetained" classname="com.wealthos.database.BackupRepositoryTest" time="77.572" />
+    <testcase name="partialInsertFailureRollsBackAllCurrentRecords" classname="com.wealthos.database.BackupRepositoryTest" time="44.237" />
+    <testcase name="independentUnicodeCryptoFixtureWorksOnAndroid" classname="com.wealthos.database.BackupRepositoryTest" time="12.016" />
+    <testcase name="safetyCopyIoFailurePreservesVault" classname="com.wealthos.database.BackupRepositoryTest" time="28.721" />
+  </testsuite>
+  <testsuite name="com.wealthos.database.DatabaseKeyStoreTest" tests="2" failures="0" errors="0" skipped="0" time="0.162" timestamp="2026-10-27T20:59:10" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="wrappedKeyRoundTripAndTamperRejection" classname="com.wealthos.database.DatabaseKeyStoreTest" time="0.152" />
+    <testcase name="existingDatabaseWithoutKeyIsNeverReset" classname="com.wealthos.database.DatabaseKeyStoreTest" time="0.010" />
+  </testsuite>
+  <testsuite name="com.wealthos.database.EncryptedRepositoryTest" tests="7" failures="0" errors="0" skipped="0" time="11.556" timestamp="2026-10-27T20:59:10" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="rejectsFutureDatesPrecisionAndUnexplainedCorrectionWithoutMutatingData" classname="com.wealthos.database.EncryptedRepositoryTest" time="1.281" />
+    <testcase name="partialFailureRollsBackAccountBalanceAndAudit" classname="com.wealthos.database.EncryptedRepositoryTest" time="1.117" />
+    <testcase name="encryptedRoundTripAndWrongKey" classname="com.wealthos.database.EncryptedRepositoryTest" time="3.558" />
+    <testcase name="migrationOneToTwoPreservesEncryptedRecords" classname="com.wealthos.database.EncryptedRepositoryTest" time="2.204" />
+    <testcase name="editsAndCorrectionsPreserveHistoryAndAudit" classname="com.wealthos.database.EncryptedRepositoryTest" time="1.158" />
+    <testcase name="foreignKeyRejectsOrphanObservation" classname="com.wealthos.database.EncryptedRepositoryTest" time="1.014" />
+    <testcase name="concurrentCorrectionsHaveUniqueSequentialRevisions" classname="com.wealthos.database.EncryptedRepositoryTest" time="1.224" />
+  </testsuite>
+  <testsuite name="com.wealthos.database.HouseholdRepositoryTest" tests="8" failures="0" errors="0" skipped="0" time="14.558" timestamp="2026-10-27T20:59:10" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="salaryRateAndActualIncomeRoundTripWithExactRevisions" classname="com.wealthos.database.HouseholdRepositoryTest" time="2.864" />
+    <testcase name="invalidSalaryAndFutureActualMonthDoNotPersist" classname="com.wealthos.database.HouseholdRepositoryTest" time="1.161" />
+    <testcase name="incomeAndPolicyFailuresRollBackTheirFinancialRowsAndAudits" classname="com.wealthos.database.HouseholdRepositoryTest" time="2.380" />
+    <testcase name="populatedEncryptedSchemaThreeKeepsPortfolioCashAndAuditRows" classname="com.wealthos.database.HouseholdRepositoryTest" time="2.541" />
+    <testcase name="policyAndSettlementHistoryDoNotCreateWealthOrRenewCover" classname="com.wealthos.database.HouseholdRepositoryTest" time="1.621" />
+    <testcase name="monthlySummaryRevisionsReplaceAndNeverTouchBankCash" classname="com.wealthos.database.HouseholdRepositoryTest" time="1.191" />
+    <testcase name="earmarksAreCappedByLaterBankValuesAndCanBeReleased" classname="com.wealthos.database.HouseholdRepositoryTest" time="1.508" />
+    <testcase name="futurePolicyTermsRemainPlannedAndSourceCurrencyIsImmutable" classname="com.wealthos.database.HouseholdRepositoryTest" time="1.292" />
+  </testsuite>
+  <testsuite name="com.wealthos.database.PlanningRepositoryTest" tests="7" failures="0" errors="0" skipped="0" time="18.866" timestamp="2026-10-27T20:59:10" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="concurrentScenarioEditsHaveSequentialRevisions" classname="com.wealthos.database.PlanningRepositoryTest" time="1.167" />
+    <testcase name="invalidRateOrOrphanAssumptionDoesNotPersist" classname="com.wealthos.database.PlanningRepositoryTest" time="1.321" />
+    <testcase name="completedGoalRoundTripsWithReferenceDateAndNoCashPosting" classname="com.wealthos.database.PlanningRepositoryTest" time="3.254" />
+    <testcase name="populatedEncryptedSchemaFourPreservesHouseholdAndPortfolio" classname="com.wealthos.database.PlanningRepositoryTest" time="3.997" />
+    <testcase name="independentScenarioRevisionsAndExactReopen" classname="com.wealthos.database.PlanningRepositoryTest" time="3.610" />
+    <testcase name="goalRevisionsAreEarmarksAndCurrencyCannotChange" classname="com.wealthos.database.PlanningRepositoryTest" time="1.885" />
+    <testcase name="scenarioAndChildRowsRollbackTogetherWithAudit" classname="com.wealthos.database.PlanningRepositoryTest" time="3.632" />
+  </testsuite>
+  <testsuite name="com.wealthos.database.PortfolioRepositoryTest" tests="11" failures="0" errors="0" skipped="0" time="27.548" timestamp="2026-10-27T20:59:10" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="purchaseAndLaterBankSnapshotNeverDoubleDeductCash" classname="com.wealthos.database.PortfolioRepositoryTest" time="3.655" />
+    <testcase name="sameDayDepositPaymentInvalidatesEarlierObservationUntilReconfirmed" classname="com.wealthos.database.PortfolioRepositoryTest" time="2.277" />
+    <testcase name="manualFxAndAssetMetadataRoundTripWithoutChangingOpeningPosition" classname="com.wealthos.database.PortfolioRepositoryTest" time="2.017" />
+    <testcase name="atomicTransferAndDateTreatmentValidation" classname="com.wealthos.database.PortfolioRepositoryTest" time="1.822" />
+    <testcase name="failedCashLegRollsBackTradeAndAuditTogether" classname="com.wealthos.database.PortfolioRepositoryTest" time="3.673" />
+    <testcase name="rdClosureAndBackdatedEventsValidateEntireContractHistory" classname="com.wealthos.database.PortfolioRepositoryTest" time="2.032" />
+    <testcase name="referenceIsNotAnAssetAndCustodyCurrencyIsEnforced" classname="com.wealthos.database.PortfolioRepositoryTest" time="2.725" />
+    <testcase name="oversaleInvalidBackdateAndUnknownOpeningCostRemainSafe" classname="com.wealthos.database.PortfolioRepositoryTest" time="2.243" />
+    <testcase name="depositClosureUsesNumericEqualityAcrossDecimalScales" classname="com.wealthos.database.PortfolioRepositoryTest" time="2.045" />
+    <testcase name="loanPrincipalAndInterestAreSeparateWithLinkedCash" classname="com.wealthos.database.PortfolioRepositoryTest" time="1.538" />
+    <testcase name="populatedEncryptedSchemaTwoMigratesWithoutChangingBankRecords" classname="com.wealthos.database.PortfolioRepositoryTest" time="3.521" />
+  </testsuite>
+  <testsuite name="com.wealthos.database.PublicRepositoryTest" tests="11" failures="0" errors="0" skipped="0" time="33.633" timestamp="2026-10-27T20:59:10" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="populatedEncryptedSchemaFiveRetainsEveryExistingTable" classname="com.wealthos.database.PublicRepositoryTest" time="3.849" />
+    <testcase name="dedupRevisionAndFailureRetainLastKnown" classname="com.wealthos.database.PublicRepositoryTest" time="2.137" />
+    <testcase name="changedBindingCannotApplyOldQuoteAndNoFuzzyIdentityMatching" classname="com.wealthos.database.PublicRepositoryTest" time="2.413" />
+    <testcase name="revertedProviderCorrectionAppendsAThirdRevision" classname="com.wealthos.database.PublicRepositoryTest" time="1.899" />
+    <testcase name="invalidBatchAndOrphanApplicationNeverPersist" classname="com.wealthos.database.PublicRepositoryTest" time="1.965" />
+    <testcase name="navUsesExactIdentityWithoutBackdatingPositionsOrCash" classname="com.wealthos.database.PublicRepositoryTest" time="2.266" />
+    <testcase name="explicitFxApplicationWorksOfflineAndReopensExactly" classname="com.wealthos.database.PublicRepositoryTest" time="4.220" />
+    <testcase name="manualSameDateFxRequiresReviewAndRetainsRevision" classname="com.wealthos.database.PublicRepositoryTest" time="2.376" />
+    <testcase name="cacheAndApplyRollbackWithAuditFailure" classname="com.wealthos.database.PublicRepositoryTest" time="4.290" />
+    <testcase name="publishedClosingNavIsNotDiscountedAgainForLateRecordedSameDaySplit" classname="com.wealthos.database.PublicRepositoryTest" time="5.841" />
+    <testcase name="networkDefaultsOffAndNoPublicFinancialPosting" classname="com.wealthos.database.PublicRepositoryTest" time="2.377" />
+  </testsuite>
+</testsuites>

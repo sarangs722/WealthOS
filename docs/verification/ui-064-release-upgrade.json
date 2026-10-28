@@ -1,0 +1,22 @@
+{
+  "uid": "10229",
+  "unchangedDataDirectories": true,
+  "deDataInode": "57950",
+  "unchangedUid": true,
+  "phoneAccessed": false,
+  "retainedNetWorth": "1152.52",
+  "applicationId": "com.wealthos.app.release",
+  "version": "0.6.4",
+  "ceDataInode": "368927",
+  "retainedBankRevisions": [
+    "500.01",
+    "650.02"
+  ],
+  "retainedHolding": {
+    "value": "502.50",
+    "cost": "400.00",
+    "unrealizedGain": "102.50",
+    "units": "5"
+  },
+  "nativeDestinationsAndBankEntry": "passed without saving"
+}

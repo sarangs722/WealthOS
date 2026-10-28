@@ -1,0 +1,6 @@
+* text=auto
+gradlew text eol=lf
+*.bat text eol=crlf
+
+# Preserve captured verification evidence byte-for-byte, including terminal spacing.
+docs/verification/** -text -whitespace

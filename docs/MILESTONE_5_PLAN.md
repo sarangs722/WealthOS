@@ -1,0 +1,12 @@
+# Milestone 5 — Optional Public Data
+
+Authorized after Milestone 4. Preserve application/signing identity, encryption/key material and all existing records. Implement only Milestone 5.
+
+1. Verify official formats, access, reuse terms and live HTTPS responses before adopting a connector. Use ECB daily reference FX; MoSPI national Combined CPI (2024 base); BIS v2 daily India policy rate attributed to RBI/BIS. Do not disable TLS validation or use undocumented website scraping.
+2. AMFI terms restrict significant electronic storage. Support streaming user-selected official NAV text imports for explicitly linked INR mutual funds; retain only tracked observations. No automated AMFI crawler, copied catalog, deep-linked website embedding or redistributed bulk data. Publisher identity of an imported file remains user-supplied, distinct from an HTTPS-verified feed.
+3. Add provider abstractions and bounded transport/parsers in core:network. Default network access off; explicit user refresh only. Generic fixed public queries disclose no holdings, amounts, account identifiers or scenario inputs. No telemetry, cookies, credentials or background refresh.
+4. Add explicit additive encrypted schema 6 for settings, observations, source bindings, refresh runs and typed application provenance. Refresh/import updates only the cache. Applying a dated NAV/FX requires user review, retains earlier/manual revisions and is idempotent. Economic data never changes contract rates or forecast assumptions.
+5. Add native Public data / Economic indicators / Data health views, binding/import/application flows, source dates/retrieval/validation/freshness and failure/last-known states. Manual valuations and references remain available without internet. Stock/ETF/commodity adapters remain unavailable unless legitimate free access can be verified.
+6. Test strict formats, decimal/date/unit/identity validation, malformed/partial/duplicate/future data, XML/CSV safety, failed refresh retention, rollback, provenance, same-day manual precedence, encrypted schema migration, UI/offline workflows, real opt-in feed smoke tests and actual 0.4.0→0.5.0 upgrade. Instrumentation is isolated to the guarded emulator and serialized.
+
+Portable backup/restore, signing hardening and full device/performance/security review remain Milestone 6. Any verified source limitation must be reported rather than replaced with fake data or insecure transport.

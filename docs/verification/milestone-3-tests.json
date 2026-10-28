@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-27",
+  "runtime": "API 36 x86_64 WealthOS AVD",
+  "domain": [
+    {
+      "name": "com.wealthos.finance.BankValuationTest",
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "timestamp": "2026-10-27T14:08:36.436Z"
+    },
+    {
+      "name": "com.wealthos.finance.HouseholdTest",
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "timestamp": "2026-10-27T14:08:36.974Z"
+    },
+    {
+      "name": "com.wealthos.finance.PortfolioTest",
+      "tests": 23,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "timestamp": "2026-10-27T14:08:37.499Z"
+    }
+  ],
+  "database": {
+    "tests": 28,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "timestamp": "2026-10-27T14:45:26"
+  },
+  "ui": {
+    "distinctPassed": 9,
+    "regressionPassed": 8,
+    "regressionFailureResolved": "Final amount selector matched both current bank balance and retained history; selector corrected without changing financial expected results",
+    "workflowRerunTests": 1,
+    "workflowRerunFailures": 0,
+    "workflowRerunTimestamp": "2026-10-27T14:52:30",
+    "passedTests": [
+      "com.wealthos.app.BankWorkflowTest.addUpdateCorrectHistoryAndEditPersistAcrossActivityRecreation",
+      "com.wealthos.app.DashboardUiTest.fictionalDemoAndObscuringAmounts",
+      "com.wealthos.app.DashboardUiTest.emptyStateDoesNotDisplayDemoAsRealWealth",
+      "com.wealthos.app.HouseholdPrivacyTest.reserveAndInsuranceReadViewsObscureAllCurrencyAmounts",
+      "com.wealthos.app.PortfolioWorkflowTest.openingPositionPurchaseSaleAndManualPricePersist",
+      "com.wealthos.app.PortfolioWorkflowTest.propertyAndLoanCanBeAddedWithoutInventingCashFlows",
+      "com.wealthos.app.PortfolioWorkflowTest.fixedDepositKeepsEstimateSeparateFromObservedValue",
+      "com.wealthos.app.PrivacyGateTest.persistedAccessLockGatesRecordsAndWindowIsSecure",
+      "com.wealthos.app.HouseholdWorkflowTest.salarySummaryEarmarksAndInsuranceRemainSeparateFromBankCash"
+    ]
+  },
+  "totalDistinctPassingRegressionTests": 88,
+  "build": ":app:assembleDebug BUILD SUCCESSFUL",
+  "lint": {
+    "errors": 0,
+    "advisories": 1
+  },
+  "apkSha256": "f764763f73c6c76847ca20077c3822ed69dc1180ae25530e145ce95e84dd78ce"
+}

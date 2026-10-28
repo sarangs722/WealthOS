@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-28",
+  "status": "USER_CONTROLLED_LOCAL_SIGNING_COMPLETE",
+  "version": "0.6.2",
+  "versionCode": 8,
+  "signedArtifact": ".tools/production-release/WealthOS-0.6.2.apk",
+  "apkSha256": "9c054bd7784f2e9981dba5d694a3f5b1517d052078bd993e1c05b4c5c6afae05",
+  "certificateSha256": "cf06385769b4d9e0992910521f210a77407cb284e2963290fbb10006b8d88054",
+  "publicCertificatePinIndependentlyMatched": true,
+  "keyDirectoryAccessRestrictedToCurrentUserAndSystem": true,
+  "privateKeyReadByAgent": false,
+  "passphraseReadByAgent": false,
+  "applicationPayloadUnchangedBySigning": true,
+  "currentArtifactInstalledOnEmulator": true,
+  "phoneAccessed": false,
+  "physicalDeviceReview": "User chose guided checks; not yet reported",
+  "firstPartySecurityReview": "Completed within documented scope; contrast/recovery findings fixed",
+  "independentSecurityAudit": "Not performed",
+  "independentKeyBackup": "User responsibility; not inspected or created by the agent",
+  "retainedEarlierSignedArtifacts": [
+    "WealthOS-0.6.0.apk",
+    "WealthOS-0.6.1.apk"
+  ]
+}

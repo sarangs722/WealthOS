@@ -1,0 +1,8 @@
+ACTIVITY MANAGER PROCESS EXIT INFO (dumpsys activity exit-info)
+Last Timestamp of Persistence Into Persistent Storage: 1970-01-01 05:30:00.000
+  package: com.wealthos.database.test
+    Historical Process Exit for uid=10208
+        ApplicationExitInfo #0:
+          timestamp=2026-10-28 10:37:26.379 pid=2607 realUid=10208 packageUid=10208 definingUid=10208 user=0
+          process=com.wealthos.database.test reason=3 (LOW_MEMORY) subreason=0 (UNKNOWN) status=0
+          importance=125 pss=0.00 rss=0.00 description=null state=empty trace=null

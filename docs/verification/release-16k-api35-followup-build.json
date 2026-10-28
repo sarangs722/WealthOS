@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-28",
+  "status": "BUILD SUCCESSFUL",
+  "durationSeconds": 36,
+  "tasks": 277,
+  "executedTasks": 3,
+  "upToDateTasks": 274,
+  "tasksRequested": [
+    ":app:assembleDebug",
+    ":app:assembleDebugAndroidTest",
+    ":app:assembleRelease",
+    ":app:lintDebug",
+    ":app:lintRelease"
+  ],
+  "property": "wealthos.coexistingRelease=true",
+  "unchangedCompilationAndLintOutputsReused": true,
+  "artifactHashes": {
+    "app/build/outputs/apk/release/app-release-unsigned.apk": "c35699ca225fece744d1f8ddf381f4a8ced6cfd90c07db4a1396173465705c25",
+    "app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": "1f460f87881cdd2a678d8df8a90843a63d7e8883085b4cc0fdc8d46eba428332",
+    "app/build/outputs/apk/debug/app-debug.apk": "71baccb417015beac48139fc2e4855c423ab46655d0e86ce720ece30c2fe5cd0"
+  },
+  "lint": {
+    "debug": {
+      "warnings": 1,
+      "ids": [
+        "AndroidGradlePluginVersion"
+      ],
+      "errors": 0
+    },
+    "release": {
+      "warnings": 1,
+      "ids": [
+        "AndroidGradlePluginVersion"
+      ],
+      "errors": 0
+    }
+  },
+  "financialSourceSchemaDependencyChanges": false,
+  "productionSigningCompleted": false,
+  "phoneAccessed": false,
+  "rawBuildLogSha256": "323352514e554d273a548f625c406ce53ee87f8ba657ca3a9b0a90b52db26fe6"
+}

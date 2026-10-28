@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-28",
+  "package": "system-images;android-35;google_apis_ps16k;x86_64",
+  "url": "https://dl.google.com/android/repository/sys-img/google_apis/x86_64-ps16k-35_r05.zip",
+  "bytes": 1696342085,
+  "publisherSha1": "d709cf26b375abecfbbf5803afd20749ddfa2865",
+  "sha256": "61ae26a86ec209e200337fcd04329c2f568b1d920d4e555712dec95fd89c22ec",
+  "licenseExplicitlyAcceptedByUser": true
+}

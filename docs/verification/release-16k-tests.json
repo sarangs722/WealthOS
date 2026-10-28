@@ -1,0 +1,176 @@
+{
+  "date": "2026-10-28",
+  "version": "0.6.0",
+  "schema": 6,
+  "productApkUnchanged": true,
+  "appApkSha256": "71baccb417015beac48139fc2e4855c423ab46655d0e86ce720ece30c2fe5cd0",
+  "verifiedDistinctRuntimeCases": 83,
+  "databaseAndNetwork": {
+    "api": 35,
+    "avd": "WealthOS16K",
+    "suites": [
+      {
+        "suite": "database",
+        "passed": 58,
+        "failures": 0,
+        "skipped": 0,
+        "apkSha256": "453de5a7475184bee47841c1e4aeddcd979f26fa85cd4b285f4865009514854a",
+        "startedUtc": "2026-10-28T10:43:21.7821937+05:30",
+        "durationSeconds": 417.392
+      },
+      {
+        "suite": "network",
+        "passed": 7,
+        "failures": 0,
+        "skipped": 0,
+        "apkSha256": "a7b429d7ee7692e13217ec07d2a27df8e9330aa9500135605cabfa859db5bc54",
+        "startedUtc": "2026-10-28T10:50:20.2908796+05:30",
+        "durationSeconds": 3.072
+      }
+    ],
+    "serial": "emulator-5558",
+    "userspacePageSize": 16384
+  },
+  "appUi": {
+    "testApkSha256": "1f460f87881cdd2a678d8df8a90843a63d7e8883085b4cc0fdc8d46eba428332",
+    "cases": [
+      {
+        "failures": 0,
+        "passed": 1,
+        "skipped": 0,
+        "selector": "com.wealthos.app.BackupWorkflowTest#exportReadbackPreviewCancelAndConfirmedReplacementKeepHistory"
+      },
+      {
+        "failures": 0,
+        "passed": 1,
+        "skipped": 0,
+        "selector": "com.wealthos.app.BackupWorkflowTest#truncatedDocumentProviderCannotReportExportSuccessOrChangeVault"
+      },
+      {
+        "failures": 0,
+        "passed": 1,
+        "skipped": 0,
+        "selector": "com.wealthos.app.BackupWorkflowTest#passwordConfirmationAndRecreationDoNotPersistPassword"
+      },
+      {
+        "failures": 0,
+        "passed": 1,
+        "skipped": 0,
+        "selector": "com.wealthos.app.BankWorkflowTest#addUpdateCorrectHistoryAndEditPersistAcrossActivityRecreation"
+      },
+      {
+        "failures": 0,
+        "passed": 1,
+        "skipped": 0,
+        "selector": "com.wealthos.app.CalculatorWorkflowTest#sipZeroInterestAndChangedInputsDoNotDisplayStaleOutput"
+      },
+      {
+        "failures": 0,
+        "passed": 1,
+        "skipped": 0,
+        "selector": "com.wealthos.app.DashboardUiTest#fictionalDemoAndObscuringAmounts"
+      },
+      {
+        "failures": 0,
+        "passed": 1,
+        "skipped": 0,
+        "selector": "com.wealthos.app.DashboardUiTest#emptyStateDoesNotDisplayDemoAsRealWealth"
+      },
+      {
+        "failures": 0,
+        "passed": 1,
+        "skipped": 0,
+        "selector": "com.wealthos.app.HouseholdPrivacyTest#reserveAndInsuranceReadViewsObscureAllCurrencyAmounts"
+      },
+      {
+        "failures": 0,
+        "passed": 1,
+        "skipped": 0,
+        "selector": "com.wealthos.app.HouseholdWorkflowTest#salarySummaryEarmarksAndInsuranceRemainSeparateFromBankCash"
+      },
+      {
+        "failures": 0,
+        "passed": 1,
+        "skipped": 0,
+        "selector": "com.wealthos.app.PlanningPrivacyTest#forecastAndGoalOutputsRespectObscuredAmounts"
+      },
+      {
+        "failures": 0,
+        "passed": 1,
+        "skipped": 0,
+        "selector": "com.wealthos.app.PlanningWorkflowTest#independentScenarioAndGoalRevisionsPersist"
+      },
+      {
+        "failures": 0,
+        "passed": 1,
+        "skipped": 0,
+        "selector": "com.wealthos.app.PortfolioWorkflowTest#openingPositionPurchaseSaleAndManualPricePersist"
+      },
+      {
+        "failures": 0,
+        "passed": 1,
+        "skipped": 0,
+        "selector": "com.wealthos.app.PortfolioWorkflowTest#propertyAndLoanCanBeAddedWithoutInventingCashFlows"
+      },
+      {
+        "failures": 0,
+        "passed": 1,
+        "skipped": 0,
+        "selector": "com.wealthos.app.PortfolioWorkflowTest#fixedDepositKeepsEstimateSeparateFromObservedValue"
+      },
+      {
+        "failures": 0,
+        "passed": 1,
+        "skipped": 0,
+        "selector": "com.wealthos.app.PrivacyGateTest#persistedAccessLockGatesRecordsAndWindowIsSecure"
+      },
+      {
+        "failures": 0,
+        "passed": 1,
+        "skipped": 0,
+        "selector": "com.wealthos.app.PublicNavWorkflowTest#linkImportReviewAndApplyOnlySelectedNavWithoutNetwork"
+      },
+      {
+        "failures": 0,
+        "passed": 1,
+        "skipped": 0,
+        "selector": "com.wealthos.app.PublicReferencePrivacyTest#cachedReferenceAmountsAndRawInputsAreObscured"
+      },
+      {
+        "failures": 0,
+        "passed": 1,
+        "skipped": 0,
+        "selector": "com.wealthos.app.PublicReferenceWorkflowTest#manualEconomicReferencePersistsWithoutEnablingNetwork"
+      }
+    ],
+    "serial": "emulator-5560",
+    "userspacePageSize": 16384,
+    "avd": "WealthOS16K36",
+    "api": 36,
+    "testsPassed": 18
+  },
+  "api35UiStatus": "Current UI harness: all 18 isolated cases passed on emulator 37.2.12. Same-APK FD comparison on emulator 36.3.10: two passes, one Android-runtime process crash. Root cause unconfirmed.",
+  "api36UiStatus": "18 isolated cases passed, zero failures/skips",
+  "physicalArm16KVerified": false,
+  "phoneAccessed": false,
+  "productionKeyCreatedByAgent": false,
+  "knownLimitations": [
+    "Earlier Android 15 ART/JIT root cause unconfirmed; same-APK older-emulator repeat captured a ReferenceQueueDaemon crash; experimental image also exhibits system-process crashes/ANR. Physical validation still required.",
+    "Physical ARM/OEM/biometric/durability/accessibility/security review remain",
+    "Production signing needs user-controlled key/passphrase"
+  ],
+  "api35UiFollowup": {
+    "api": 35,
+    "emulatorVersion": "37.2.12.0",
+    "passed": 18,
+    "failures": 0,
+    "skipped": 0,
+    "distinctNewCases": 0,
+    "report": "release-16k-app-api35-emulator37.json",
+    "sameApkOldEmulatorRepeatReport": "release-16k-api35-emulator36-fd-repeat.json",
+    "oldEmulatorRepeatPassed": 2,
+    "oldEmulatorRepeatCrashes": 1,
+    "nativeRestoreReport": "release-16k-native-api35.json",
+    "systemImageHealthReport": "release-16k-api35-emulator37-system-health.json"
+  }
+}

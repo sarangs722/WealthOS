@@ -1,0 +1,48 @@
+{
+  "scope": "One-command local setup, disposable identity only",
+  "passed": 9,
+  "checks": [
+    {
+      "name": "One-command new-key setup signs and verifies retained candidate",
+      "result": "passed"
+    },
+    {
+      "name": "New key directory grants only current user and SYSTEM with inheritance disabled",
+      "result": "passed"
+    },
+    {
+      "name": "Existing-key setup retains same certificate and coexisting package identity",
+      "result": "passed"
+    },
+    {
+      "name": "Existing private keystore remains byte identical",
+      "result": "passed"
+    },
+    {
+      "name": "Existing destination refused before key access",
+      "result": "passed"
+    },
+    {
+      "name": "Wrong existing-key certificate pin fails closed",
+      "result": "passed"
+    },
+    {
+      "name": "Wrong pin publishes no accepted artifact or staging output",
+      "result": "passed"
+    },
+    {
+      "name": "No signing password enters parent environment",
+      "result": "passed"
+    },
+    {
+      "name": "Disposable setup private key removed after tests",
+      "result": "passed"
+    }
+  ],
+  "fixtureCertificateSha256": "6b7ba6f19eacea4c262bd6ba1176cc2dfc78d37c5ff6a27ffb822911c2b3ddaf",
+  "newSetupApkSha256": "7b81b112ddcd3adfaec5c273f08ac436d808e99f1cb18dd505993c908de2af2d",
+  "existingSetupApkSha256": "7b81b112ddcd3adfaec5c273f08ac436d808e99f1cb18dd505993c908de2af2d",
+  "productionKeyCreated": false,
+  "fixturePrivateKeyRetained": false,
+  "phoneAccessed": false
+}

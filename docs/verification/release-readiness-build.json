@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-28",
+  "version": "0.6.0",
+  "versionCode": 6,
+  "schema": 6,
+  "tasks": [
+    ":app:assembleRelease",
+    ":app:lintRelease",
+    ":app:assembleDebug",
+    ":app:assembleDebugAndroidTest"
+  ],
+  "property": "wealthos.coexistingRelease=true",
+  "result": "BUILD SUCCESSFUL",
+  "duration": "3m 14s",
+  "lintErrors": 0,
+  "lintWarnings": 1,
+  "lintWarning": "Newer Gradle available; verified compatible Gradle 9.6 remains pinned",
+  "releaseApplicationId": "com.wealthos.app.release",
+  "releaseLauncherLabel": "WealthOS Release",
+  "unsignedApkSha256": "c35699ca225fece744d1f8ddf381f4a8ced6cfd90c07db4a1396173465705c25",
+  "defaultDebugApplicationId": "com.wealthos.app",
+  "defaultDebugApkSha256": "71baccb417015beac48139fc2e4855c423ab46655d0e86ce720ece30c2fe5cd0",
+  "defaultDebugByteIdenticalToMilestone6": true,
+  "originalMilestone6UnsignedArchivedSha256": "242f5281914b4149ef8aaea127acee7dc3400cd80fbd812c27eeeb7d88b1599d",
+  "signingChecksPassed": 19,
+  "productionKeyCreated": false,
+  "productionSignedApkCreated": false,
+  "phoneAccessed": false
+}

@@ -1,0 +1,95 @@
+{
+  "date": "2026-10-27",
+  "runtime": "API 36 x86_64 WealthOS AVD only",
+  "domain": [
+    {
+      "name": "com.wealthos.finance.BankValuationTest",
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "timestamp": "2026-10-27T15:40:12.508Z"
+    },
+    {
+      "name": "com.wealthos.finance.FinancialMathTest",
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "timestamp": "2026-10-27T15:40:14.616Z"
+    },
+    {
+      "name": "com.wealthos.finance.ForecastTest",
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "timestamp": "2026-10-27T15:40:18.642Z"
+    },
+    {
+      "name": "com.wealthos.finance.HouseholdTest",
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "timestamp": "2026-10-27T15:40:19.325Z"
+    },
+    {
+      "name": "com.wealthos.finance.PerformanceTest",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "timestamp": "2026-10-27T15:40:19.561Z"
+    },
+    {
+      "name": "com.wealthos.finance.PortfolioTest",
+      "tests": 23,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "timestamp": "2026-10-27T15:40:21.384Z"
+    }
+  ],
+  "database": {
+    "tests": 35,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "timestamp": "2026-10-27T15:42:34"
+  },
+  "ui": {
+    "tests": 12,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "timestamp": "2026-10-27T15:51:13",
+    "passedTests": [
+      "com.wealthos.app.BankWorkflowTest.addUpdateCorrectHistoryAndEditPersistAcrossActivityRecreation",
+      "com.wealthos.app.CalculatorWorkflowTest.sipZeroInterestAndChangedInputsDoNotDisplayStaleOutput",
+      "com.wealthos.app.DashboardUiTest.fictionalDemoAndObscuringAmounts",
+      "com.wealthos.app.DashboardUiTest.emptyStateDoesNotDisplayDemoAsRealWealth",
+      "com.wealthos.app.HouseholdPrivacyTest.reserveAndInsuranceReadViewsObscureAllCurrencyAmounts",
+      "com.wealthos.app.HouseholdWorkflowTest.salarySummaryEarmarksAndInsuranceRemainSeparateFromBankCash",
+      "com.wealthos.app.PlanningPrivacyTest.forecastAndGoalOutputsRespectObscuredAmounts",
+      "com.wealthos.app.PlanningWorkflowTest.independentScenarioAndGoalRevisionsPersist",
+      "com.wealthos.app.PortfolioWorkflowTest.openingPositionPurchaseSaleAndManualPricePersist",
+      "com.wealthos.app.PortfolioWorkflowTest.propertyAndLoanCanBeAddedWithoutInventingCashFlows",
+      "com.wealthos.app.PortfolioWorkflowTest.fixedDepositKeepsEstimateSeparateFromObservedValue",
+      "com.wealthos.app.PrivacyGateTest.persistedAccessLockGatesRecordsAndWindowIsSecure"
+    ]
+  },
+  "totalPassingRegressionTests": 138,
+  "build": ":app:assembleDebug BUILD SUCCESSFUL",
+  "lint": {
+    "errors": 0,
+    "advisories": 1
+  },
+  "schema": {
+    "from": 4,
+    "to": 5,
+    "existingTableDefinitionsUnchanged": 21,
+    "newTables": 5
+  },
+  "apkSha256": "042474cc4ebea2c814b1f665fa2ff2a24b2197a25996184296d4d23a3ade1145"
+}

@@ -1,0 +1,8 @@
+
+com.wealthos.app.BackupWorkflowTest:...
+
+Time: 92.575
+
+OK (3 tests)
+
+

@@ -1,0 +1,146 @@
+{
+  "date": "2026-10-28T14:14:09.8879347+05:30",
+  "avd": "WealthOS16K",
+  "serial": "emulator-5558",
+  "api": 35,
+  "pageSize": 16384,
+  "fingerprint": "google/sdk_gphone16k_x86_64/emu64xa16k:15/AE3A.240806.043/12960925:userdebug/dev-keys",
+  "appSha256": "71baccb417015beac48139fc2e4855c423ab46655d0e86ce720ece30c2fe5cd0",
+  "testApkSha256": "1f460f87881cdd2a678d8df8a90843a63d7e8883085b4cc0fdc8d46eba428332",
+  "cases": [
+    {
+      "selector": "com.wealthos.app.BackupWorkflowTest#exportReadbackPreviewCancelAndConfirmedReplacementKeepHistory",
+      "passed": true,
+      "startedUtc": "2026-10-28T14:08:36.0928085+05:30",
+      "durationSeconds": 95.561,
+      "logSha256": "9042d8f2f6b8f86a94702fd6016fa021661e028902166d417458c523e2bdfb9c"
+    },
+    {
+      "selector": "com.wealthos.app.BackupWorkflowTest#truncatedDocumentProviderCannotReportExportSuccessOrChangeVault",
+      "passed": true,
+      "startedUtc": "2026-10-28T14:10:13.1829065+05:30",
+      "durationSeconds": 14.275,
+      "logSha256": "0e1060336eaa7435fbcda2c317054c5a4c5d0ee02d741b7900a0d272763f06a9"
+    },
+    {
+      "selector": "com.wealthos.app.BackupWorkflowTest#passwordConfirmationAndRecreationDoNotPersistPassword",
+      "passed": true,
+      "startedUtc": "2026-10-28T14:10:28.2083697+05:30",
+      "durationSeconds": 10.702,
+      "logSha256": "376f195d4402b0dd6c82fec06687cf4fbf266ceabe896afea205147460a934a3"
+    },
+    {
+      "selector": "com.wealthos.app.BankWorkflowTest#addUpdateCorrectHistoryAndEditPersistAcrossActivityRecreation",
+      "passed": true,
+      "startedUtc": "2026-10-28T14:10:39.9777609+05:30",
+      "durationSeconds": 16.062,
+      "logSha256": "f68472f0a5e1fee932aea2998a602cdf379b19c567aea65a5d07bb3ef473e692"
+    },
+    {
+      "selector": "com.wealthos.app.CalculatorWorkflowTest#sipZeroInterestAndChangedInputsDoNotDisplayStaleOutput",
+      "passed": true,
+      "startedUtc": "2026-10-28T14:10:57.3810095+05:30",
+      "durationSeconds": 13.22,
+      "logSha256": "1d22dd2552fc1561677b0949a95007c6464eca9cbbee4044b1632fdd034c17a1"
+    },
+    {
+      "selector": "com.wealthos.app.DashboardUiTest#fictionalDemoAndObscuringAmounts",
+      "passed": true,
+      "startedUtc": "2026-10-28T14:11:11.2782049+05:30",
+      "durationSeconds": 6.587,
+      "logSha256": "9d77d33503896123bc08875e8e63aaa8185bca7324fe5787e030965eb806c933"
+    },
+    {
+      "selector": "com.wealthos.app.DashboardUiTest#emptyStateDoesNotDisplayDemoAsRealWealth",
+      "passed": true,
+      "startedUtc": "2026-10-28T14:11:18.6026574+05:30",
+      "durationSeconds": 5.137,
+      "logSha256": "a4ea92683d86edc0cd60df8a8b284f9e7727d2b9e1c0d6261ad85dfc47c1a7c3"
+    },
+    {
+      "selector": "com.wealthos.app.HouseholdPrivacyTest#reserveAndInsuranceReadViewsObscureAllCurrencyAmounts",
+      "passed": true,
+      "startedUtc": "2026-10-28T14:11:24.4232051+05:30",
+      "durationSeconds": 4.801,
+      "logSha256": "7a36374886bc957cb9d9efc13c17cbcc3f4dd4802a969acd75558af562c2c887"
+    },
+    {
+      "selector": "com.wealthos.app.HouseholdWorkflowTest#salarySummaryEarmarksAndInsuranceRemainSeparateFromBankCash",
+      "passed": true,
+      "startedUtc": "2026-10-28T14:11:30.0184682+05:30",
+      "durationSeconds": 31.027,
+      "logSha256": "0f4911a6f2b63a95f1d4075947704ebb71346858effe148f361237e23720b3b2"
+    },
+    {
+      "selector": "com.wealthos.app.PlanningPrivacyTest#forecastAndGoalOutputsRespectObscuredAmounts",
+      "passed": true,
+      "startedUtc": "2026-10-28T14:12:01.7578568+05:30",
+      "durationSeconds": 8.569,
+      "logSha256": "62b737c1769c8a77568cb146630888b1e55858dff5ab399b9bc193c7c14b461b"
+    },
+    {
+      "selector": "com.wealthos.app.PlanningWorkflowTest#independentScenarioAndGoalRevisionsPersist",
+      "passed": true,
+      "startedUtc": "2026-10-28T14:12:11.1215361+05:30",
+      "durationSeconds": 19.974,
+      "logSha256": "86b8a45612c10889ab5b570c534e48f2cfa2fd73a7b3bc076f52cd6e5a73ec6f"
+    },
+    {
+      "selector": "com.wealthos.app.PortfolioWorkflowTest#openingPositionPurchaseSaleAndManualPricePersist",
+      "passed": true,
+      "startedUtc": "2026-10-28T14:12:32.1227176+05:30",
+      "durationSeconds": 18.328,
+      "logSha256": "92d4498957e580bb2f933327bcf99ec210031352053a8fa450dd2d4d85322a4c"
+    },
+    {
+      "selector": "com.wealthos.app.PortfolioWorkflowTest#propertyAndLoanCanBeAddedWithoutInventingCashFlows",
+      "passed": true,
+      "startedUtc": "2026-10-28T14:12:51.1290161+05:30",
+      "durationSeconds": 19.219,
+      "logSha256": "499041dfc8e418391d3086c5727bd20242197f90373de217353f7a11ec7109eb"
+    },
+    {
+      "selector": "com.wealthos.app.PortfolioWorkflowTest#fixedDepositKeepsEstimateSeparateFromObservedValue",
+      "passed": true,
+      "startedUtc": "2026-10-28T14:13:11.1047611+05:30",
+      "durationSeconds": 15.217,
+      "logSha256": "97d3b51072e2d4c3e74fde869442fd81c8563d02c51ef0843d55b9439d528699"
+    },
+    {
+      "selector": "com.wealthos.app.PrivacyGateTest#persistedAccessLockGatesRecordsAndWindowIsSecure",
+      "passed": true,
+      "startedUtc": "2026-10-28T14:13:26.9747749+05:30",
+      "durationSeconds": 5.562,
+      "logSha256": "cc2652b67c33a8662cb05295effeebb9129e24ff8064cfd48a9874a44c4f4dd9"
+    },
+    {
+      "selector": "com.wealthos.app.PublicNavWorkflowTest#linkImportReviewAndApplyOnlySelectedNavWithoutNetwork",
+      "passed": true,
+      "startedUtc": "2026-10-28T14:13:33.2338426+05:30",
+      "durationSeconds": 16.315,
+      "logSha256": "341301c21711311709ccf4908c3b28813be21477028854a55cea6bec33ab49e1"
+    },
+    {
+      "selector": "com.wealthos.app.PublicReferencePrivacyTest#cachedReferenceAmountsAndRawInputsAreObscured",
+      "passed": true,
+      "startedUtc": "2026-10-28T14:13:50.7100969+05:30",
+      "durationSeconds": 4.539,
+      "logSha256": "e97d3106887b2a3780cbad9a9999e8f866f9643f4122a44ea699f2fb9569a7d4"
+    },
+    {
+      "selector": "com.wealthos.app.PublicReferenceWorkflowTest#manualEconomicReferencePersistsWithoutEnablingNetwork",
+      "passed": true,
+      "startedUtc": "2026-10-28T14:13:55.9122649+05:30",
+      "durationSeconds": 12.73,
+      "logSha256": "40994f100016c07e256592bca306d14f30ca19f1bf170f6aa66b49c3ab307f5d"
+    }
+  ],
+  "passed": 18,
+  "failures": 0,
+  "skipped": 0,
+  "phoneAccessed": false,
+  "releaseVaultReset": false,
+  "emulatorVersion": "37.2.12.0",
+  "emulatorBootSerial": "EMULATOR37X2X12X0",
+  "comparisonLimit": "Earlier API 35 failures used an older harness. Passing here does not isolate the emulator update as the cause or establish an upstream fix."
+}

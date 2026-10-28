@@ -1,0 +1,25 @@
+{
+  "fontScale": 2.0,
+  "nativeControlsReachable": [
+    {
+      "control": "Backup password",
+      "bounds": "[158,1394][737,1505]"
+    },
+    {
+      "control": "Confirm backup password",
+      "bounds": "[158,1921][922,2143]"
+    },
+    {
+      "control": "Create encrypted backup",
+      "bounds": "[179,1469][901,1665]"
+    },
+    {
+      "control": "Restore password",
+      "bounds": "[158,2166][746,2277]"
+    },
+    {
+      "control": "Validate and preview backup",
+      "bounds": "[179,1546][901,1742]"
+    }
+  ]
+}

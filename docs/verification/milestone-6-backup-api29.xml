@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="11" failures="0" errors="0" skipped="0" time="0.000" timestamp="2026-10-27T20:43:49" hostname="localhost">
+  <testsuite name="com.wealthos.database.BackupRepositoryTest" tests="11" failures="0" errors="0" skipped="0" time="363.054" timestamp="2026-10-27T20:43:49" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5556" />
+    </properties>
+    <testcase name="everyTableAndDecimalRestoresUnderADifferentKeyWithProvenance" classname="com.wealthos.database.BackupRepositoryTest" time="47.291" />
+    <testcase name="missingTablesWrongTypesDuplicateKeysAndExponentBombAreRejectedInStaging" classname="com.wealthos.database.BackupRepositoryTest" time="74.349" />
+    <testcase name="auditFailureRollsBackReplacementAndSafetyCopyContainsPreviousVault" classname="com.wealthos.database.BackupRepositoryTest" time="27.414" />
+    <testcase name="cancelledRestorePreservesRecords" classname="com.wealthos.database.BackupRepositoryTest" time="15.113" />
+    <testcase name="liveChangesAfterPreviewRejectReplacementWithoutSafetyOverwrite" classname="com.wealthos.database.BackupRepositoryTest" time="14.446" />
+    <testcase name="incorrectPasswordAndDamagedFileNeverChangeCurrentRecords" classname="com.wealthos.database.BackupRepositoryTest" time="19.590" />
+    <testcase name="missingParentAndInvalidFinancialContentsNeverReachLiveVault" classname="com.wealthos.database.BackupRepositoryTest" time="31.488" />
+    <testcase name="unknownSchemaIsRejectedAndSafetyCopiesAreRetained" classname="com.wealthos.database.BackupRepositoryTest" time="64.591" />
+    <testcase name="partialInsertFailureRollsBackAllCurrentRecords" classname="com.wealthos.database.BackupRepositoryTest" time="23.215" />
+    <testcase name="independentUnicodeCryptoFixtureWorksOnAndroid" classname="com.wealthos.database.BackupRepositoryTest" time="9.914" />
+    <testcase name="safetyCopyIoFailurePreservesVault" classname="com.wealthos.database.BackupRepositoryTest" time="35.643" />
+  </testsuite>
+</testsuites>

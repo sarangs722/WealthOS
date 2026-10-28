@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="7" failures="0" errors="0" skipped="0" time="0.000" timestamp="2026-10-27T20:48:23" hostname="localhost">
+  <testsuite name="com.wealthos.publicdata.OfficialParsersTest" tests="7" failures="0" errors="0" skipped="0" time="0.210" timestamp="2026-10-27T20:48:23" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="failedSecondCpiRequestDoesNotReturnPartialBatch" classname="com.wealthos.publicdata.OfficialParsersTest" time="0.036" />
+    <testcase name="retrievalTimestampCapturedAfterSuccessfulParsing" classname="com.wealthos.publicdata.OfficialParsersTest" time="0.055" />
+    <testcase name="cpiRejectsWrongBaseSectorMonthPartialAndNumberCoercion" classname="com.wealthos.publicdata.OfficialParsersTest" time="0.018" />
+    <testcase name="ecbCrossRatesPreserveRawInputsAndReferenceDate" classname="com.wealthos.publicdata.OfficialParsersTest" time="0.052" />
+    <testcase name="emptyMonthIsUnavailableAndNoFabricatedCpi" classname="com.wealthos.publicdata.OfficialParsersTest" time="0.006" />
+    <testcase name="cpiUsesPublishedQuotedDecimalsAndNewBase" classname="com.wealthos.publicdata.OfficialParsersTest" time="0.017" />
+    <testcase name="xmlEntitiesWrongNamespacesDuplicatesAndMissingRatesRejected" classname="com.wealthos.publicdata.OfficialParsersTest" time="0.026" />
+  </testsuite>
+</testsuites>

@@ -1,0 +1,88 @@
+{
+  "scope": "Local signing tools; disposable test identity, never a production release",
+  "passed": 19,
+  "checks": [
+    {
+      "name": "Existing-key password buffers preserve UTF-16 code units",
+      "result": "passed"
+    },
+    {
+      "name": "Newline password cannot alter signer input framing",
+      "result": "passed"
+    },
+    {
+      "name": "Encrypted fixture key and public certificate created outside repository",
+      "result": "passed"
+    },
+    {
+      "name": "Password environment variable never added to parent process",
+      "result": "passed"
+    },
+    {
+      "name": "Existing keystore cannot be overwritten",
+      "result": "passed"
+    },
+    {
+      "name": "Repository keystore path rejected",
+      "result": "passed"
+    },
+    {
+      "name": "Actual shrunk release signs and passes full package signature backup and native checks",
+      "result": "passed"
+    },
+    {
+      "name": "Wrong public certificate pin rejected",
+      "result": "passed"
+    },
+    {
+      "name": "Development certificate rejected on actual minified APK",
+      "result": "passed"
+    },
+    {
+      "name": "Incorrect keystore password fails closed",
+      "result": "passed"
+    },
+    {
+      "name": "Failed signing publishes no APK or report",
+      "result": "passed"
+    },
+    {
+      "name": "Signed output with wrong pin never accepted",
+      "result": "passed"
+    },
+    {
+      "name": "Failed verification removes only its staging outputs",
+      "result": "passed"
+    },
+    {
+      "name": "Existing accepted APK cannot be overwritten",
+      "result": "passed"
+    },
+    {
+      "name": "Accepted APK remains byte identical",
+      "result": "passed"
+    },
+    {
+      "name": "Modified signed APK rejected cryptographically",
+      "result": "passed"
+    },
+    {
+      "name": "Unsigned source and encrypted keystore remain byte identical",
+      "result": "passed"
+    },
+    {
+      "name": "No accidental repository key or failed accepted artifact",
+      "result": "passed"
+    },
+    {
+      "name": "Disposable private keystore and its temporary directory removed",
+      "result": "passed"
+    }
+  ],
+  "fixtureCertificateSha256": "ffe7b9fcf068318ea0cc35a3bbfdeaf7a39fd9e32caf2a4247bc2523fcb72a7e",
+  "fixtureApkSha256": "e673987c15ba074e1083c4ce5e2cdc5c6bbbcc494912e59e8dd1b740ae50b412",
+  "unsignedApkSha256": "c35699ca225fece744d1f8ddf381f4a8ced6cfd90c07db4a1396173465705c25",
+  "phoneAccessed": false,
+  "productionKeyCreated": false,
+  "fixturePrivateKeyRetained": false
+}

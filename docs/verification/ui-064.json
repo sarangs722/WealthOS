@@ -1,0 +1,156 @@
+{
+  "date": "2026-10-28",
+  "version": "0.6.4",
+  "versionCode": 10,
+  "schema": 6,
+  "financialEngineChanged": false,
+  "securityStorageChanged": false,
+  "jvmTests": {
+    "finance": {
+      "tests": 99,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "security": {
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "publicData": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "uiTests": {
+    "platform": "Android 10 / API 29, emulator-5556 WealthOS29",
+    "executed": 37,
+    "failures": 0,
+    "skipped": 0,
+    "rawLog": "ui-064-api29.txt"
+  },
+  "screenshots": {
+    "count": 30,
+    "data": "Fictional only",
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "fontScales": [
+      1,
+      1.5
+    ],
+    "systemOverlayGuard": true
+  },
+  "build": {
+    "release": "passed",
+    "originalAppDebug": "passed",
+    "lint": {
+      "debug": {
+        "errors": 0,
+        "warnings": [
+          "AndroidGradlePluginVersion"
+        ]
+      },
+      "release": {
+        "errors": 0,
+        "warnings": [
+          "AndroidGradlePluginVersion"
+        ]
+      }
+    }
+  },
+  "artifacts": {
+    "WealthOS-0.6.4-development.apk": "a119c99f1a59c8518f9a899c1cdacb5f43024533013fb71052e71165db86b0c8",
+    "WealthOS-0.6.4-ui-lab.apk": "0fc8b71ec065af302c51ebff4794d3ab4b0052dd96c0bbb88891d61c8212f17a",
+    "WealthOS-0.6.4-ui-tests.apk": "12d0073b89f6371125a2e8714112254654acfe820c32233cd96f0e0a0b3442cf",
+    "WealthOS-0.6.4-unsigned.apk": "af7feb209895795ae807129e88f93211022c4dd18a7cb8f7c80eee78374b9532",
+    "WealthOS-0.6.4.apk": "5c08f6561e09c10e87f21f6740915b291f88cbf47cccf8946dca14e8348db27a"
+  },
+  "releaseSigning": {
+    "status": "PACKAGE_AND_SIGNATURE_VERIFIED",
+    "applicationId": "com.wealthos.app.release",
+    "versionName": "0.6.4",
+    "versionCode": 10,
+    "apkSha256": "5c08f6561e09c10e87f21f6740915b291f88cbf47cccf8946dca14e8348db27a",
+    "certificateSha256": "cf06385769b4d9e0992910521f210a77407cb284e2963290fbb10006b8d88054",
+    "minSdk": 29,
+    "targetSdk": 37,
+    "debuggable": false,
+    "testOnly": false,
+    "osBackupExcluded": true,
+    "cleartext": false,
+    "permissions": [
+      "android.permission.INTERNET",
+      "android.permission.USE_BIOMETRIC",
+      "com.wealthos.app.release.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    ],
+    "componentInventory": "reviewed",
+    "nativeLibraries": 8,
+    "elfAndZip16KiB": "passed",
+    "phoneAccessed": false,
+    "physicalDeviceReview": "pending",
+    "independentSecurityReview": "pending"
+  },
+  "releaseNativeUpgrade": {
+    "uid": "10229",
+    "unchangedDataDirectories": true,
+    "deDataInode": "57950",
+    "unchangedUid": true,
+    "phoneAccessed": false,
+    "retainedNetWorth": "1152.52",
+    "applicationId": "com.wealthos.app.release",
+    "version": "0.6.4",
+    "ceDataInode": "368927",
+    "retainedBankRevisions": [
+      "500.01",
+      "650.02"
+    ],
+    "retainedHolding": {
+      "value": "502.50",
+      "cost": "400.00",
+      "unrealizedGain": "102.50",
+      "units": "5"
+    },
+    "nativeDestinationsAndBankEntry": "passed without saving"
+  },
+  "phoneAccessed": false,
+  "physicalDeviceAcceptance": "pending user checks",
+  "originalAppUpgrade": {
+    "uid": "10227",
+    "version": "0.6.4",
+    "retainedNetWorth": "1152.52",
+    "phoneAccessed": false,
+    "unchangedDataDirectory": true,
+    "firstFrameExcluded": "Vault still loading",
+    "dataDirectoryInode": "344705",
+    "unchangedUid": true,
+    "applicationId": "com.wealthos.app",
+    "retainedBankRevisions": [
+      "500.01",
+      "650.02"
+    ],
+    "retainedHolding": {
+      "value": "502.50",
+      "cost": "400.00",
+      "unrealizedGain": "102.50",
+      "units": "5"
+    }
+  },
+  "signedPayloadComparison": {
+    "status": "ALL_UNSIGNED_PAYLOAD_ENTRIES_IDENTICAL",
+    "originalEntries": 97,
+    "expectedAddedSigningEntries": [
+      "META-INF/MANIFEST.MF",
+      "META-INF/WEALTHOS.RSA",
+      "META-INF/WEALTHOS.SF"
+    ],
+    "unsignedSha256": "af7feb209895795ae807129e88f93211022c4dd18a7cb8f7c80eee78374b9532",
+    "signedSha256": "5c08f6561e09c10e87f21f6740915b291f88cbf47cccf8946dca14e8348db27a"
+  },
+  "status": "SOFTWARE_AND_SIGNED_EMULATOR_UPDATE_VERIFIED",
+  "scopeNote": "121 JVM tests and 37 final API 29 UI tests executed; earlier repository/16 KiB runtime suites were not repeated. Physical phone acceptance remains user-run."
+}

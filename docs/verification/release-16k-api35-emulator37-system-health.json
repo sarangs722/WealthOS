@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-28",
+  "avd": "WealthOS16K",
+  "api": 35,
+  "emulatorVersion": "37.2.12.0",
+  "wealthOsUiCasesPassed": 18,
+  "wealthOsUiCasesFailed": 0,
+  "postSuiteReleaseColdStartNetWorth": "1152.52",
+  "systemUiAnrObserved": true,
+  "systemUiAnrAction": "Wait; then verified release vault",
+  "otherCrashBufferProcesses": [
+    "com.google.android.as",
+    "com.google.android.googlequicksearchbox:search",
+    "com.google.android.gms",
+    "com.google.android.gms.persistent",
+    "com.android.phone"
+  ],
+  "wealthOsCrashInBootBuffer": false,
+  "limitation": "Experimental Android 15 image remains unstable in system processes; this is not proof of a WealthOS root cause or a general Android 15 compatibility certification.",
+  "phoneAccessed": false
+}

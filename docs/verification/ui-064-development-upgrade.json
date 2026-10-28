@@ -1,0 +1,21 @@
+{
+  "uid": "10227",
+  "version": "0.6.4",
+  "retainedNetWorth": "1152.52",
+  "phoneAccessed": false,
+  "unchangedDataDirectory": true,
+  "firstFrameExcluded": "Vault still loading",
+  "dataDirectoryInode": "344705",
+  "unchangedUid": true,
+  "applicationId": "com.wealthos.app",
+  "retainedBankRevisions": [
+    "500.01",
+    "650.02"
+  ],
+  "retainedHolding": {
+    "value": "502.50",
+    "cost": "400.00",
+    "unrealizedGain": "102.50",
+    "units": "5"
+  }
+}

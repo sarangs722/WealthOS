@@ -1,0 +1,138 @@
+{
+  "date": "2026-10-28",
+  "serial": "emulator-5560",
+  "avd": "WealthOS16K36",
+  "api": 36,
+  "abi": "x86_64",
+  "userspacePageSize": 16384,
+  "runtimeScope": "Official Google 16 KiB x86_64 userspace simulation; not physical ARM hardware",
+  "fingerprint": "google/sdk_gphone16k_x86_64/emu64xa16k:16/BE4B.251210.005/14574095:userdebug/dev-keys",
+  "appVersion": "0.6.0",
+  "appApkSha256": "71baccb417015beac48139fc2e4855c423ab46655d0e86ce720ece30c2fe5cd0",
+  "testsPassed": 18,
+  "suites": [
+    {
+      "suite": "app",
+      "passed": 18,
+      "failures": 0,
+      "skipped": 0,
+      "apkSha256": "1f460f87881cdd2a678d8df8a90843a63d7e8883085b4cc0fdc8d46eba428332",
+      "isolatedCases": [
+        {
+          "failures": 0,
+          "passed": 1,
+          "skipped": 0,
+          "selector": "com.wealthos.app.BackupWorkflowTest#exportReadbackPreviewCancelAndConfirmedReplacementKeepHistory"
+        },
+        {
+          "failures": 0,
+          "passed": 1,
+          "skipped": 0,
+          "selector": "com.wealthos.app.BackupWorkflowTest#truncatedDocumentProviderCannotReportExportSuccessOrChangeVault"
+        },
+        {
+          "failures": 0,
+          "passed": 1,
+          "skipped": 0,
+          "selector": "com.wealthos.app.BackupWorkflowTest#passwordConfirmationAndRecreationDoNotPersistPassword"
+        },
+        {
+          "failures": 0,
+          "passed": 1,
+          "skipped": 0,
+          "selector": "com.wealthos.app.BankWorkflowTest#addUpdateCorrectHistoryAndEditPersistAcrossActivityRecreation"
+        },
+        {
+          "failures": 0,
+          "passed": 1,
+          "skipped": 0,
+          "selector": "com.wealthos.app.CalculatorWorkflowTest#sipZeroInterestAndChangedInputsDoNotDisplayStaleOutput"
+        },
+        {
+          "failures": 0,
+          "passed": 1,
+          "skipped": 0,
+          "selector": "com.wealthos.app.DashboardUiTest#fictionalDemoAndObscuringAmounts"
+        },
+        {
+          "failures": 0,
+          "passed": 1,
+          "skipped": 0,
+          "selector": "com.wealthos.app.DashboardUiTest#emptyStateDoesNotDisplayDemoAsRealWealth"
+        },
+        {
+          "failures": 0,
+          "passed": 1,
+          "skipped": 0,
+          "selector": "com.wealthos.app.HouseholdPrivacyTest#reserveAndInsuranceReadViewsObscureAllCurrencyAmounts"
+        },
+        {
+          "failures": 0,
+          "passed": 1,
+          "skipped": 0,
+          "selector": "com.wealthos.app.HouseholdWorkflowTest#salarySummaryEarmarksAndInsuranceRemainSeparateFromBankCash"
+        },
+        {
+          "failures": 0,
+          "passed": 1,
+          "skipped": 0,
+          "selector": "com.wealthos.app.PlanningPrivacyTest#forecastAndGoalOutputsRespectObscuredAmounts"
+        },
+        {
+          "failures": 0,
+          "passed": 1,
+          "skipped": 0,
+          "selector": "com.wealthos.app.PlanningWorkflowTest#independentScenarioAndGoalRevisionsPersist"
+        },
+        {
+          "failures": 0,
+          "passed": 1,
+          "skipped": 0,
+          "selector": "com.wealthos.app.PortfolioWorkflowTest#openingPositionPurchaseSaleAndManualPricePersist"
+        },
+        {
+          "failures": 0,
+          "passed": 1,
+          "skipped": 0,
+          "selector": "com.wealthos.app.PortfolioWorkflowTest#propertyAndLoanCanBeAddedWithoutInventingCashFlows"
+        },
+        {
+          "failures": 0,
+          "passed": 1,
+          "skipped": 0,
+          "selector": "com.wealthos.app.PortfolioWorkflowTest#fixedDepositKeepsEstimateSeparateFromObservedValue"
+        },
+        {
+          "failures": 0,
+          "passed": 1,
+          "skipped": 0,
+          "selector": "com.wealthos.app.PrivacyGateTest#persistedAccessLockGatesRecordsAndWindowIsSecure"
+        },
+        {
+          "failures": 0,
+          "passed": 1,
+          "skipped": 0,
+          "selector": "com.wealthos.app.PublicNavWorkflowTest#linkImportReviewAndApplyOnlySelectedNavWithoutNetwork"
+        },
+        {
+          "failures": 0,
+          "passed": 1,
+          "skipped": 0,
+          "selector": "com.wealthos.app.PublicReferencePrivacyTest#cachedReferenceAmountsAndRawInputsAreObscured"
+        },
+        {
+          "failures": 0,
+          "passed": 1,
+          "skipped": 0,
+          "selector": "com.wealthos.app.PublicReferenceWorkflowTest#manualEconomicReferencePersistsWithoutEnablingNetwork"
+        }
+      ],
+      "startedUtc": "2026-10-28T12:29:02.7784321+05:30",
+      "durationSeconds": 324.851
+    }
+  ],
+  "physicalDeviceVerified": false,
+  "phoneAccessed": false,
+  "existingEmulatorsModified": false,
+  "reportNote": "Reconstructed from 18 verified raw passing case logs after correcting only the report writer ordered-dictionary aggregation; tests were not rerun or relabeled"
+}

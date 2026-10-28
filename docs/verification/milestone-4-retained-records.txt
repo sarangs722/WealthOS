@@ -1,0 +1,8 @@
+
+com.wealthos.app.UpgradeRetentionTest:.
+
+Time: 50.243
+
+OK (1 test)
+
+

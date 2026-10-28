@@ -1,0 +1,205 @@
+{
+  "date": "2026-10-28",
+  "version": "0.6.2",
+  "build": {
+    "date": "2026-10-28",
+    "version": "0.6.2",
+    "versionCode": 8,
+    "schema": 6,
+    "buildStatus": "BUILD SUCCESSFUL",
+    "durationSeconds": 240,
+    "tasks": 277,
+    "executed": 41,
+    "upToDate": 236,
+    "artifacts": {
+      "WealthOS-0.6.2-development.apk": "78114ddea537838cd2a9f444d17ca1d4d8e82cc713ac3754929a88cb80602455",
+      "WealthOS-0.6.2-tests.apk": "4daf1f43d0d08cf9daf526791e689ba1ac39858375ea74847d7424617224241b",
+      "WealthOS-0.6.2-unsigned.apk": "c02495fb026c87f07c684b8d3773435e22493271f707fb249d769f59ea4e07e8"
+    },
+    "lint": {
+      "debug": {
+        "errors": 0,
+        "issues": [
+          {
+            "message": "A newer version of Gradle than 9.6.0 is available: 9.8.2",
+            "id": "AndroidGradlePluginVersion",
+            "severity": "Warning"
+          }
+        ]
+      },
+      "release": {
+        "errors": 0,
+        "issues": [
+          {
+            "message": "A newer version of Gradle than 9.6.0 is available: 9.8.2",
+            "id": "AndroidGradlePluginVersion",
+            "severity": "Warning"
+          }
+        ]
+      }
+    },
+    "domainEngineChanged": false,
+    "databaseSchemaChanged": false,
+    "dependenciesChanged": false,
+    "regressionCaseInventory": 210,
+    "baseline204Rerun": false,
+    "ordinaryAppCases": 24,
+    "directOnlyParameterizedAppDefinitions": 3
+  },
+  "tests": {
+    "date": "2026-10-28",
+    "version": "0.6.2",
+    "developmentApkSha256": "78114ddea537838cd2a9f444d17ca1d4d8e82cc713ac3754929a88cb80602455",
+    "testApkSha256": "4daf1f43d0d08cf9daf526791e689ba1ac39858375ea74847d7424617224241b",
+    "executedPassingChecks": 11,
+    "distinctCasesExecuted": 8,
+    "newRegressionCases": 6,
+    "full210SuiteRerun": false,
+    "suites": [
+      {
+        "serial": "emulator-5554",
+        "durationSeconds": 53.58,
+        "skipped": 0,
+        "rawLogSha256": "90f8bf0c00d8c282e2c479e6cd05049e092fe37fae51719f8d072d61a14ce921",
+        "passed": 8,
+        "api": 36,
+        "failures": 0,
+        "avd": "WealthOS"
+      },
+      {
+        "serial": "emulator-5556",
+        "durationSeconds": 0.035,
+        "skipped": 0,
+        "rawLogSha256": "b9ecf5ed6ae79965547352ff78c9ed611920cae216ad5e3c65c444476a4ef0bf",
+        "passed": 3,
+        "api": 29,
+        "failures": 0,
+        "avd": "WealthOS29"
+      }
+    ],
+    "beforeFix": {
+      "targetVersion": "0.6.1",
+      "expectedFailure": "backupOnlyInterruptedWriteRetainsLockAndAmountPrivacy",
+      "rawLogSha256": "3e384fa9f0989bbdf91548c0ecd7135b73894a7b9a01ef966d7a741da2091bce",
+      "failed": 1,
+      "passed": 2
+    },
+    "api29VaultAndWrappedKeyByteIdentical": true,
+    "phoneAccessed": false,
+    "physicalDeviceVerified": false,
+    "independentAudit": false,
+    "ordinaryRegressionCaseInventory": 210,
+    "ordinaryAppCaseInventory": 24,
+    "directOnlyParameterizedAppDefinitions": 3,
+    "inventoryNote": "The 24 ordinary app cases exclude three parameterized host-driven upgrade/reinstall definitions whose default parameter sets are empty. The 204-case historical baseline plus six new ordinary regression cases totals 210; it was not rerun in full."
+  },
+  "signature": {
+    "status": "PACKAGE_AND_SIGNATURE_VERIFIED",
+    "applicationId": "com.wealthos.app.release",
+    "versionName": "0.6.2",
+    "versionCode": 8,
+    "apkSha256": "9c054bd7784f2e9981dba5d694a3f5b1517d052078bd993e1c05b4c5c6afae05",
+    "certificateSha256": "cf06385769b4d9e0992910521f210a77407cb284e2963290fbb10006b8d88054",
+    "minSdk": 29,
+    "targetSdk": 37,
+    "debuggable": false,
+    "testOnly": false,
+    "osBackupExcluded": true,
+    "cleartext": false,
+    "permissions": [
+      "android.permission.INTERNET",
+      "android.permission.USE_BIOMETRIC",
+      "com.wealthos.app.release.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    ],
+    "componentInventory": "reviewed",
+    "nativeLibraries": 8,
+    "elfAndZip16KiB": "passed",
+    "phoneAccessed": false,
+    "physicalDeviceReview": "pending",
+    "independentSecurityReview": "pending"
+  },
+  "signedPayload": {
+    "version": "0.6.2",
+    "unchangedOriginalZipEntries": 97,
+    "addedSignatureEntries": [
+      "META-INF/MANIFEST.MF",
+      "META-INF/WEALTHOS.RSA",
+      "META-INF/WEALTHOS.SF"
+    ],
+    "unsignedSha256": "c02495fb026c87f07c684b8d3773435e22493271f707fb249d769f59ea4e07e8",
+    "signedSha256": "9c054bd7784f2e9981dba5d694a3f5b1517d052078bd993e1c05b4c5c6afae05",
+    "applicationPayloadUnchangedBySigning": true
+  },
+  "signedUpgrade": {
+    "oldVersion": "0.6.1",
+    "newVersion": "0.6.2",
+    "userId": 0,
+    "appId": "10229",
+    "sameUidAndDataDirectories": true,
+    "netWorthBefore": "1152.52",
+    "netWorthAfter": "1152.52",
+    "schema": 6,
+    "uninstallOrClearData": false,
+    "phoneAccessed": false
+  },
+  "nativeRetainedFixture": {
+    "netWorthInr": "1152.52",
+    "bankRevisions": [
+      1,
+      2
+    ],
+    "bankAmounts": [
+      "500.01",
+      "650.02"
+    ],
+    "fundUnits": "5",
+    "fifoCost": "400.00",
+    "unrealizedGain": "102.50",
+    "incompleteReturnHistoryDisclosed": true,
+    "networking": "off",
+    "sourceBackupFinancialAuditRows": 12,
+    "note": "Restore adds its own audit/network-setting records; the 12-row count describes the source file, not a claim that the receiving vault has no additional audit rows."
+  },
+  "startupDiagnostic": {
+    "environment": "WealthOS API36 x86_64, 4 KiB pages, emulator 37.2.12, WHPX/software GPU, 2 GiB guest RAM; one emulator, build daemon stopped",
+    "samples": [
+      {
+        "firstDisplayMs": 2233,
+        "sample": 1,
+        "state": "COLD"
+      },
+      {
+        "firstDisplayMs": 1962,
+        "sample": 2,
+        "state": "COLD"
+      },
+      {
+        "firstDisplayMs": 1758,
+        "sample": 3,
+        "state": "COLD"
+      }
+    ],
+    "minMs": 1758,
+    "medianMs": 1962,
+    "maxMs": 2233,
+    "measurement": "am start -S -W cold process TotalTime / first display; not TTFD, physical-phone performance, frame/battery profiling or an SLA",
+    "singlePssSnapshotKiB": 25056
+  },
+  "restoredState": {
+    "avd": "WealthOS",
+    "fontScale": "1.0",
+    "nightMode": "Night mode: no",
+    "originalFontAndThemeRestored": true,
+    "api29SettingsModified": false,
+    "personalPhoneAccessed": false
+  },
+  "limitations": [
+    "Guided physical-device checks chosen by user, not yet performed/reported",
+    "Independent security review pending; this is a bounded first-party review",
+    "Actual physical power-loss, OEM/hardware Keystore and physical 16 KiB execution not established",
+    "Earlier Android15 experimental-image ART/JIT/system instability remains unresolved",
+    "0.6.2 instrumented runtime tests used API29/36 with 4 KiB pages; 16 KiB ELF/ZIP packaging passed, prior 16 KiB runtime tests are separate historical evidence"
+  ],
+  "phoneAccessed": false,
+  "privateKeyOrPassphraseReadIntoChat": false
+}

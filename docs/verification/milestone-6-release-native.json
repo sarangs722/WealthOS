@@ -1,0 +1,95 @@
+{
+  "apk": "m6-release-lab.apk",
+  "sha256": "da400ed10bd09209cbfb9b5b616bfd2e7ff7486fe93afb80c0848612307a91d4",
+  "libraries": [
+    {
+      "path": "lib/arm64-v8a/libandroidx.graphics.path.so",
+      "bytes": 10096,
+      "sha256": "41e9a793c43a0f4fddb19e33f346bace464f30f888ba7b9eaf96294ea115bfb6",
+      "loadAlignments": [
+        16384,
+        16384,
+        16384
+      ],
+      "zipDataOffset": 3014656
+    },
+    {
+      "path": "lib/arm64-v8a/libsqlcipher.so",
+      "bytes": 2110992,
+      "sha256": "46a06f81da976f690c18c79e58f7742a2b1aa144301a35a0bb81ffa32da73756",
+      "loadAlignments": [
+        16384,
+        16384,
+        16384
+      ],
+      "zipDataOffset": 3031040
+    },
+    {
+      "path": "lib/armeabi-v7a/libandroidx.graphics.path.so",
+      "bytes": 7252,
+      "sha256": "41399eba6fc2a60f6f14642375c1824f3cf25eb8fec7397d753730a3ceda3e2b",
+      "loadAlignments": [
+        16384,
+        16384,
+        16384
+      ],
+      "zipDataOffset": 5144576
+    },
+    {
+      "path": "lib/armeabi-v7a/libsqlcipher.so",
+      "bytes": 1057676,
+      "sha256": "fa761c03dac08249a2b663a1a2a2c19d6a3433c6c03a063f5ee4427ca2d4a827",
+      "loadAlignments": [
+        16384,
+        16384,
+        16384
+      ],
+      "zipDataOffset": 5160960
+    },
+    {
+      "path": "lib/x86/libandroidx.graphics.path.so",
+      "bytes": 9284,
+      "sha256": "eb0570b41fd3bff25d8204a967c03bd7550719e768b791f680cc40cbe35f29af",
+      "loadAlignments": [
+        16384,
+        16384,
+        16384
+      ],
+      "zipDataOffset": 6225920
+    },
+    {
+      "path": "lib/x86/libsqlcipher.so",
+      "bytes": 2260832,
+      "sha256": "309726bc1287683cf33fdb88e11f4079d0d718dc5f7c567029b5d74905dc40e5",
+      "loadAlignments": [
+        16384,
+        16384,
+        16384
+      ],
+      "zipDataOffset": 6242304
+    },
+    {
+      "path": "lib/x86_64/libandroidx.graphics.path.so",
+      "bytes": 10760,
+      "sha256": "4e56c996f13670e70082658de7880c4020eabf4f25e43387f88ed78a713fc9f0",
+      "loadAlignments": [
+        16384,
+        16384,
+        16384
+      ],
+      "zipDataOffset": 8503296
+    },
+    {
+      "path": "lib/x86_64/libsqlcipher.so",
+      "bytes": 2249352,
+      "sha256": "ec1e8a082116f386951309b1a1cd40a01bf1acb8518f67f3be10d03023f3f5d0",
+      "loadAlignments": [
+        16384,
+        16384,
+        16384
+      ],
+      "zipDataOffset": 8519680
+    }
+  ],
+  "result": "All native ELF segments and ZIP entries support 16 KiB alignment; runtime verification is separate."
+}

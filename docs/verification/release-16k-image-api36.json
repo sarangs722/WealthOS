@@ -1,0 +1,8 @@
+{
+  "package": "system-images;android-36.1;google_apis_ps16k;x86_64",
+  "publisherSha1": "d812164d3704c2d5846d34e0a4d2c61cb1224a02",
+  "url": "https://dl.google.com/android/repository/sys-img/google_apis/x86_64-ps16k-36.1_r04.zip",
+  "bytes": 1913923004,
+  "license": "Same accepted android-sdk-license text from the same catalog",
+  "sha256": "a2e3817918c991ba6607bbd1e63503bf546e2bc0ddaed0c72ef9c855a4173e9f"
+}

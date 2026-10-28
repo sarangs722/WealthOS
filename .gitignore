@@ -1,0 +1,36 @@
+.gradle/
+.kotlin/
+.tools/
+**/build/
+local.properties
+*.iml
+.idea/
+captures/
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.pk8
+signing.local.*
+
+# Local install packages and personal financial exports/databases.
+*.apk
+*.aab
+*.wosbackup
+*.db
+*.db-shm
+*.db-wal
+*.db-journal
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
+
+# Local credentials; public examples may be checked in explicitly.
+.env
+.env.*
+!.env.example
+*.key
+*.pem

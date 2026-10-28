@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-28",
+  "version": "0.6.0",
+  "versionCode": 6,
+  "schema": 6,
+  "distinctAutomatedTests": 204,
+  "local": {
+    "finance": {
+      "passed": 99,
+      "failures": 0,
+      "skipped": 0
+    },
+    "security": {
+      "passed": 12,
+      "failures": 0,
+      "skipped": 0
+    },
+    "network": {
+      "passed": 10,
+      "failures": 0,
+      "skipped": 0
+    }
+  },
+  "emulators": {
+    "29": {
+      "network": 7,
+      "ui": 18,
+      "databaseDistinct": 58,
+      "databaseFullRun": 57,
+      "focusedKeyRun": 3,
+      "failures": 0,
+      "skipped": 0
+    },
+    "36": {
+      "network": 7,
+      "ui": 18,
+      "databaseDistinct": 58,
+      "databaseFullRun": 57,
+      "focusedKeyRun": 3,
+      "failures": 0,
+      "skipped": 0
+    }
+  },
+  "baselineMatrixExecutions": 285,
+  "additionalFocusedKeyExecutions": 6,
+  "actualUpgradeSeedAndRetention": 2,
+  "actualReinstallSeedAndRecovery": 2,
+  "lint": {
+    "debug": {
+      "errors": 0,
+      "warnings": 1,
+      "warning": "Verified Gradle/Kotlin compatibility pin retained"
+    },
+    "release": {
+      "errors": 0,
+      "warnings": 1,
+      "warning": "Verified Gradle/Kotlin compatibility pin retained"
+    }
+  },
+  "debugApkSha256": "71baccb417015beac48139fc2e4855c423ab46655d0e86ce720ece30c2fe5cd0",
+  "unsignedShrunkReleaseSha256": "242f5281914b4149ef8aaea127acee7dc3400cd80fbd812c27eeeb7d88b1599d",
+  "labOnlyShrunkReleaseSha256": "da400ed10bd09209cbfb9b5b616bfd2e7ff7486fe93afb80c0848612307a91d4",
+  "productionSigningConfigured": false,
+  "personalPhoneModified": false,
+  "nativeReleaseEvidence": "milestone-6-native-release.json",
+  "remaining": [
+    "User-controlled production signing identity",
+    "Physical/OEM biometric, 16 KiB, accessibility and performance review",
+    "Independent security review"
+  ]
+}

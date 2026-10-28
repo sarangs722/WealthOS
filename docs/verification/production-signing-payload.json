@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-28",
+  "status": "SIGNED_APPLICATION_PAYLOAD_IDENTICAL_TO_VERIFIED_UNSIGNED_CANDIDATE",
+  "originalArchiveEntriesCompared": 97,
+  "addedJarSignatureEntries": [
+    "META-INF/MANIFEST.MF",
+    "META-INF/WEALTHOS.RSA",
+    "META-INF/WEALTHOS.SF"
+  ],
+  "canonicalOriginalPayloadSha256": "244e04e9a44064629890f3188e5cb0577c01586f24f7c252a6f6e850dd938b17",
+  "unsignedApkSha256": "c35699ca225fece744d1f8ddf381f4a8ced6cfd90c07db4a1396173465705c25",
+  "signedApkSha256": "9bc05a33c5075c1986a62cfbae7bde8f2f3fbe3f12ac7692c01364db18b41914",
+  "comparison": "Every original ZIP entry name and uncompressed byte payload matched. Only the three listed JAR signing entries were added, alongside the independently verified APK signing block.",
+  "privateKeyRead": false,
+  "phoneAccessed": false
+}

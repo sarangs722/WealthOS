@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="18" failures="0" errors="0" skipped="0" time="0.000" timestamp="2026-10-27T21:00:46" hostname="localhost">
+  <testsuite name="com.wealthos.app.BackupWorkflowTest" tests="3" failures="0" errors="0" skipped="0" time="61.853" timestamp="2026-10-27T21:00:46" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5556" />
+    </properties>
+    <testcase name="exportReadbackPreviewCancelAndConfirmedReplacementKeepHistory" classname="com.wealthos.app.BackupWorkflowTest" time="44.816" />
+    <testcase name="truncatedDocumentProviderCannotReportExportSuccessOrChangeVault" classname="com.wealthos.app.BackupWorkflowTest" time="9.220" />
+    <testcase name="passwordConfirmationAndRecreationDoNotPersistPassword" classname="com.wealthos.app.BackupWorkflowTest" time="7.817" />
+  </testsuite>
+  <testsuite name="com.wealthos.app.BankWorkflowTest" tests="1" failures="0" errors="0" skipped="0" time="15.182" timestamp="2026-10-27T21:00:46" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5556" />
+    </properties>
+    <testcase name="addUpdateCorrectHistoryAndEditPersistAcrossActivityRecreation" classname="com.wealthos.app.BankWorkflowTest" time="15.182" />
+  </testsuite>
+  <testsuite name="com.wealthos.app.CalculatorWorkflowTest" tests="1" failures="0" errors="0" skipped="0" time="8.301" timestamp="2026-10-27T21:00:46" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5556" />
+    </properties>
+    <testcase name="sipZeroInterestAndChangedInputsDoNotDisplayStaleOutput" classname="com.wealthos.app.CalculatorWorkflowTest" time="8.301" />
+  </testsuite>
+  <testsuite name="com.wealthos.app.DashboardUiTest" tests="2" failures="0" errors="0" skipped="0" time="4.231" timestamp="2026-10-27T21:00:46" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5556" />
+    </properties>
+    <testcase name="fictionalDemoAndObscuringAmounts" classname="com.wealthos.app.DashboardUiTest" time="2.434" />
+    <testcase name="emptyStateDoesNotDisplayDemoAsRealWealth" classname="com.wealthos.app.DashboardUiTest" time="1.797" />
+  </testsuite>
+  <testsuite name="com.wealthos.app.HouseholdPrivacyTest" tests="1" failures="0" errors="0" skipped="0" time="1.762" timestamp="2026-10-27T21:00:46" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5556" />
+    </properties>
+    <testcase name="reserveAndInsuranceReadViewsObscureAllCurrencyAmounts" classname="com.wealthos.app.HouseholdPrivacyTest" time="1.762" />
+  </testsuite>
+  <testsuite name="com.wealthos.app.HouseholdWorkflowTest" tests="1" failures="0" errors="0" skipped="0" time="47.936" timestamp="2026-10-27T21:00:46" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5556" />
+    </properties>
+    <testcase name="salarySummaryEarmarksAndInsuranceRemainSeparateFromBankCash" classname="com.wealthos.app.HouseholdWorkflowTest" time="47.936" />
+  </testsuite>
+  <testsuite name="com.wealthos.app.PlanningPrivacyTest" tests="1" failures="0" errors="0" skipped="0" time="3.038" timestamp="2026-10-27T21:00:46" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5556" />
+    </properties>
+    <testcase name="forecastAndGoalOutputsRespectObscuredAmounts" classname="com.wealthos.app.PlanningPrivacyTest" time="3.038" />
+  </testsuite>
+  <testsuite name="com.wealthos.app.PlanningWorkflowTest" tests="1" failures="0" errors="0" skipped="0" time="18.202" timestamp="2026-10-27T21:00:46" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5556" />
+    </properties>
+    <testcase name="independentScenarioAndGoalRevisionsPersist" classname="com.wealthos.app.PlanningWorkflowTest" time="18.202" />
+  </testsuite>
+  <testsuite name="com.wealthos.app.PortfolioWorkflowTest" tests="3" failures="0" errors="0" skipped="0" time="44.860" timestamp="2026-10-27T21:00:46" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5556" />
+    </properties>
+    <testcase name="openingPositionPurchaseSaleAndManualPricePersist" classname="com.wealthos.app.PortfolioWorkflowTest" time="17.044" />
+    <testcase name="propertyAndLoanCanBeAddedWithoutInventingCashFlows" classname="com.wealthos.app.PortfolioWorkflowTest" time="16.315" />
+    <testcase name="fixedDepositKeepsEstimateSeparateFromObservedValue" classname="com.wealthos.app.PortfolioWorkflowTest" time="11.501" />
+  </testsuite>
+  <testsuite name="com.wealthos.app.PrivacyGateTest" tests="1" failures="0" errors="0" skipped="0" time="1.785" timestamp="2026-10-27T21:00:46" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5556" />
+    </properties>
+    <testcase name="persistedAccessLockGatesRecordsAndWindowIsSecure" classname="com.wealthos.app.PrivacyGateTest" time="1.785" />
+  </testsuite>
+  <testsuite name="com.wealthos.app.PublicNavWorkflowTest" tests="1" failures="0" errors="0" skipped="0" time="8.642" timestamp="2026-10-27T21:00:46" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5556" />
+    </properties>
+    <testcase name="linkImportReviewAndApplyOnlySelectedNavWithoutNetwork" classname="com.wealthos.app.PublicNavWorkflowTest" time="8.642" />
+  </testsuite>
+  <testsuite name="com.wealthos.app.PublicReferencePrivacyTest" tests="1" failures="0" errors="0" skipped="0" time="1.685" timestamp="2026-10-27T21:00:46" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5556" />
+    </properties>
+    <testcase name="cachedReferenceAmountsAndRawInputsAreObscured" classname="com.wealthos.app.PublicReferencePrivacyTest" time="1.685" />
+  </testsuite>
+  <testsuite name="com.wealthos.app.PublicReferenceWorkflowTest" tests="1" failures="0" errors="0" skipped="0" time="9.137" timestamp="2026-10-27T21:00:46" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5556" />
+    </properties>
+    <testcase name="manualEconomicReferencePersistsWithoutEnablingNetwork" classname="com.wealthos.app.PublicReferenceWorkflowTest" time="9.137" />
+  </testsuite>
+</testsuites>

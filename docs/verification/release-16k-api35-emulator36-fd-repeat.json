@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-28T14:19:47.0065445+05:30",
+  "avd": "WealthOS16K",
+  "serial": "emulator-5558",
+  "api": 35,
+  "pageSize": 16384,
+  "emulatorBootSerial": "EMULATOR36X3X10X0",
+  "fingerprint": "google/sdk_gphone16k_x86_64/emu64xa16k:15/AE3A.240806.043/12960925:userdebug/dev-keys",
+  "appSha256": "71baccb417015beac48139fc2e4855c423ab46655d0e86ce720ece30c2fe5cd0",
+  "testApkSha256": "1f460f87881cdd2a678d8df8a90843a63d7e8883085b4cc0fdc8d46eba428332",
+  "cases": [
+    {
+      "selector": "com.wealthos.app.PortfolioWorkflowTest#fixedDepositKeepsEstimateSeparateFromObservedValue",
+      "passed": false,
+      "startedUtc": "2026-10-28T14:18:10.8706143+05:30",
+      "durationSeconds": 51.496,
+      "logSha256": "1010fbf5b0a6384d91bedbd89a1850ed39d72421790d2a9e5aa7f5fda4fd1b02"
+    },
+    {
+      "selector": "com.wealthos.app.PortfolioWorkflowTest#fixedDepositKeepsEstimateSeparateFromObservedValue",
+      "passed": true,
+      "startedUtc": "2026-10-28T14:19:03.9113965+05:30",
+      "durationSeconds": 25.544,
+      "logSha256": "c0d79260e7742fdb29d698ea67191080b2e8d7569723642f87a6bab9a738b7fb"
+    },
+    {
+      "selector": "com.wealthos.app.PortfolioWorkflowTest#fixedDepositKeepsEstimateSeparateFromObservedValue",
+      "passed": true,
+      "startedUtc": "2026-10-28T14:19:30.6462102+05:30",
+      "durationSeconds": 14.913,
+      "logSha256": "b5d3c75ab9ab836c94ab6caac107ff442f80078a93168131372f273289df6ef8"
+    }
+  ],
+  "passed": 2,
+  "failures": 1,
+  "skipped": 0,
+  "phoneAccessed": false,
+  "releaseVaultReset": false,
+  "emulatorVersion": "36.3.10.0",
+  "failureClassification": "First repetition: process crash with java.lang.NullPointerException in java.lang.ref.ReferenceQueue.enqueuePending / Daemons.ReferenceQueueDaemon. Other two repetitions passed. Not a financial-assertion failure or proof of the earlier SIGSEGV cause."
+}

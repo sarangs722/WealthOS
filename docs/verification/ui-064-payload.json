@@ -1,0 +1,11 @@
+{
+  "status": "ALL_UNSIGNED_PAYLOAD_ENTRIES_IDENTICAL",
+  "originalEntries": 97,
+  "expectedAddedSigningEntries": [
+    "META-INF/MANIFEST.MF",
+    "META-INF/WEALTHOS.RSA",
+    "META-INF/WEALTHOS.SF"
+  ],
+  "unsignedSha256": "af7feb209895795ae807129e88f93211022c4dd18a7cb8f7c80eee78374b9532",
+  "signedSha256": "5c08f6561e09c10e87f21f6740915b291f88cbf47cccf8946dca14e8348db27a"
+}
