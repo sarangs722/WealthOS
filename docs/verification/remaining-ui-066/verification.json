@@ -1,0 +1,61 @@
+{
+  "version": "0.6.6",
+  "versionCode": 12,
+  "databaseSchema": 7,
+  "unit": {
+    "finance": {
+      "tests": 107,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "security": {
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "network": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "distinctUiCasesPassed": 47,
+  "uiEvidence": "ui-case-results.json",
+  "uiRunNote": "45/47 passed in the full run. Corrected exact-balance wait and populated-scenario selector; affected classes passed 4/4 with unchanged amounts. All latest per-case results pass.",
+  "fictionalScreenshots": 75,
+  "coreAndCalculatorMathematics": "unchanged from 0.6.5",
+  "databaseInstrumentation": "not repeated for UI-only changes; 0.6.5 68-case evidence retained",
+  "artifacts": {
+    ".tools\\WealthOS-0.6.6-development.apk": {
+      "bytes": 42204474,
+      "sha256": "f4a37920dceba5d8b7678af1b33e0242142b8211fa8fd7557cf849eaaf5e98db"
+    },
+    ".tools\\remaining-ui-v066\\WealthOS-0.6.6-release-unsigned.apk": {
+      "bytes": 11379530,
+      "sha256": "f2f3acd2c305dbbbf2565052b613708e46342f432b014072dcbbaf594c93ecfe"
+    },
+    ".tools\\remaining-ui-v066\\WealthOS-0.6.6-ui-lab.apk": {
+      "bytes": 44252533,
+      "sha256": "ea0d2f4b0dba8784b30ac0bfdbb576900c54f2b801ce41e5abbac6bd9d9c2228"
+    },
+    ".tools\\remaining-ui-v066\\WealthOS-0.6.6-ui-tests.apk": {
+      "bytes": 3017131,
+      "sha256": "4dc1c2450268c682e34a9c35ffd2e8cdc814dbe5b42afb17e909281ea3440bc7"
+    },
+    ".tools\\remaining-ui-v066\\WealthOS-0.6.6-ui-tests-corrected.apk": {
+      "bytes": 3017915,
+      "sha256": "c7db0ab0bfacec24a35c32e0b6d27da482a63999603d5bd279a8f08b035a9089"
+    }
+  },
+  "debugBuild": "passed",
+  "minifiedReleaseBuild": "passed",
+  "debugReleaseLint": "0 errors and 1 existing Gradle-version warning each",
+  "releaseSigning": "pending local key passphrase",
+  "phoneAccessed": false,
+  "physicalDeviceReview": "pending",
+  "independentSecurityReview": "pending",
+  "developmentSignature": "verified unchanged development identity; v2"
+}

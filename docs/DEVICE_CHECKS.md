@@ -1,12 +1,12 @@
-# Guided physical-device checks — WealthOS 0.6.4
+# Guided physical-device checks — WealthOS 0.6.6
 
 These checks are for the user to run locally. They have **not** been executed or marked passed by the agent. Report only pass/fail, the phone model and Android version; do not send financial amounts, passwords, keystores, backup files or screenshots of personal records.
 
-The [signed 0.6.4 artifact and emulator verification](RELEASE_0_6_4.md) are ready. The phone results below still require your own checks.
+The [0.6.6 source, development APK and emulator verification](RELEASE_0_6_6.md) are ready. Production signing is waiting for the local key passphrase; use the verified signed Release update only after it becomes available. Phone results below still require your own checks.
 
 ## Preparation
 
-* Use the verified, permanently signed **0.6.4 / code 10** APK when it is available. An unsigned candidate is not installable. It uses the existing permanent release certificate and the **WealthOS Release** identity.
+* Use the verified, permanently signed **0.6.6 / code 12** APK when it is available. An unsigned candidate is not installable. For an existing **WealthOS Release** app, use the same-certificate Release APK. For the original **WealthOS** development app, use its matching development update. Keep the chosen installation and its storage intact.
 * Keep the original **WealthOS** installation intact. Release installs alongside it, or updates an existing Release installation with the same certificate. If Android reports a signing mismatch, stop and retain both installations/data; do not uninstall to force an update.
 * Before making changes to an app that already holds personal records, keep an independently retained encrypted backup and its password. If the original app lacks **Manage backups**, follow the verified existing-signer update/migration instructions in [the current release guide](RELEASE_0_6_2.md#existing-records-and-guided-phone-checks).
 * Keep a note of the phone's current font size, theme and accessibility settings so you can restore them afterward. Use your existing screen lock; these checks do not require changing its PIN or enrolling a new biometric.
@@ -27,7 +27,21 @@ In **WealthOS Release → Settings → Explore demo mode**, confirm that the app
 
 Restore your preferred font/theme/TalkBack settings. Demo records remain in memory and do not become personal records. Do not use demo mode to judge personal-vault persistence.
 
-## B. Access lock and ordinary offline use
+## B. Remaining entry flows - inspect without saving
+
+Outside demo mode, open the following forms and then leave with Back. Do not add fictional financial records to a personal vault merely for these checks.
+
+| Check | Pass criteria | Your result |
+| --- | --- | --- |
+| Mutual fund | Name/current value are primary; invested amount, units and NAV are optional; the date picker and fixed Save remain reachable | Not run |
+| Cash flow | Optional payments expand; unconfirmed figures say Save draft; confirmation controls are clearly labelled | Not run |
+| Scenario/goal | Primary inputs are concise; advanced assumptions expand with retained values; calendars and Save work at large text sizes | Not run |
+| Calculator | Using fictional inputs, SIP 1,000/month for 12 months at 0% gives 12,000; changing inputs hides that result until recalculation | Not run |
+| Amortization | EMI principal 1,200, annual rate 0%, term 12 months gives 100/month; repayment schedule expands separately | Not run |
+
+Calculator inputs do not post financial records. Review any saved assumptions before changing them; a full persistent-entry test belongs in a separate empty receiver.
+
+## C. Access lock and ordinary offline use
 
 These checks apply only to the app you intend to use. Keep its existing records intact.
 
@@ -37,7 +51,7 @@ These checks apply only to the app you intend to use. Keep its existing records 
 4. Temporarily disconnect networking using the phone's normal controls. Confirm that saved records, history and calculators still open. Restore the phone's original connectivity afterward. Public refresh availability is a separate optional feature.
 5. Note obvious long freezes, crashes or repeated loading. Emulator timings do not establish physical-device performance or battery life.
 
-## C. Backup validation and controlled restoration
+## D. Backup validation and controlled restoration
 
 1. In the app holding records, export an encrypted portable backup using **Manage backups**. Confirm the successful readback message, retain the file independently and keep its backup password separately from the file.
 2. Select that file and use **Validate and preview backup**. Confirm the date and record count look appropriate. **Cancel restore**: validation alone must not replace the current vault.
@@ -53,6 +67,8 @@ The financial backup password and APK signing passphrase serve different purpose
 Phone model / Android version:
 WealthOS Release version:
 Demo navigation / dark theme / largest font:
+Quick entry / cash flow draft / scenario-goal forms:
+SIP / EMI / stale-result clearing:
 TalkBack:
 Amount hiding / protected screenshot / recents:
 App-lock cancel / successful method tested:

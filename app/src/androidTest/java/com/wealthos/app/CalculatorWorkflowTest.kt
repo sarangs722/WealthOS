@@ -23,11 +23,11 @@ class CalculatorWorkflowTest {
         write("Monthly contribution in INR","1000")
         write("Effective annual return %","0")
         write("Duration in months","12")
-        rule.onNodeWithText("Calculate").performScrollTo().performClick();waitFor("Estimated maturity: ₹12,000.00")
+        rule.onNodeWithText("Calculate").assertIsDisplayed().performClick();waitFor("Estimated maturity: ₹12,000.00")
         rule.onNodeWithText("Estimated gain: ₹0.00").assertExists()
         write("Monthly contribution in INR","2000")
         rule.onNodeWithText("Estimated maturity: ₹12,000.00").assertDoesNotExist()
-        rule.onNodeWithText("Calculate").performScrollTo().performClick();waitFor("Estimated maturity: ₹24,000.00")
+        rule.onNodeWithText("Calculate").assertIsDisplayed().performClick();waitFor("Estimated maturity: ₹24,000.00")
         rule.activityRule.scenario.recreate();rule.onNodeWithText("Monthly contribution in INR").performScrollTo().assertTextContains("2000")
     }
 }

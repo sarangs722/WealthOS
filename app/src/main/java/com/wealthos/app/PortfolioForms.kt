@@ -12,6 +12,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.KeyboardType
@@ -23,20 +24,27 @@ import java.time.LocalDate
 import java.util.UUID
 
 private val LocalFormEnabled=compositionLocalOf {true}
-@Composable internal fun Form(title:String,subtitle:String,state:BankUiState,saveLabel:String="Save record",onSave:()->Unit,content:@Composable ColumnScope.()->Unit) {
+@Composable internal fun Form(title:String,subtitle:String,state:BankUiState,saveLabel:String="Save record",onSave:()->Unit,content:@Composable ColumnScope.()->Unit) =
+    EntryLayout(title,subtitle,!state.saving && !state.demo,state.saving,saveLabel,state.formError,onSave,content=content)
+
+/** One scrollable input area with a reachable action; calculators share the same layout. */
+@Composable internal fun EntryLayout(title:String,subtitle:String,enabled:Boolean,busy:Boolean,actionLabel:String,error:String?,onAction:()->Unit,
+                                    scrollTag:String="entry-form",topKey:Any?=null,content:@Composable ColumnScope.()->Unit) {
+    val scroll=rememberScrollState()
+    LaunchedEffect(topKey){if(topKey!=null)scroll.animateScrollTo(0)}
     Column(Modifier.fillMaxSize().imePadding()) {
-        Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal=20.dp,vertical=16.dp),verticalArrangement=Arrangement.spacedBy(14.dp)) {
+        Column(Modifier.weight(1f).verticalScroll(scroll).then(Modifier.testTag(scrollTag)).padding(horizontal=20.dp,vertical=16.dp),verticalArrangement=Arrangement.spacedBy(14.dp)) {
             Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.SpaceBetween,verticalAlignment=androidx.compose.ui.Alignment.CenterVertically) {
                 Text(title,Modifier.weight(1f),style=MaterialTheme.typography.titleLarge)
                 if(subtitle.length>90) InfoHelp("About this record",subtitle)
             }
             if(subtitle.isNotBlank() && subtitle.length<=90)Text(subtitle,style=MaterialTheme.typography.bodyMedium,color=MaterialTheme.colorScheme.onSurfaceVariant)
-            CompositionLocalProvider(LocalFormEnabled provides (!state.saving && !state.demo)) {content()}
+            CompositionLocalProvider(LocalFormEnabled provides enabled) {content()}
         }
         Surface(tonalElevation=2.dp) {
             Column(Modifier.fillMaxWidth().padding(horizontal=20.dp,vertical=12.dp),verticalArrangement=Arrangement.spacedBy(8.dp)) {
-                state.formError?.let {Text(it,color=MaterialTheme.colorScheme.error,modifier=Modifier.semantics {contentDescription="Validation error: $it"})}
-                Button(onClick=onSave,enabled=!state.saving && !state.demo,modifier=Modifier.fillMaxWidth().heightIn(min=50.dp)) {Text(if(state.saving) "Saving…" else saveLabel)}
+                error?.let {Text(it,color=MaterialTheme.colorScheme.error,modifier=Modifier.semantics {contentDescription="Validation error: $it"})}
+                Button(onClick=onAction,enabled=enabled,modifier=Modifier.fillMaxWidth().heightIn(min=50.dp)) {Text(if(busy)"Working..." else actionLabel)}
             }
         }
     }
@@ -49,17 +57,18 @@ private val LocalFormEnabled=compositionLocalOf {true}
         Text("$label: ${if(parsed==LocalDate.now())"Today" else parsed?.let(::dateLabel) ?: "Choose date"}")
     }
     if(open) {
-        val picker=rememberDatePickerState(initialSelectedDateMillis=parsed?.atStartOfDay(java.time.ZoneOffset.UTC)?.toInstant()?.toEpochMilli())
+        val picker=rememberDatePickerState(initialSelectedDateMillis=parsed?.atStartOfDay(java.time.ZoneOffset.UTC)?.toInstant()?.toEpochMilli(),yearRange=1900..2200)
         DatePickerDialog(onDismissRequest={open=false},confirmButton={TextButton(onClick={picker.selectedDateMillis?.let {change(Instant.ofEpochMilli(it).atZone(java.time.ZoneOffset.UTC).toLocalDate().toString())};open=false},enabled=picker.selectedDateMillis!=null){Text("Use date")}},dismissButton={TextButton(onClick={open=false}){Text("Cancel")}}) {DatePicker(picker)}
     }
 }
-@Composable internal fun FormDetails(title:String,content:@Composable ColumnScope.()->Unit) {
+@Composable internal fun FormDetails(title:String,summary:String?=null,content:@Composable ColumnScope.()->Unit) {
     var expanded by rememberSaveable {mutableStateOf(false)}
     Column(Modifier.fillMaxWidth(),verticalArrangement=Arrangement.spacedBy(8.dp)) {
         Row(Modifier.fillMaxWidth().clickable(role=androidx.compose.ui.semantics.Role.Button){expanded=!expanded}.heightIn(min=48.dp).padding(horizontal=4.dp),verticalAlignment=androidx.compose.ui.Alignment.CenterVertically) {
             Text(title,Modifier.weight(1f),style=MaterialTheme.typography.labelLarge,color=MaterialTheme.colorScheme.primary)
             Icon(if(expanded)Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,if(expanded)"Collapse $title" else "Expand $title",tint=MaterialTheme.colorScheme.primary)
         }
+        if(!expanded && !summary.isNullOrBlank())Text(summary,style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant,modifier=Modifier.padding(horizontal=4.dp))
         if(expanded)Column(Modifier.fillMaxWidth().padding(horizontal=4.dp),verticalArrangement=Arrangement.spacedBy(14.dp),content=content)
     }
 }

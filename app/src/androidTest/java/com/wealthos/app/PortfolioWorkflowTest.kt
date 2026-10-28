@@ -83,7 +83,7 @@ class PortfolioWorkflowTest {
         write("Actual principal component","5000")
         write("Actual interest component","1000")
         rule.onNodeWithText("Save contract event").performClick()
-        waitFor("Outstanding liability")
+        waitFor("₹95,000.00")
         rule.onNodeWithText("₹95,000.00").assertExists()
     }
     @Test fun fixedDepositKeepsEstimateSeparateFromObservedValue() {

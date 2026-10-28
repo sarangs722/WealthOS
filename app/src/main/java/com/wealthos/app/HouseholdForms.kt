@@ -47,14 +47,15 @@ import java.util.UUID
     var gross by rememberSaveable {mutableStateOf("")};var deductions by rememberSaveable {mutableStateOf("")};var note by rememberSaveable {mutableStateOf("")}
     Form("Record monthly income",source.name,state,"Save received income",{model.household(done) {repo->repo.saveIncome(IncomeRecord(UUID.randomUUID(),source.id,YearMonth.parse(month),Amounts.parse(net,source.currency),
         gross.takeIf {it.isNotBlank()}?.let {Amounts.parse(it,source.currency)},deductions.takeIf {it.isNotBlank()}?.let {Amounts.parse(it,source.currency)},0,Instant.now(),note))}}) {
-        Field("Received month (YYYY-MM)",month,{month=it},hint="The month cash was received. Actual future months are not allowed.")
+        Field("Received month (YYYY-MM)",month,{month=it},hint="Actual received month, not a future salary.")
         Field("Actual net received in ${source.currency}",net,{net=it},true,"Enter an explicit 0 for a known month with no income. Missing is not zero.")
-        if(source.kind==IncomeKind.SALARY) {
+        if(source.kind==IncomeKind.SALARY) FormDetails("Payslip details (optional)") {
             Field("Payslip gross (optional)",gross,{gross=it},true)
             Field("Payslip deductions (optional)",deductions,{deductions=it},true,"Provide both fields or neither. Gross minus deductions must equal net received.")
         }
-        Field("Income note / correction",note,{note=it},multi=true)
-        Text("This stores one received-income total for the source/month. A correction replaces that month's figure for calculations and retains earlier revisions. It does not create a second salary or update bank cash.")
+        val correction=state.book.household.income.any {it.sourceId==source.id && it.month.toString()==month}
+        if(correction)Field("Income note / correction",note,{note=it},multi=true)
+        else FormDetails("Note (optional)"){Field("Income note / correction",note,{note=it},multi=true)}
     }
 }
 @Composable fun CashFlowForm(month:YearMonth,currency:CurrencyCode,state:BankUiState,model:BankViewModel,done:()->Unit) {
@@ -67,26 +68,32 @@ import java.util.UUID
     var investments by rememberSaveable {mutableStateOf(old?.investments?.toPlainString() ?: "0")}
     var incomeConfirmed by rememberSaveable {mutableStateOf(old?.incomeConfirmed ?: false)};var expensesConfirmed by rememberSaveable {mutableStateOf(old?.expensesConfirmed ?: false)}
     var note by rememberSaveable {mutableStateOf("")}
-    Form("Monthly cash-flow summary","$month · $currency · ${if(month==YearMonth.now())"Current month / month-to-date" else "Recorded month"}",state,"Save monthly summary",{model.household(done) {repo->
+    Form("Monthly cash-flow summary","$month · $currency · ${if(month==YearMonth.now())"Current month / month-to-date" else "Recorded month"}",state,if(incomeConfirmed && expensesConfirmed)"Save monthly summary" else "Save draft",{model.household(done) {repo->
         fun amount(text:String)=Amounts.parse(text,currency)
         repo.saveCashFlow(MonthlyCashFlow(UUID.randomUUID(),month,currency,IncomeMode.valueOf(mode),if(mode==IncomeMode.MANUAL_TOTAL.name)amount(income) else null,
             amount(essential),amount(discretionary),amount(premiums),amount(loanPrincipal),amount(loanInterest),amount(other),amount(investments),incomeConfirmed,expensesConfirmed,0,Instant.now(),note))
     }}) {
         Choice("Income input",mode,IncomeMode.entries.map {it.name to it.label}) {mode=it;incomeConfirmed=false}
-        if(mode==IncomeMode.MANUAL_TOTAL.name)Field("Actual net income total",income,{income=it},true,"Includes all net income received. Source records are reconciliation references, not additions.")
-        else Text("Uses the latest actual record for each source/month. Every source active in this month needs a record, including explicit zero income. Future/expected salary is excluded.")
-        Toggle("All received income is included",incomeConfirmed) {incomeConfirmed=it}
-        Field("Essential living expenses",essential,{essential=it},true,"Exclude separately entered premiums, loan payments and investments.")
+        if(mode==IncomeMode.MANUAL_TOTAL.name)Field("Actual net income total",income,{income=it},true,"All net income received. Source records are references, not additions.")
+        else Text("Uses received-income records for this month, including explicit zero for any source with no income.",style=androidx.compose.material3.MaterialTheme.typography.bodySmall)
+        Field("Essential living expenses",essential,{essential=it},true,"Exclude premiums, loan payments and investments entered separately.")
         Field("Discretionary expenses",discretionary,{discretionary=it},true)
-        Field("Insurance premiums actually paid",premiums,{premiums=it},true)
-        Field("Loan principal actually paid",loanPrincipal,{loanPrincipal=it},true,"A cash obligation, not an expense or a second liability reduction.")
-        Field("Loan interest actually paid",loanInterest,{loanInterest=it},true)
-        Field("Other actual outflows",other,{other=it},true)
-        Field("Investment contributions paid",investments,{investments=it},true,"Exclude internal transfers and market value changes.")
-        Toggle("All outflow categories are included; zero means none",expensesConfirmed) {expensesConfirmed=it}
-        Field("Summary note / correction",note,{note=it},multi=true)
-        Text("Surplus before investments = net income − living expenses − premiums − principal/interest obligations. Remaining cash also subtracts investments. Deductions already removed from salary net pay must not be counted again. Unconfirmed inputs leave totals unavailable; saving a draft is allowed.")
-        Text("Summaries never change account balances or holdings. Premium settlements and loan schedules are not automatically added to these figures.")
+        Field("Investment contributions paid",investments,{investments=it},true,"Exclude transfers between your accounts and market value changes.")
+        FormDetails("Premiums, loans & other payments",summary="Premiums $premiums; loan principal $loanPrincipal; interest $loanInterest; other $other $currency") {
+            Field("Insurance premiums actually paid",premiums,{premiums=it},true)
+            Field("Loan principal actually paid",loanPrincipal,{loanPrincipal=it},true,"A cash obligation. This summary does not reduce the loan balance.")
+            Field("Loan interest actually paid",loanInterest,{loanInterest=it},true)
+            Field("Other actual outflows",other,{other=it},true)
+        }
+        FormDetails("Confirm completeness",summary=if(incomeConfirmed && expensesConfirmed)"Income and outflows confirmed" else "Draft - totals stay unavailable until confirmed") {
+            Toggle("All received income is included",incomeConfirmed) {incomeConfirmed=it}
+            Toggle("All outflow categories are included; zero means none",expensesConfirmed) {expensesConfirmed=it}
+            Text("Confirm only after reviewing every category. Zero means none, not unknown. Net salary already excludes payroll deductions.",style=androidx.compose.material3.MaterialTheme.typography.bodySmall)
+        }
+        if(old!=null)Field("Summary note / correction",note,{note=it},multi=true)
+        else FormDetails("Note (optional)"){Field("Summary note / correction",note,{note=it},multi=true)}
+        FormDetails("How this summary is used"){Text("Surplus subtracts expenses, premiums and loan obligations from net income; remaining cash also subtracts investments. Saving never changes bank balances, holdings or loan balances.")}
+
     }
 }
 @Composable fun EmergencyTargetForm(state:BankUiState,model:BankViewModel,done:()->Unit) {

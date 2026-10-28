@@ -58,50 +58,58 @@ private data class CalculatorOutput(val values:List<CalculatorValue>,val notes:L
     val fields=savedFields(mapOf("currency" to "INR","principal" to "","monthly" to "","target" to "","final" to "","rate" to "0","inflation" to "0","step" to "0","months" to "120","atMonth" to "1","extra" to "0","fee" to "0","years" to "0","start" to LocalDate.now().toString(),"end" to LocalDate.now().plusYears(1).toString(),"convention" to DepositConvention.QUARTERLY.name,"beginning" to "false","flows" to "","sourceFx" to "1","targetFx" to "","targetCurrency" to "USD","rateMode" to "nominal"))
     var output by remember {mutableStateOf<CalculatorOutput?>(null)};var error by remember {mutableStateOf<String?>(null)};var evaluatedInputs by remember {mutableStateOf<Map<String,String>?>(null)};var calculating by remember {mutableStateOf(false)};var allRows by rememberSaveable {mutableStateOf(false)}
     val scope=rememberCoroutineScope();val currency=CurrencyCode.valueOf(fields.getValue("currency"))
-    Column(Modifier.fillMaxSize().imePadding().verticalScroll(rememberScrollState()).padding(22.dp).testTag("calculator-form"),verticalArrangement=Arrangement.spacedBy(16.dp)) {
-        Text(kind.label,style=MaterialTheme.typography.headlineMedium)
-        Text("Inputs are visible while editing, including when read-view amounts are obscured. Outputs use HALF_EVEN rounding at currency precision; calculations use decimal arithmetic.")
-        Choice("Input currency",fields.getValue("currency"),CurrencyCode.entries.map {it.name to it.name}) {fields["currency"]=it;fields["sourceFx"]=if(it=="INR")"1" else "";output=null}
+    var resultRevision by remember {mutableIntStateOf(0)}
+    val shown=output?.takeIf {evaluatedInputs==fields.toMap()}
+    val conventions=kind in listOf(CalculatorKind.FD,CalculatorKind.RD)
+    val optionsSummary=currency.name+when {
+        conventions->" - "+DepositConvention.valueOf(fields.getValue("convention")).label
+        kind in listOf(CalculatorKind.SIP,CalculatorKind.STEP_UP)->if(fields["beginning"]=="true")" - beginning of month" else " - end of month"
+        else->""
+    }
+    EntryLayout(kind.label,"Inputs stay visible while editing. Results use decimal mathematics and HALF_EVEN at currency precision. Estimates are before tax and unentered fees.",!calculating,calculating,"Calculate",error.takeIf {evaluatedInputs==fields.toMap()},onAction={
+        val values=fields.toMap();evaluatedInputs=values;calculating=true;error=null;output=null
+        scope.launch {
+            try {output=withContext(Dispatchers.Default){calculateTool(kind,values)};resultRevision++}
+            catch(e:kotlinx.coroutines.CancellationException){throw e}
+            catch(e:Exception){error=if(e is IllegalArgumentException || e is ArithmeticException)e.message ?: "Check the inputs." else "Calculation unavailable."}
+            finally {calculating=false}
+        }
+    },scrollTag="calculator-form",topKey=shown?.let {resultRevision}) {
+        shown?.let {result->SectionCard("Calculation result") {
+            val outCurrency=if(kind==CalculatorKind.FX)CurrencyCode.valueOf(fields.getValue("targetCurrency")) else currency
+            result.values.forEach {line->Text("${line.label}: ${when(line.kind){OutputKind.AMOUNT->money(line.value,outCurrency,hidden);OutputKind.PERCENT->pct(line.value,hidden);OutputKind.COUNT->if(hidden)"••" else line.value?.stripTrailingZeros()?.toPlainString() ?: "Unavailable"}}",style=MaterialTheme.typography.titleMedium)}
+            if(kind in listOf(CalculatorKind.XIRR,CalculatorKind.CAGR,CalculatorKind.WITHDRAWAL))result.notes.firstOrNull()?.let{Text(it)}
+            FormDetails("Calculation details"){result.notes.forEach {Text(it)}}
+            if(result.schedule.isNotEmpty())FormDetails("Repayment schedule",summary="${result.schedule.size} installments") {
+                TextButton(onClick={allRows=!allRows}){Text(if(allRows)"Show first 12 and final installment" else "Show complete amortization")}
+                result.schedule.filter {allRows || it.number<=12 || it==result.schedule.last()}.forEach {p->Text("Month ${p.number} · Principal ${money(p.principal,currency,hidden)} · Interest ${money(p.interest,currency,hidden)} · Closing ${money(p.closing,currency,hidden)}")}
+            }
+        }}
         when(kind){
             CalculatorKind.INFLATION->{PlanField(fields,"principal","Amount in $currency");PlanField(fields,"inflation","Annual inflation %");PlanField(fields,"months","Duration in months",false)}
             CalculatorKind.SIP,CalculatorKind.STEP_UP->{PlanField(fields,"monthly","Monthly contribution in $currency");PlanField(fields,"rate","Effective annual return %");PlanField(fields,"months","Duration in months",false)
                 if(kind==CalculatorKind.STEP_UP)PlanField(fields,"step","Annual SIP step-up %")
-                Toggle("Contributions at beginning of month",fields["beginning"]=="true"){fields["beginning"]=it.toString()}}
+            }
             CalculatorKind.LUMPSUM->{PlanField(fields,"principal","Starting amount in $currency");PlanField(fields,"rate","Effective annual return %");PlanField(fields,"months","Duration in months",false)}
-            CalculatorKind.CAGR->{PlanField(fields,"principal","Starting value in $currency");PlanField(fields,"final","Ending value in $currency");PlanField(fields,"start","Starting date (YYYY-MM-DD)",false);PlanField(fields,"end","Ending date (YYYY-MM-DD)",false)}
+            CalculatorKind.CAGR->{PlanField(fields,"principal","Starting value in $currency");PlanField(fields,"final","Ending value in $currency");DateChoice("Starting date",fields.getValue("start")){fields["start"]=it};DateChoice("Ending date",fields.getValue("end")){fields["end"]=it}}
             CalculatorKind.XIRR->{Text("One date,amount per line. Outflows negative, receipts positive. Include terminal market value explicitly. Same-day flows are combined. No sample data is inserted.")
                 OutlinedTextField(fields.getValue("flows"),{if(it.length<=20000)fields["flows"]=it},label={Text("Dated cash flows")},modifier=Modifier.fillMaxWidth(),minLines=6)}
-            CalculatorKind.FD,CalculatorKind.RD->{PlanField(fields,if(kind==CalculatorKind.FD)"principal" else "monthly",if(kind==CalculatorKind.FD)"Principal in $currency" else "Monthly installment in $currency");PlanField(fields,"rate","Nominal annual interest %");PlanField(fields,"start","Start date (YYYY-MM-DD)",false)
-                if(kind==CalculatorKind.FD)PlanField(fields,"end","Maturity date (YYYY-MM-DD)",false) else PlanField(fields,"months","Number of monthly installments",false)
-                Choice("Deposit convention",fields.getValue("convention"),DepositConvention.entries.map {it.name to it.label}){fields["convention"]=it}}
+            CalculatorKind.FD,CalculatorKind.RD->{PlanField(fields,if(kind==CalculatorKind.FD)"principal" else "monthly",if(kind==CalculatorKind.FD)"Principal in $currency" else "Monthly installment in $currency");PlanField(fields,"rate","Nominal annual interest %");DateChoice("Start date",fields.getValue("start")){fields["start"]=it}
+                if(kind==CalculatorKind.FD)DateChoice("Maturity date",fields.getValue("end")){fields["end"]=it} else PlanField(fields,"months","Number of monthly installments",false)
+            }
             CalculatorKind.EMI,CalculatorKind.PREPAY->{PlanField(fields,"principal","Outstanding principal in $currency");PlanField(fields,"rate","Nominal annual loan interest %");PlanField(fields,"months","Remaining term in months",false)
                 if(kind==CalculatorKind.PREPAY){PlanField(fields,"atMonth","Prepayment after installment number",false);PlanField(fields,"extra","Additional principal payment in $currency");PlanField(fields,"fee","One-off prepayment fee in $currency")}}
             CalculatorKind.RETIREMENT->{PlanField(fields,"monthly","Today's monthly retirement spending in $currency");PlanField(fields,"years","Years until retirement",false);PlanField(fields,"months","Retirement duration in months",false);PlanField(fields,"rate","Effective annual retirement return %");PlanField(fields,"inflation","Annual spending inflation %")}
             CalculatorKind.WITHDRAWAL->{PlanField(fields,"principal","Starting corpus in $currency");PlanField(fields,"monthly","First monthly withdrawal in $currency");PlanField(fields,"rate","Effective annual return %");PlanField(fields,"inflation","Annual withdrawal inflation %");PlanField(fields,"months","Duration in months",false)}
             CalculatorKind.GOAL->{PlanField(fields,"target","Future target amount in $currency",hint="Enter the future nominal target. Use Inflation first if the target is stated in today's money.");PlanField(fields,"principal","Existing allocated corpus in $currency");PlanField(fields,"rate","Effective annual return %");PlanField(fields,"months","Months until target",false)}
-            CalculatorKind.FX->{PlanField(fields,"principal","Amount in $currency");Choice("Target currency",fields.getValue("targetCurrency"),CurrencyCode.entries.map {it.name to it.name}){fields["targetCurrency"]=it;fields["targetFx"]=if(it=="INR")"1" else ""};PlanField(fields,"sourceFx","INR per one $currency",hint="Enter 1 if the input currency is INR. Foreign references must be entered manually.");PlanField(fields,"targetFx","INR per target-currency unit",hint="Enter 1 if the target currency is INR. No foreign quote is prefilled.");PlanField(fields,"start","Reference observation date (YYYY-MM-DD)",false)}
+            CalculatorKind.FX->{PlanField(fields,"principal","Amount in $currency");Choice("Target currency",fields.getValue("targetCurrency"),CurrencyCode.entries.map {it.name to it.name}){fields["targetCurrency"]=it;fields["targetFx"]=if(it=="INR")"1" else ""};PlanField(fields,"sourceFx","INR per one $currency",hint="Enter 1 if the input currency is INR. Foreign references must be entered manually.");PlanField(fields,"targetFx","INR per target-currency unit",hint="Enter 1 if the target currency is INR. No foreign quote is prefilled.");DateChoice("Reference date",fields.getValue("start")){fields["start"]=it}}
             CalculatorKind.REAL_RETURN->{Choice("Convert from",fields.getValue("rateMode"),listOf("nominal" to "Nominal return","real" to "Real return")){fields["rateMode"]=it};PlanField(fields,"rate",if(fields["rateMode"]=="real")"Real annual return %" else "Nominal annual return %");PlanField(fields,"inflation","Annual inflation %")}
         }
-        Button(enabled=!calculating,onClick={
-            val values=fields.toMap();evaluatedInputs=values;calculating=true;error=null;output=null
-            scope.launch {
-                try {output=withContext(Dispatchers.Default){calculateTool(kind,values)}}
-                catch(e:kotlinx.coroutines.CancellationException){throw e}
-                catch(e:Exception){error=if(e is IllegalArgumentException || e is ArithmeticException)e.message ?: "Check the inputs." else "Calculation unavailable."}
-                finally {calculating=false}
-            }
-        },modifier=Modifier.fillMaxWidth()){Text(if(calculating)"Calculating…" else "Calculate")}
-        if(evaluatedInputs==fields.toMap())error?.let {Text(it,color=MaterialTheme.colorScheme.error)}
-        output?.takeIf {evaluatedInputs==fields.toMap()}?.let {result->SectionCard("Calculation result") {
-            val outCurrency=if(kind==CalculatorKind.FX)CurrencyCode.valueOf(fields.getValue("targetCurrency")) else currency
-            result.values.forEach {line->Text("${line.label}: ${when(line.kind){OutputKind.AMOUNT->money(line.value,outCurrency,hidden);OutputKind.PERCENT->pct(line.value,hidden);OutputKind.COUNT->if(hidden)"••" else line.value?.stripTrailingZeros()?.toPlainString() ?: "Unavailable"}}",style=MaterialTheme.typography.titleMedium)}
-            if(kind in listOf(CalculatorKind.XIRR,CalculatorKind.CAGR,CalculatorKind.WITHDRAWAL))result.notes.firstOrNull()?.let{Text(it)}
-            DetailsDisclosure("Calculation details"){result.notes.forEach {Text(it)}}
-            if(result.schedule.isNotEmpty()){
-                TextButton(onClick={allRows=!allRows}){Text(if(allRows)"Show first 12 and final installment" else "Show complete amortization")}
-                result.schedule.filter {allRows || it.number<=12 || it==result.schedule.last()}.forEach {p->Text("Month ${p.number} · Principal ${money(p.principal,currency,hidden)} · Interest ${money(p.interest,currency,hidden)} · Closing ${money(p.closing,currency,hidden)}")}
-            }
-        }}
+        FormDetails("Options",summary=optionsSummary) {
+            Choice("Input currency",fields.getValue("currency"),CurrencyCode.entries.map {it.name to it.name}) {fields["currency"]=it;fields["sourceFx"]=if(it=="INR")"1" else "";output=null}
+            if(kind in listOf(CalculatorKind.SIP,CalculatorKind.STEP_UP))Toggle("Contributions at beginning of month",fields["beginning"]=="true"){fields["beginning"]=it.toString()}
+            if(conventions)Choice("Deposit convention",fields.getValue("convention"),DepositConvention.entries.map {it.name to it.label}){fields["convention"]=it}
+        }
     }
 }
 private fun calculateTool(kind:CalculatorKind,f:Map<String,String>):CalculatorOutput {

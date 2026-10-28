@@ -18,3 +18,14 @@ internal fun AndroidComposeTestRule<ActivityScenarioRule<MainActivity>,MainActiv
 internal fun AndroidComposeTestRule<ActivityScenarioRule<MainActivity>,MainActivity>.addInvestment() {
     openAddRecord();onNode(hasText("Investment") and hasClickAction()).performClick();onNode(hasText("Mutual funds") and hasClickAction()).performClick()
 }
+
+internal fun AndroidComposeTestRule<ActivityScenarioRule<MainActivity>,MainActivity>.chooseEntryDate(label:String,date:java.time.LocalDate) {
+    activity.dismissKeyboardForTest()
+    onNode(hasText("$label:",substring=true) and hasClickAction()).performScrollTo().performClick()
+    onNodeWithContentDescription("Switch to text input mode").performClick()
+    val pattern=java.time.format.DateTimeFormatterBuilder.getLocalizedDateTimePattern(java.time.format.FormatStyle.SHORT,null,java.time.chrono.IsoChronology.INSTANCE,java.util.Locale.getDefault())
+    val order=Regex("[dMy]+").findAll(pattern).map {it.value.first()}.toList()
+    val input=order.joinToString(""){when(it){'d'->date.dayOfMonth.toString().padStart(2,'0');'M'->date.monthValue.toString().padStart(2,'0');else->date.year.toString().padStart(4,'0')}}
+    onNode(hasSetTextAction() and hasAnyAncestor(isDialog())).performTextReplacement(input)
+    onNodeWithText("Use date").performClick()
+}

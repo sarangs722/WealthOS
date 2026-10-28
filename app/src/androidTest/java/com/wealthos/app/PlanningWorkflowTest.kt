@@ -30,7 +30,7 @@ class PlanningWorkflowTest {
         rule.onNodeWithText("Save scenario").performClick();waitFor("Estimated outcome")
         rule.onNodeWithTag("scenario-detail").performScrollToNode(hasText("Retained scenario revisions"));rule.onNodeWithText("Revision 1").assertExists()
         rule.onNodeWithContentDescription("Back").performClick();rule.onNodeWithText("Financial goals").performClick();rule.onNodeWithText("New goal").performClick()
-        write("Goal name",goal);write("Target amount in INR","12000");write("Target date (YYYY-MM-DD)",LocalDate.now().plusYears(1).toString())
+        write("Goal name",goal);write("Target amount in INR","12000");rule.chooseEntryDate("Target date",LocalDate.now().plusYears(1))
         rule.onNodeWithContentDescription("Target is stated in today's money").performScrollTo().performClick()
         rule.onNodeWithText("Save goal").performClick();waitFor("Required monthly contribution ₹1,000.00")
         rule.onNodeWithText(goal).assertExists();rule.onNodeWithText("Revise goal").performScrollTo().performClick()

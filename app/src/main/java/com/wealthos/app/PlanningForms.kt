@@ -30,7 +30,7 @@ internal fun percentText(value:BigDecimal)=value.movePointRight(2).stripTrailing
     val eventFields=savedFields(oldWithdrawals.mapIndexed {n,w->n.toString() to "${w.month}|${w.instrumentId ?: "cash"}|${w.amount.toPlainString()}|${w.label}"}.toMap())
     val eventInput=savedFields(mapOf("month" to "1","source" to "cash","amount" to "","label" to ""))
     val sources=state.book.portfolio.instruments.filter {it.tracking !in listOf(TrackingMode.LOAN,TrackingMode.DEPOSIT)}
-    Form(if(prior==null)"New forecast scenario" else "Revise forecast scenario","Independently saved assumptions. Rates are your estimates, not recommendations. All values are before tax unless explicitly entered.",state,"Save scenario",{
+    Form(if(prior==null)"New forecast scenario" else "Revise forecast scenario","Start from your recorded wealth. All future figures are estimates.",state,"Save scenario",{
         model.planning({done(UUID.fromString(fields.getValue("key")))}) {repo->
             val id=UUID.fromString(fields.getValue("id"))
             fun rate(k:String)=percentInput(fields.getValue(k))
@@ -44,27 +44,39 @@ internal fun percentText(value:BigDecimal)=value.movePointRight(2).stripTrailing
         }
     }) {
         PlanField(fields,"name","Scenario name",false)
-        Choice("Scenario type",fields.getValue("kind"),ScenarioKind.entries.map {it.name to it.label}) {fields["kind"]=it}
-        Choice("Forecast mode",fields.getValue("mode"),ForecastMode.entries.map {it.name to it.label}) {fields["mode"]=it}
-        PlanField(fields,"date","Starting valuation date (YYYY-MM-DD)",false,"Use today or an earlier date with complete observations. No future observations are fabricated.")
+        PlanField(fields,"contribution","Monthly new investment in INR",hint="A separate modeled investment bucket. Exclude contributions planned for individual holdings.")
         Choice("Horizon",fields.getValue("months"),listOf(60,120,180,240,360).map {it.toString() to "${it/12} years"}) {fields["months"]=it}
+        PlanField(fields,"return","Planned investment return % per year",hint="For the new-investment bucket. Current holdings have separate assumptions below. No return is guaranteed.")
         PlanField(fields,"inflation","Purchasing-power inflation % per year")
-        PlanField(fields,"cash","Expected cash return % per year")
-        PlanField(fields,"return","Planned investment return % per year")
-        PlanField(fields,"contribution","Monthly new investment in INR",hint="A separate modeled investment bucket. Exclude amounts already entered for specific assets below.")
-        PlanField(fields,"step","Annual contribution step-up %")
-        if(fields["mode"]==ForecastMode.CASH_FLOW.name){
-            Text("Cash-flow assumptions · INR",style=MaterialTheme.typography.titleLarge)
-            PlanField(fields,"salary","Monthly net salary / income in INR")
-            PlanField(fields,"salaryGrowth","Annual income growth %")
-            PlanField(fields,"essential","Monthly essential expenses in INR")
-            PlanField(fields,"discretionary","Monthly discretionary / other expenses in INR")
-            PlanField(fields,"expenseInflation","Expense inflation % per year")
-            PlanField(fields,"premiums","Monthly insurance premium budget in INR",hint="Explicit monthly budget, not an automatic copy of policy installments. Tracked loan payments are entered per loan below.")
-        } else Text("Contributions and loan payments are funded outside the modeled starting wealth. Salary, expenses and premiums are ignored in this mode.")
-        Toggle("Reinvest estimated deposit maturities",fields["reinvest"]=="true") {fields["reinvest"]=it.toString()}
-        Toggle("Withdraw shared financial goals when due",fields["goals"]=="true") {fields["goals"]=it.toString()}
-        FormDetails("Asset-specific assumptions"){
+        FormDetails("Funding & monthly budget",summary=if(fields["mode"]==ForecastMode.CASH_FLOW.name)"Funded from modeled income and remaining cash" else "Planned contributions funded outside starting wealth") {
+            Choice("Forecast mode",fields.getValue("mode"),ForecastMode.entries.map {it.name to it.label}) {fields["mode"]=it}
+            if(fields["mode"]==ForecastMode.CASH_FLOW.name){
+                PlanField(fields,"salary","Monthly net salary / income in INR")
+                PlanField(fields,"essential","Monthly essential expenses in INR")
+                PlanField(fields,"discretionary","Monthly discretionary / other expenses in INR")
+                PlanField(fields,"premiums","Monthly insurance premium budget in INR",hint="Planning budget only. It is not copied from policy installments.")
+            }
+            Text(if(fields["mode"]==ForecastMode.CASH_FLOW.name)"Income pays expenses, loan obligations and planned contributions. A cash shortfall stops the projection." else "Contributions and planned loan payments come from outside this starting wealth. Salary and living expenses are ignored.",style=MaterialTheme.typography.bodySmall)
+        }
+        FormDetails("Growth & other assumptions",summary="Step-up ${fields["step"]}% per year; cash return ${fields["cash"]}%") {
+            PlanField(fields,"step","Annual contribution step-up %")
+            PlanField(fields,"cash","Expected cash return % per year")
+            if(fields["mode"]==ForecastMode.CASH_FLOW.name){
+                PlanField(fields,"salaryGrowth","Annual income growth %")
+                PlanField(fields,"expenseInflation","Expense inflation % per year")
+            }
+            Choice("Scenario type",fields.getValue("kind"),ScenarioKind.entries.map {it.name to it.label}) {fields["kind"]=it}
+            DateChoice("Starting values as of",fields.getValue("date")){fields["date"]=it}
+            Toggle("Reinvest estimated deposit maturities",fields["reinvest"]=="true") {fields["reinvest"]=it.toString()}
+            Toggle("Withdraw shared financial goals when due",fields["goals"]=="true") {fields["goals"]=it.toString()}
+        }
+        if(state.book.portfolio.instruments.isNotEmpty())FormDetails("Asset-specific assumptions",summary="${state.book.portfolio.instruments.size} holdings; review their returns and contributions separately"){
+        val investmentCategories=setOf(AssetCategory.MUTUAL_FUND,AssetCategory.STOCK,AssetCategory.ETF,AssetCategory.GOLD,AssetCategory.COMMODITY)
+        if(state.book.portfolio.instruments.any {it.category in investmentCategories})OutlinedButton(onClick={
+            state.book.portfolio.instruments.filter {it.category in investmentCategories}.forEach {assetFields["rate:${it.id}"]=fields.getValue("return")}
+        },enabled=!state.saving && !state.demo && runCatching {DecimalMath.rate(percentInput(fields.getValue("return")));true}.getOrDefault(false)){Text("Apply this return to current investments")}
+        Text("The button applies your new-investment return to funds, stocks, ETFs, gold and commodities. Other assets keep their separate assumptions.",style=MaterialTheme.typography.bodySmall)
+
         state.book.portfolio.instruments.forEach {i->
             Text("${i.name} · ${i.currency}",style=MaterialTheme.typography.titleMedium)
             if(i.tracking==TrackingMode.LOAN)Text("Uses the recorded contract rate. Enter the planned monthly total repayment, including interest. Zero means no planned payment.")
@@ -72,8 +84,9 @@ internal fun percentText(value:BigDecimal)=value.movePointRight(2).stripTrailing
             if(i.category!=AssetCategory.FD)PlanField(assetFields,"amount:${i.id}",if(i.tracking==TrackingMode.LOAN)"${i.name}: monthly repayment" else "${i.name}: monthly contribution",hint="${i.currency}. Cash-flow mode needs available cash in this native currency; no FX cash conversion is inferred.")
         }
         }
-        if(fxFields.isNotEmpty())FormDetails("Currency assumptions"){
-        fxFields.keys.toList().forEach {currency->PlanField(fxFields,currency,"$currency: annual change in INR per unit %",hint="Starting rate comes from the dated applied FX observation. Positive means this currency strengthens against INR.")}
+        val relevantFx=(state.book.accounts.map {it.currency}+state.book.portfolio.instruments.map {it.currency}).filter {it!=CurrencyCode.INR}.map {it.name}.toSet()+fxFields.filterValues {it.toBigDecimalOrNull()?.signum()!=0}.keys
+        if(relevantFx.isNotEmpty())FormDetails("Currency assumptions",summary="${relevantFx.size} currencies"){
+        fxFields.keys.filter {it in relevantFx}.forEach {currency->PlanField(fxFields,currency,"$currency: annual change in INR per unit %",hint="Starting rate comes from the dated applied FX observation. Positive means this currency strengthens against INR.")}
         }
         FormDetails("Planned withdrawals"){
         Text("Month end, after contributions. Cash withdrawals are INR; named asset withdrawals use native currency. No assumed borrowing covers a shortfall.")
@@ -84,7 +97,8 @@ internal fun percentText(value:BigDecimal)=value.movePointRight(2).stripTrailing
         PlanField(eventInput,"amount","Withdrawal amount")
         OutlinedButton(onClick={if(eventFields.size<200){val k=((eventFields.keys.mapNotNull {it.toIntOrNull()}.maxOrNull() ?: -1)+1).toString();eventFields[k]="${eventInput["month"]}|${eventInput["source"]}|${eventInput["amount"]}|${eventInput["label"]}"}}) {Text("Add planned withdrawal")}
         }
-        Field("Scenario note / revision explanation",fields.getValue("note"),{fields["note"]=it},multi=true)
+        if(prior!=null)Field("Scenario note / revision explanation",fields.getValue("note"),{fields["note"]=it},multi=true)
+        else FormDetails("Note (optional)"){Field("Scenario note / revision explanation",fields.getValue("note"),{fields["note"]=it},multi=true)}
         FormDetails("Timing & calculation details"){Text("Monthly effective growth = (1 + annual rate)^(1/12) − 1. Contributions occur at month end; step-ups begin in month 13. Unfunded cash stops the projection. Changing a saved scenario appends a revision and preserves its old assumptions.")}
     }
 }
@@ -104,17 +118,21 @@ internal fun percentText(value:BigDecimal)=value.movePointRight(2).stripTrailing
         }
     }) {
         PlanField(f,"name","Goal name",false)
-        if(prior==null)Choice("Goal currency",f.getValue("currency"),CurrencyCode.entries.map {it.name to it.name}) {f["currency"]=it}
         PlanField(f,"target","Target amount in ${f["currency"]}")
-        PlanField(f,"due","Target date (YYYY-MM-DD)",false)
+        DateChoice("Target date",f.getValue("due")){f["due"]=it}
         Toggle("Target is stated in today's money",f["today"]=="true") {f["today"]=it.toString()}
-        PlanField(f,"basis","Purchasing-power / earmark reference date (YYYY-MM-DD)",false,"Inflation is anchored to this saved date. Review the declared earmark rather than assuming past growth.")
-        PlanField(f,"allocated","Existing amount earmarked in ${f["currency"]}",hint="Planning input only; confirm actual liquidity and avoid assigning the same funds to incompatible goals.")
-        PlanField(f,"return","Assumed annual return %")
-        PlanField(f,"inflation","Assumed annual target inflation %")
-        Toggle("Track this goal as active",f["active"]=="true") {f["active"]=it.toString()}
-        Text("Deactivate a completed or paused goal to exclude it from contributions and scenario goal withdrawals. This never posts a cash movement or removes history.")
-        Field("Goal note / revision explanation",f.getValue("note"),{f["note"]=it},multi=true)
-        Text("Required contributions use end-of-month payments through the target month. Near-term and overdue goals show a direct amount comparison instead of an invented monthly annuity. Including goals in a forecast withdraws their target amounts, not an additional asset.")
+        FormDetails("Funding & growth",summary="Set aside ${f["allocated"]} ${f["currency"]}; return ${f["return"]}%; inflation ${f["inflation"]}%") {
+            PlanField(f,"allocated","Existing amount earmarked in ${f["currency"]}",hint="Planning only. Avoid assigning the same funds to incompatible goals.")
+            PlanField(f,"return","Assumed annual return %")
+            PlanField(f,"inflation","Assumed annual target inflation %")
+            DateChoice("Reference date",f.getValue("basis")){f["basis"]=it}
+            if(prior==null)Choice("Goal currency",f.getValue("currency"),CurrencyCode.entries.map {it.name to it.name}) {f["currency"]=it}
+            Toggle("Track this goal as active",f["active"]=="true") {f["active"]=it.toString()}
+            Text("Earmarks do not add assets. Deactivating a goal keeps its history and stops planned contributions/withdrawals.",style=MaterialTheme.typography.bodySmall)
+        }
+        if(prior!=null)Field("Goal note / revision explanation",f.getValue("note"),{f["note"]=it},multi=true)
+        else FormDetails("Note (optional)"){Field("Goal note / revision explanation",f.getValue("note"),{f["note"]=it},multi=true)}
+        FormDetails("How contributions are calculated"){Text("End-of-month payments through the target month. Near-term/overdue goals show an amount comparison. Rates are assumptions; no cash movement or additional asset is created.")}
+
     }
 }
