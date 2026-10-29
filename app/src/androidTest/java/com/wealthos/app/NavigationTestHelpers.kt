@@ -27,5 +27,6 @@ internal fun AndroidComposeTestRule<ActivityScenarioRule<MainActivity>,MainActiv
     val order=Regex("[dMy]+").findAll(pattern).map {it.value.first()}.toList()
     val input=order.joinToString(""){when(it){'d'->date.dayOfMonth.toString().padStart(2,'0');'M'->date.monthValue.toString().padStart(2,'0');else->date.year.toString().padStart(4,'0')}}
     onNode(hasSetTextAction() and hasAnyAncestor(isDialog())).performTextReplacement(input)
-    onNodeWithText("Use date").performClick()
+    onNodeWithText("Use date").assertIsEnabled().performClick()
+    onNode(isDialog()).assertDoesNotExist()
 }

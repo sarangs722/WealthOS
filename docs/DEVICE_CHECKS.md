@@ -4,6 +4,8 @@ These checks are for the user to run locally. They have **not** been executed or
 
 The [verified signed 0.6.7 Release and matching development update](RELEASE_0_6_7.md) are ready. Phone results below still require your own checks. The 0.6.7 changes strengthen backup-history validation; the entry interface remains as in 0.6.6.
 
+The [0.6.8 entry follow-up](RELEASE_0_6_8.md) also has a verified development update; production Release signing is pending. For the original WealthOS app, its matching 0.6.8 development APK can be checked with the same steps. Wait for a signed same-identity APK before updating WealthOS Release. For 0.6.8, also inspect the native date picker and optional fee/note sections in transaction/payment/value-update forms without saving fictional records to a personal vault.
+
 ## Preparation
 
 * Use the verified, permanently signed **0.6.7 / code 13** APK. For an existing **WealthOS Release** app, use the same-certificate Release APK. For the original **WealthOS** development app, use its matching development update. Keep the chosen installation and its storage intact.

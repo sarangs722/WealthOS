@@ -1,0 +1,92 @@
+{
+  "version": "0.6.8",
+  "versionCode": 14,
+  "databaseSchema": 7,
+  "jvm": {
+    "finance": {
+      "tests": 107,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "security": {
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "network": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "nativeDistinctCases": 17,
+  "fullNativeRun": "17 passed, 0 failures/skips; API 29 / 4096-byte pages / WealthOS29",
+  "lastProductChange": "Explicit maturity-payout title after full run; all three affected render cases passed again on the final UI Lab",
+  "finalTitleRenderRepeat": 3,
+  "nativeFullRunAppAndTestHashes": [
+    {
+      "Path": "C:\\Users\\saran\\OneDrive\\Documents\\Codex\\WealthOS\\.tools\\daily-updates-v068\\WealthOS-0.6.8-ui-lab.apk",
+      "Hash": "47EF3E357761AAB1B03503C09E63ABD2D2B5C0B072FFE0174FBFC27D2039EBD1"
+    },
+    {
+      "Path": "C:\\Users\\saran\\OneDrive\\Documents\\Codex\\WealthOS\\.tools\\daily-updates-v068\\WealthOS-0.6.8-ui-tests-final.apk",
+      "Hash": "089BD3A7E65E964A6342C0758CFE515107DA7A1ADF5DEB2D793AAE987540EC45"
+    }
+  ],
+  "captures": {
+    "total": 51,
+    "dailyUpdates": 24,
+    "quickEntry": 27,
+    "method": "synchronized Compose root/dialog; fictional test host only",
+    "selectedReviewedFiles": [
+      "ux-daily-investment-light-1.0.png",
+      "ux-daily-loan-dark-1.0.png",
+      "ux-daily-price-light-1.0.png",
+      "ux-daily-deposit-light-1.5.png"
+    ]
+  },
+  "initialRuns": "17 executed, one FD timeout; focused diagnostic exposed obsolete direct access to newly optional note; all final numeric expectations retained",
+  "coreSourcesChanged": false,
+  "phoneAccessed": false,
+  "personalDataModified": false,
+  "physicalDeviceReview": "pending",
+  "independentSecurityReview": "pending",
+  "finalBuildAndLint": "debug and minified coexisting Release built; debug/release lint passed",
+  "productionSigning": "pending local passphrase",
+  "lint": {
+    "debug": {
+      "errors": 0,
+      "warnings": 0,
+      "issues": []
+    },
+    "release": {
+      "errors": 0,
+      "warnings": 0,
+      "issues": []
+    }
+  },
+  "developmentSignature": "verified existing development certificate and v2 signature",
+  "unsignedNativePackaging": "ZIP/ELF 16 KiB checks passed",
+  "previousRelease067Unchanged": true,
+  "artifacts": {
+    ".tools\\WealthOS-0.6.8-development.apk": {
+      "sha256": "efba66c2ab3649a58bad192b4b4b663b94705648ca4bf7d13dd45e82c558fc26",
+      "bytes": 42220858
+    },
+    ".tools\\daily-updates-v068\\WealthOS-0.6.8-release-unsigned.apk": {
+      "sha256": "92fc0776659d0363695b8b0655e1a8b537d3af3414be15bf844f9132ac73424e",
+      "bytes": 11395914
+    },
+    ".tools\\daily-updates-v068\\WealthOS-0.6.8-ui-lab.apk": {
+      "sha256": "e640e0e5aa820b03718600f2e5836200dd2eee6433717c3e6bf382e0b5fbd823",
+      "bytes": 44279609
+    },
+    ".tools\\daily-updates-v068\\WealthOS-0.6.8-ui-tests-final.apk": {
+      "sha256": "8d63c34c591c935fe566abec8c439206632117c2374dc345d64d8335b383b289",
+      "bytes": 3229755
+    }
+  }
+}

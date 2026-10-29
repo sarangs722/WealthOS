@@ -2,7 +2,11 @@
 
 The requested six milestones have functional software implementations. Remaining release acceptance includes the user's guided phone checks, physical ARM/16 KiB assurance and independent security review; emulator evidence cannot complete those items.
 
-## Current bounded follow-up: 0.6.7
+## Current bounded follow-up: 0.6.8
+
+Implemented concise follow-up entry for transactions, valuations and loan/deposit events, native calendars including deposit maturity, and the installed-version label. Financial save payloads, core modules, schema 7 and crypto formats are unchanged. 129 JVM cases and all 17 affected native cases passed; the three render cases passed again after the final explicit maturity-payout title. Actual debug/minified Release builds and both lint checks passed, with zero reported lint errors/warnings in this offline run. The development certificate and unsigned ZIP/ELF 16 KiB packaging checks passed. Existing-key production signing is waiting for local passphrase entry; no phone installation or personal-data changes occurred. See [release notes](RELEASE_0_6_8.md), [plan](DAILY_UPDATES_0_6_8_PLAN.md) and [evidence](verification/daily-updates-068/verification.json).
+
+## Completed previous follow-up: 0.6.7
 
 Completed the first-party financial-history restore review: reject transactions before the known opening position and valuation markers outside eligible recorded history; initialize new snapshots with system-owned zero coverage. The original three regression probes failed before repair. Final verification passed: 129 JVM tests, 73 encrypted storage/backup/migration tests and ten affected native workflows. Debug/minified builds and lint passed. Existing-certificate signing, independent package checks and byte-identical comparison of 98 application payload entries passed. Both matching APKs are available; schema 7 and crypto formats are unchanged. See [review](HARDENING_0_6_7.md), [release notes](RELEASE_0_6_7.md) and retained evidence. This is not an independent security audit or physical-device acceptance.
 

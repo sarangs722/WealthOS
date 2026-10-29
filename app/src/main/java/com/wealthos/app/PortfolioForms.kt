@@ -187,7 +187,7 @@ private fun tracking(category:AssetCategory)=when(category) {
                     Field("Remaining loan months",months,{months=it},hint="1–1200. The projected monthly schedule does not record actual payments.")
                     FormDetails("About repayments"){Text("Start from a known outstanding principal. Add actual principal and interest components for each repayment. Future payments are never treated as paid.")}
                 } else {
-                    Field("Maturity date (YYYY-MM-DD)",endDate,{endDate=it})
+                    DateChoice("Maturity date",endDate,{endDate=it})
                     FormDetails("Deposit details (optional)"){
                     Choice("Estimate convention",conventionName,DepositConvention.entries.map {it.name to it.label}) {conventionName=it}
                     if(category==AssetCategory.RD) Field("Scheduled monthly installment (optional)",installment,{installment=it},true,"Only installments you actually record increase the balance.")
@@ -229,14 +229,20 @@ private fun tracking(category:AssetCategory)=when(category) {
         repo.addEntry(entry,if(monetary)cashLink(cash,mode) else null)
     }}) {
         Choice("Event",kindName,TradeKind.entries.filter {it!=TradeKind.OPENING}.map {it.name to it.label}) {kindName=it;cash="";mode=""}
-        Field("Event date (YYYY-MM-DD)",date,{date=it})
-        if(kind!=TradeKind.DIVIDEND) Field(if(ratio)"New / additional units in ratio" else "Units (${instrument.unit})",units,{units=it},true,
+        if(kind!=TradeKind.DIVIDEND) Field(if(ratio)"New / additional units in ratio" else if(instrument.unit=="units")"Units" else "Units (${instrument.unit})",units,{units=it},true,
             if(kind==TradeKind.ADJUST)"Signed unit change. Explain the adjustment below." else if(ratio)"Split: 2 for 1 changes 10 to 20; bonus: 1 extra for 1 adds 10." else "Actual units, up to 12 decimal places.")
         if(ratio) Field("Per existing units",denominator,{denominator=it},true)
-        if(!ratio) Field(if(kind==TradeKind.ADJUST)"Cost of added units (optional)" else "Gross consideration in ${instrument.currency}",gross,{gross=it},true,
+        if(!ratio) Field(if(kind==TradeKind.ADJUST)"Cost of added units (optional)" else "Total amount in ${instrument.currency}",gross,{gross=it},true,
             if(kind==TradeKind.REINVEST)"Reinvested distribution amount. It adds both distribution income and acquisition basis; only fees reduce cash." else "Actual total amount, before fees. Not a rounded unit price.")
-        if(monetary) Field("Fees / withholding in ${instrument.currency}",fees,{fees=it},true,"Buy fees add to basis; sale/distribution fees reduce proceeds. This is book cost, not a tax return.")
-        Field("Explanation / note",note,{note=it},multi=true)
+        DateChoice("Event date",date,{date=it})
+        if(kind==TradeKind.ADJUST)Field("Explanation / note",note,{note=it},hint="Required for a manual adjustment.",multi=true)
+        if(kind!=TradeKind.ADJUST)FormDetails(if(monetary)"Fees & note (optional)" else "Note (optional)",summary=buildList {
+            if(monetary && fees!="0")add("Fees: $fees ${instrument.currency}")
+            if(note.isNotBlank())add("Note added")
+        }.joinToString(" · ").ifBlank {null}) {
+            if(monetary)Field("Fees / withholding in ${instrument.currency}",fees,{fees=it},true,"Buy fees add to basis; sale/distribution fees reduce proceeds. This is book cost, not a tax return.")
+            if(kind!=TradeKind.ADJUST)Field("Explanation / note",note,{note=it},multi=true)
+        }
         if(monetary)CashLinkFields(state.book.accounts,instrument.currency,cash,mode,{cash=it;mode=""},{mode=it})
         FormDetails("Transaction rules"){Text("Entries are retained. FIFO consumes known lots. Missing opening basis makes gains unavailable. Splits/bonus issues adjust a prior carried quote theoretically until you enter a new observed price; that valuation is labelled an estimate. Backdated events are checked against every later recorded event before saving.")}
     }
@@ -248,14 +254,18 @@ private fun tracking(category:AssetCategory)=when(category) {
     }
     var value by rememberSaveable {mutableStateOf("")};var date by rememberSaveable {mutableStateOf(LocalDate.now().toString())};var note by rememberSaveable {mutableStateOf("")}
     val price=instrument.tracking==TrackingMode.TRANSACTIONS
+    val correction=state.book.portfolio.valuations.any {it.instrumentId==instrument.id && it.date.toString()==date}
     Form(if(price)"Update unit price" else "Update observed value",instrument.name,state,"Save valuation",onSave={model.portfolio(done) {repo ->
         repo.addValuation(AssetValuation(UUID.randomUUID(),instrument.id,if(price)ValuationKind.UNIT_PRICE else ValuationKind.OBSERVED_TOTAL,
             if(price)DecimalInput.parse(value) else Amounts.parse(value,instrument.currency),LocalDate.parse(date),0,Instant.now(),note))
     }}) {
         Field(if(price)"Unit price in ${instrument.currency}" else "Observed total in ${instrument.currency}",value,{value=it},true)
-        Field("Valuation date (YYYY-MM-DD)",date,{date=it})
-        Field("Source / correction explanation",note,{note=it},multi=true)
-        Text("Manual observation. Same-day corrections retain earlier revisions and need an explanation. Last-known values are labelled when carried forward.")
+        DateChoice("Valuation date",date,{date=it})
+        if(correction)Field("Source / correction explanation",note,{note=it},hint="Required: a value already exists on this date. Both versions are retained.",multi=true)
+        else FormDetails("Source or note (optional)",if(note.isBlank())null else "Note added") {
+            Field("Source / correction explanation",note,{note=it},multi=true)
+        }
+        FormDetails("About this value"){Text("Manual observation. Same-day corrections retain earlier revisions and need an explanation. Last-known values are labelled when carried forward.")}
     }
 }
 
@@ -272,20 +282,27 @@ private fun tracking(category:AssetCategory)=when(category) {
     var principal by rememberSaveable {mutableStateOf("")};var interest by rememberSaveable {mutableStateOf("0")};var fees by rememberSaveable {mutableStateOf("0")}
     var date by rememberSaveable {mutableStateOf(LocalDate.now().toString())};var note by rememberSaveable {mutableStateOf("")}
     var cash by rememberSaveable {mutableStateOf("")};var mode by rememberSaveable {mutableStateOf("")}
-    Form("Record contract event",instrument.name,state,"Save contract event",onSave={model.portfolio(done) {repo ->
+    Form(when {loan->"Record loan payment";kinds.size==1 && kind==ContractEventKind.MATURITY->"Record maturity payout";else->"Record deposit event"},instrument.name,state,if(loan)"Save payment" else "Save event",onSave={model.portfolio(done) {repo ->
         repo.addContractEvent(ContractEvent(UUID.randomUUID(),instrument.id,kind,LocalDate.parse(date),0,
             if(kind==ContractEventKind.INTEREST_PAYOUT)BigDecimal.ZERO else Amounts.parse(principal,instrument.currency),
             if(kind==ContractEventKind.CONTRIBUTION)BigDecimal.ZERO else Amounts.parse(interest,instrument.currency),Amounts.parse(fees,instrument.currency),Instant.now(),note),cashLink(cash,mode))
     }}) {
-        Choice("Contract event",kindName,kinds.map {it.name to it.label}) {kindName=it}
-        Field("Event date (YYYY-MM-DD)",date,{date=it})
-        if(kind!=ContractEventKind.INTEREST_PAYOUT)Field("Actual principal component",principal,{principal=it},true,
+        if(kinds.size>1)Choice("Contract event",kindName,kinds.map {it.name to it.label}) {kindName=it}
+        if(kind!=ContractEventKind.INTEREST_PAYOUT)Field(when(kind){ContractEventKind.CONTRIBUTION->"Amount deposited in ${instrument.currency}";ContractEventKind.MATURITY->"Principal returned in ${instrument.currency}";else->"Principal paid in ${instrument.currency}"},principal,{principal=it},true,
             if(kind==ContractEventKind.MATURITY)"Return the full recorded paid principal. Enter early-closure penalties in fees." else "${instrument.currency}. Principal and interest remain separate.")
-        if(kind!=ContractEventKind.CONTRIBUTION)Field("Actual interest component",interest,{interest=it},true)
-        Field("Fees / withholding",fees,{fees=it},true)
-        Field("Explanation / statement reference",note,{note=it},multi=true)
+        if(kind!=ContractEventKind.CONTRIBUTION)Field(if(loan)"Interest paid in ${instrument.currency}" else "Interest received in ${instrument.currency}",interest,{interest=it},true)
+        DateChoice("Event date",date,{date=it})
+        FormDetails("Fees & note (optional)",summary=buildList {
+            if(fees!="0")add("Fees: $fees ${instrument.currency}")
+            if(note.isNotBlank())add("Note added")
+        }.joinToString(" · ").ifBlank {null}) {
+            Field("Fees / withholding",fees,{fees=it},true)
+            Field("Explanation / statement reference",note,{note=it},multi=true)
+        }
         CashLinkFields(state.book.accounts,instrument.currency,cash,mode,{cash=it;mode=""},{mode=it})
-        Text("Only actual events are recorded. Closing a deposit stops its asset value; its payout becomes tracked cash only when linked or observed in a bank balance. No automatic maturity payout is invented.")
+        FormDetails(if(loan)"About this payment" else "About this event") {
+            Text(if(loan)"Record the principal and interest shown on your statement separately. Only principal reduces the loan balance; interest and fees remain payment costs." else "Only actual events are recorded. Closing a deposit stops its asset value; its payout becomes tracked cash only when linked or observed in a bank balance. No automatic maturity payout is invented.")
+        }
     }
 }
 

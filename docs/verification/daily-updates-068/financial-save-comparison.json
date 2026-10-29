@@ -1,0 +1,19 @@
+{
+  "savePayloads": {
+    "val entry=InvestmentEntry(": {
+      "identicalTo067": true,
+      "sha256": "2f9c840306d3100067c1cd916253fafd32ff4313af6f6501a5ee6d4c38cb9fd3"
+    },
+    "repo.addValuation(AssetValuation(": {
+      "identicalTo067": true,
+      "sha256": "4ef04c7e45dd6f184470ac5db3839172d4278416154a091bec54758d21ebbe89"
+    },
+    "repo.addContractEvent(ContractEvent(": {
+      "identicalTo067": true,
+      "sha256": "4ab838962e473246b40106fadeb420e921a805ce15294f6d8d1db1b20ce9abeb"
+    }
+  },
+  "financeDatabaseSecurityNetworkSourcesUnchanged": true,
+  "schema": 7,
+  "dependenciesChanged": false
+}

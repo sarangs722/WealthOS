@@ -2,6 +2,7 @@ package com.wealthos.app
 
 import android.graphics.Bitmap
 import androidx.compose.runtime.*
+import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createComposeRule
@@ -25,7 +26,8 @@ class QuickFormsUiTest(private val dark:Boolean,private val scale:Float) {
         rule.waitForIdle();val c=ApplicationProvider.getApplicationContext<android.content.Context>()
         val automation=InstrumentationRegistry.getInstrumentation().uiAutomation
         rule.waitUntil(10_000){automation.rootInActiveWindow?.packageName?.toString()==c.packageName}
-        val bitmap=checkNotNull(automation.takeScreenshot());File(c.filesDir,"ux-quick-$name-${if(dark)"dark" else "light"}-$scale.png").outputStream().use {bitmap.compress(Bitmap.CompressFormat.PNG,100,it)};bitmap.recycle()
+        val root=if(rule.onAllNodes(isDialog()).fetchSemanticsNodes().isNotEmpty())rule.onNode(isDialog()) else rule.onRoot()
+        val bitmap=root.captureToImage().asAndroidBitmap();File(c.filesDir,"ux-quick-$name-${if(dark)"dark" else "light"}-$scale.png").outputStream().use {bitmap.compress(Bitmap.CompressFormat.PNG,100,it)};bitmap.recycle()
     }
     @Test fun essentialFormsShowConciseInputsAndReachableSave(){
         var screen by mutableStateOf("fund");val state=BankUiState(loading=false)

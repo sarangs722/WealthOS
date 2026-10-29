@@ -10,7 +10,10 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class PortfolioWorkflowTest {
     @get:Rule val rule=createAndroidComposeRule<MainActivity>()
-    private fun waitFor(text:String) {rule.waitUntil(30_000) {rule.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty()}}
+    private fun waitFor(text:String) {
+        try{rule.waitUntil(30_000) {rule.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty()}}
+        catch(error:Throwable){throw AssertionError("Expected $text; validation=${androidx.lifecycle.ViewModelProvider(rule.activity)[BankViewModel::class.java].state.value.formError}\n"+rule.onRoot(useUnmergedTree=true).printToString(),error)}
+    }
     private fun write(label:String,value:String) {rule.activity.dismissKeyboardForTest();rule.onNodeWithText(label).performScrollTo().performTextReplacement(value);rule.activity.dismissKeyboardForTest()}
     private fun detailText(text:String) {
         rule.waitUntil(30_000) {
@@ -38,15 +41,15 @@ class PortfolioWorkflowTest {
         rule.onNodeWithText("Save record").performClick()
         waitFor("Current recorded value")
         detailClick("Add transaction")
-        write("Units (units)","5")
-        write("Gross consideration in INR","600")
+        write("Units","5")
+        write("Total amount in INR","600")
         rule.onNodeWithText("Save event").performClick()
         waitFor("Holdings & book cost")
         detailText("15 units")
         detailClick("Add transaction")
         choose("Event:","Sale / redemption")
-        write("Units (units)","3")
-        write("Gross consideration in INR","450")
+        write("Units","3")
+        write("Total amount in INR","450")
         rule.onNodeWithText("Save event").performClick()
         waitFor("Holdings & book cost")
         detailText("12 units")
@@ -80,9 +83,9 @@ class PortfolioWorkflowTest {
         waitFor("Outstanding liability")
         rule.onNodeWithText("Outstanding liability").assertExists()
         detailClick("Record repayment")
-        write("Actual principal component","5000")
-        write("Actual interest component","1000")
-        rule.onNodeWithText("Save contract event").performClick()
+        write("Principal paid in INR","5000")
+        write("Interest paid in INR","1000")
+        rule.onNodeWithText("Save payment").performClick()
         waitFor("₹95,000.00")
         rule.onNodeWithText("₹95,000.00").assertExists()
     }
@@ -94,12 +97,14 @@ class PortfolioWorkflowTest {
         write("Asset name",name)
         write("Amount deposited","10000")
         write("Contract annual rate (%)","0")
-        write("Maturity date (YYYY-MM-DD)",java.time.LocalDate.now().plusYears(1).toString())
+        rule.chooseEntryDate("Maturity date",java.time.LocalDate.now().plusYears(1))
+        rule.onNodeWithText("Maturity date: ${dateLabel(java.time.LocalDate.now().plusYears(1))}").assertExists()
         rule.onNodeWithText("Save record").performClick()
         waitFor("Current recorded value")
         detailClick("Contract inputs");detailText("Gross contract estimate: ₹10,000.00")
         detailClick("Update value")
         write("Observed total in INR","10005")
+        rule.onNodeWithText("Source or note (optional)").performScrollTo().performClick()
         write("Source / correction explanation","Actual statement fixture")
         rule.onNodeWithText("Save valuation").performClick()
         waitFor("₹10,005.00")

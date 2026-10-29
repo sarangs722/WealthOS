@@ -1,6 +1,8 @@
 # WealthOS
 
-**Latest signed update: [0.6.7 financial-history restore hardening](docs/RELEASE_0_6_7.md)** rejects inconsistent starting-position history and invalid valuation coverage in backups. 129 JVM, 73 encrypted-storage and ten affected native workflow tests passed, along with builds, lint and signature/payload verification. Schema 7 and the existing signing identities are retained. [0.6.6](docs/RELEASE_0_6_6.md) provides the shorter cash-flow, scenario, goal and calculator forms.
+**Latest implementation: [0.6.8 easier everyday updates](docs/RELEASE_0_6_8.md)** simplifies investment transactions, price/value updates and loan/deposit events, adds native date selection and displays the installed version correctly. 129 JVM and 17 affected native cases passed; three render cases passed again after the final maturity-title clarification. Debug/minified builds and both lint checks passed with zero reported errors/warnings. The matching development update is ready; production signing awaits local passphrase entry.
+
+**Latest signed update: [0.6.7 financial-history restore hardening](docs/RELEASE_0_6_7.md)** retains its verified release artifact. Schema 7 and the existing signing identities are unchanged. [0.6.6](docs/RELEASE_0_6_6.md) provides the shorter cash-flow, scenario, goal and calculator forms.
 
 Native, offline-first Android personal wealth tracker. **Previous data-entry refinement: [0.6.5 quick entry](docs/RELEASE_0_6_5.md)** starts investment holdings with name and current value, keeps other figures optional and uses shorter native forms. The signed update retains the existing release identity; [0.6.4](docs/RELEASE_0_6_4.md) is retained. **Milestone 6 (0.6.0)** adds password-protected portable backups, validated transactional restore, encrypted pre-restore safety copies and release hardening. Existing bank, portfolio, income, protection, planning and optional public-data features remain local and offline-first.
 
@@ -50,7 +52,8 @@ Records use SQLCipher and a Keystore-protected random key. Portable files use pa
 
 ## Documentation
 
-* [Latest signed WealthOS 0.6.7 and verification](docs/RELEASE_0_6_7.md)
+* [WealthOS 0.6.8 entry improvements and current artifact status](docs/RELEASE_0_6_8.md)
+* [Previous signed WealthOS 0.6.7 and verification](docs/RELEASE_0_6_7.md)
 * [Guided phone checks to run personally](docs/DEVICE_CHECKS.md)
 * [Original 0.6.0 signing and migration record](docs/PRODUCTION_RELEASE.md)
 * [Milestone 6 verified progress and remaining release requirements](docs/PROGRESS_MILESTONE_6.md)

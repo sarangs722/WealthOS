@@ -13,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -185,7 +186,10 @@ import java.util.UUID
             Text("Access lock protects the interface. The database key is device-bound and is not authenticated for each use.")
             Text("Keep an encrypted portable backup and its password before uninstalling or changing devices.")
         }
-        Text("WealthOS 0.6.4",style=MaterialTheme.typography.labelMedium,color=MaterialTheme.colorScheme.onSurfaceVariant)
+        val context=LocalContext.current
+        @Suppress("DEPRECATION")
+        val version=remember(context){context.packageManager.getPackageInfo(context.packageName,0).versionName.orEmpty()}
+        Text("WealthOS $version",style=MaterialTheme.typography.labelMedium,color=MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }
 @Composable private fun SettingToggle(title: String, body: String, checked: Boolean, action: () -> Unit) {

@@ -1,0 +1,177 @@
+Starting a Gradle Daemon (subsequent builds will be faster)
+Calculating task graph as no cached configuration is available for tasks: :core:finance:test :core:security:test :core:network:testDebugUnitTest :app:assembleDebug :app:assembleDebugAndroidTest
+> Task :core:finance:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core:finance:processResources NO-SOURCE
+> Task :core:finance:processTestResources NO-SOURCE
+> Task :core:security:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core:security:compileKotlin
+> Task :core:security:compileJava NO-SOURCE
+> Task :core:security:processResources NO-SOURCE
+> Task :core:security:classes UP-TO-DATE
+> Task :core:security:jar
+> Task :core:security:compileTestKotlin
+> Task :core:security:compileTestJava NO-SOURCE
+> Task :core:security:processTestResources
+> Task :core:security:testClasses
+
+> Task :core:finance:compileKotlin
+w: file:///C:/Users/saran/OneDrive/Documents/Codex/WealthOS/core/finance/src/main/kotlin/com/wealthos/finance/InvestmentPerformance.kt:24:106 Unnecessary non-null assertion (!!) on a non-null receiver of type 'BigDecimal'.
+
+> Task :core:finance:compileJava NO-SOURCE
+> Task :core:finance:classes UP-TO-DATE
+> Task :core:finance:jar
+
+> Task :core:finance:compileTestKotlin
+w: file:///C:/Users/saran/OneDrive/Documents/Codex/WealthOS/core/finance/src/test/kotlin/com/wealthos/finance/ForecastTest.kt:20:244 Unnecessary non-null assertion (!!) on a non-null receiver of type 'FundingGap'.
+
+> Task :core:finance:compileTestJava NO-SOURCE
+> Task :core:finance:testClasses UP-TO-DATE
+> Task :core:finance:test
+> Task :core:network:preBuild UP-TO-DATE
+> Task :core:network:preDebugBuild UP-TO-DATE
+> Task :core:network:generateDebugResources
+> Task :core:network:packageDebugResources
+> Task :core:network:processDebugNavigationResources
+> Task :core:network:parseDebugLocalResources
+> Task :core:network:generateDebugRFile
+> Task :core:security:test
+> Task :core:network:javaPreCompileDebug
+> Task :core:network:preDebugUnitTestBuild UP-TO-DATE
+> Task :core:network:generateDebugUnitTestStubRFile
+> Task :core:network:javaPreCompileDebugUnitTest
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :core:database:preBuild UP-TO-DATE
+> Task :core:database:preDebugBuild UP-TO-DATE
+> Task :core:database:processDebugNavigationResources
+
+> Task :core:network:compileDebugKotlin
+w: file:///C:/Users/saran/OneDrive/Documents/Codex/WealthOS/core/network/src/main/kotlin/com/wealthos/publicdata/OfficialParsers.kt:35:193 Unnecessary non-null assertion (!!) on a non-null receiver of type 'LocalDate'.
+
+> Task :core:network:compileDebugJavaWithJavac NO-SOURCE
+> Task :core:network:bundleLibRuntimeToJarDebug
+> Task :core:network:bundleLibCompileToJarDebug
+> Task :app:processDebugNavigationResources
+> Task :core:network:processDebugJavaRes
+> Task :app:parseDebugLocalResources
+> Task :app:generateDebugRFile
+> Task :core:database:generateDebugResources
+> Task :core:database:packageDebugResources
+> Task :core:database:parseDebugLocalResources
+> Task :core:database:generateDebugRFile
+> Task :core:network:compileDebugUnitTestKotlin
+> Task :core:network:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :core:network:processDebugUnitTestJavaRes
+> Task :core:network:testDebugUnitTest
+> Task :core:database:javaPreCompileDebug
+> Task :app:javaPreCompileDebug
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :core:database:generateDebugAssets UP-TO-DATE
+> Task :core:database:mergeDebugAssets
+> Task :core:network:generateDebugAssets UP-TO-DATE
+> Task :core:network:mergeDebugAssets
+> Task :app:mergeDebugAssets
+> Task :app:compressDebugAssets
+> Task :app:generateDebugGlobalSynthetics
+> Task :app:checkDebugDuplicateClasses
+> Task :app:desugarDebugFileDependencies
+> Task :app:mergeExtDexDebug
+> Task :core:network:bundleLibRuntimeToDirDebug
+> Task :core:database:kspDebugKotlin
+> Task :core:database:writeDebugAarMetadata
+> Task :core:network:writeDebugAarMetadata
+> Task :app:checkDebugAarMetadata
+> Task :app:mapDebugSourceSetPaths
+> Task :app:compileDebugNavigationResources
+> Task :app:mergeDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :core:database:extractDeepLinksDebug
+> Task :core:database:processDebugManifest
+> Task :core:network:extractDeepLinksDebug
+> Task :core:network:processDebugManifest
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processDebugManifestForPackage
+> Task :core:database:mapDebugSourceSetPaths
+> Task :core:database:compileDebugLibraryResources
+> Task :core:network:mapDebugSourceSetPaths
+> Task :core:network:compileDebugLibraryResources
+> Task :app:processDebugResources
+> Task :app:mergeDebugJniLibFolders
+> Task :core:database:mergeDebugJniLibFolders
+> Task :core:database:mergeDebugNativeLibs NO-SOURCE
+> Task :core:database:copyDebugJniLibsProjectOnly
+> Task :core:network:mergeDebugJniLibFolders
+> Task :core:network:mergeDebugNativeLibs NO-SOURCE
+> Task :core:network:copyDebugJniLibsProjectOnly
+> Task :app:mergeDebugNativeLibs
+
+> Task :app:stripDebugDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libsqlcipher.so. Run with --info option to learn more.
+
+> Task :app:validateSigningDebug
+> Task :app:writeDebugAppMetadata
+> Task :app:writeDebugSigningConfigVersions
+> Task :app:preDebugAndroidTestBuild SKIPPED
+> Task :app:generateDebugAndroidTestResources
+> Task :app:packageDebugAndroidTestResources
+> Task :app:processDebugAndroidTestNavigationResources
+> Task :app:parseDebugAndroidTestLocalResources
+> Task :app:generateDebugAndroidTestRFile
+> Task :app:javaPreCompileDebugAndroidTest
+> Task :app:generateDebugAndroidTestAssets UP-TO-DATE
+> Task :app:mergeDebugAndroidTestAssets
+> Task :app:compressDebugAndroidTestAssets
+> Task :app:generateDebugAndroidTestGlobalSynthetics
+> Task :app:checkDebugAndroidTestDuplicateClasses
+> Task :app:desugarDebugAndroidTestFileDependencies
+> Task :app:mergeExtDexDebugAndroidTest
+> Task :app:checkDebugAndroidTestAarMetadata
+> Task :app:mapDebugAndroidTestSourceSetPaths
+> Task :app:compileDebugAndroidTestNavigationResources
+> Task :core:database:compileDebugKotlin
+> Task :core:database:compileDebugJavaWithJavac NO-SOURCE
+> Task :core:database:copyRoomSchemas NO-SOURCE
+> Task :core:database:bundleLibCompileToJarDebug
+> Task :app:mergeDebugAndroidTestResources
+> Task :core:database:processDebugJavaRes
+> Task :core:database:bundleLibRuntimeToDirDebug
+> Task :app:mergeLibDexDebug
+> Task :app:mergeLibDexDebugAndroidTest
+> Task :app:mergeDebugAndroidTestManifest
+> Task :app:processDebugAndroidTestManifest
+> Task :app:processDebugAndroidTestResources
+> Task :app:mergeDebugAndroidTestJniLibFolders
+> Task :app:mergeDebugAndroidTestNativeLibs NO-SOURCE
+> Task :app:stripDebugAndroidTestDebugSymbols NO-SOURCE
+> Task :app:validateSigningDebugAndroidTest
+> Task :app:writeDebugAndroidTestSigningConfigVersions
+> Task :app:compileDebugKotlin
+> Task :app:compileDebugJavaWithJavac NO-SOURCE
+> Task :app:processDebugJavaRes
+> Task :app:mergeDebugJavaResource
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:dexBuilderDebug
+> Task :app:mergeProjectDexDebug
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect
+> Task :app:assembleDebug
+> Task :app:compileDebugAndroidTestKotlin
+> Task :app:processDebugAndroidTestJavaRes
+> Task :app:mergeDebugAndroidTestJavaResource
+> Task :app:compileDebugAndroidTestJavaWithJavac
+> Task :app:dexBuilderDebugAndroidTest
+> Task :app:mergeProjectDexDebugAndroidTest
+> Task :app:packageDebugAndroidTest
+> Task :app:assembleDebugAndroidTest
+> Task :app:createDebugAndroidTestApkListingFileRedirect
+
+[Incubating] Problems report is available at: file:///C:/Users/saran/OneDrive/Documents/Codex/WealthOS/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 3m 26s
+120 actionable tasks: 120 executed
+Configuration cache entry stored.

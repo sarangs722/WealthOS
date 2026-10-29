@@ -1,0 +1,306 @@
+Starting a Gradle Daemon, 5 stopped Daemons could not be reused, use --status for details
+Calculating task graph as no cached configuration is available for tasks: :app:assembleDebug :app:assembleRelease :app:lintDebug :app:lintRelease
+> Task :app:preBuild UP-TO-DATE
+> Task :core:finance:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :core:finance:processResources NO-SOURCE
+> Task :core:security:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core:finance:compileKotlin UP-TO-DATE
+> Task :core:security:compileKotlin UP-TO-DATE
+> Task :core:security:compileJava NO-SOURCE
+> Task :core:finance:compileJava NO-SOURCE
+> Task :core:finance:classes UP-TO-DATE
+> Task :core:security:processResources NO-SOURCE
+> Task :core:security:classes UP-TO-DATE
+> Task :core:security:jar UP-TO-DATE
+> Task :core:finance:jar UP-TO-DATE
+> Task :core:database:preBuild UP-TO-DATE
+> Task :core:database:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :core:database:processDebugNavigationResources UP-TO-DATE
+> Task :core:network:preBuild UP-TO-DATE
+> Task :core:network:preDebugBuild UP-TO-DATE
+> Task :core:network:processDebugNavigationResources UP-TO-DATE
+> Task :app:packageDebugResources UP-TO-DATE
+> Task :core:database:generateDebugResources UP-TO-DATE
+> Task :core:database:packageDebugResources UP-TO-DATE
+> Task :core:database:parseDebugLocalResources UP-TO-DATE
+> Task :core:database:generateDebugRFile UP-TO-DATE
+> Task :core:database:kspDebugKotlin UP-TO-DATE
+> Task :core:database:compileDebugKotlin UP-TO-DATE
+> Task :core:database:javaPreCompileDebug UP-TO-DATE
+> Task :core:database:compileDebugJavaWithJavac NO-SOURCE
+> Task :core:database:preReleaseBuild UP-TO-DATE
+> Task :core:database:generateReleaseResources
+> Task :core:database:packageReleaseResources
+> Task :core:database:processReleaseNavigationResources
+> Task :core:database:parseReleaseLocalResources
+> Task :app:processDebugNavigationResources
+> Task :app:parseDebugLocalResources UP-TO-DATE
+> Task :app:generateDebugRFile UP-TO-DATE
+> Task :core:database:generateReleaseRFile
+> Task :core:database:javaPreCompileRelease
+> Task :core:database:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :core:network:generateDebugResources UP-TO-DATE
+> Task :core:network:packageDebugResources UP-TO-DATE
+> Task :core:network:parseDebugLocalResources UP-TO-DATE
+> Task :core:network:generateDebugRFile UP-TO-DATE
+> Task :core:network:compileDebugKotlin UP-TO-DATE
+> Task :core:network:javaPreCompileDebug UP-TO-DATE
+> Task :core:network:compileDebugJavaWithJavac NO-SOURCE
+> Task :core:network:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :app:compileDebugKotlin UP-TO-DATE
+> Task :app:javaPreCompileDebug UP-TO-DATE
+> Task :app:compileDebugJavaWithJavac NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :core:database:generateDebugAssets UP-TO-DATE
+> Task :core:database:mergeDebugAssets UP-TO-DATE
+> Task :core:network:generateDebugAssets UP-TO-DATE
+> Task :core:network:mergeDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets UP-TO-DATE
+> Task :app:compressDebugAssets UP-TO-DATE
+> Task :app:generateDebugGlobalSynthetics UP-TO-DATE
+> Task :app:processDebugJavaRes UP-TO-DATE
+> Task :core:database:processDebugJavaRes UP-TO-DATE
+> Task :core:network:processDebugJavaRes UP-TO-DATE
+> Task :app:mergeDebugJavaResource UP-TO-DATE
+> Task :app:checkDebugDuplicateClasses UP-TO-DATE
+> Task :app:desugarDebugFileDependencies UP-TO-DATE
+> Task :app:mergeExtDexDebug UP-TO-DATE
+> Task :core:database:bundleLibRuntimeToDirDebug UP-TO-DATE
+> Task :core:network:bundleLibRuntimeToDirDebug UP-TO-DATE
+> Task :app:mergeLibDexDebug UP-TO-DATE
+> Task :core:database:writeDebugAarMetadata UP-TO-DATE
+> Task :core:network:writeDebugAarMetadata UP-TO-DATE
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+> Task :app:compileDebugNavigationResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :core:database:extractDeepLinksDebug UP-TO-DATE
+> Task :core:database:processDebugManifest UP-TO-DATE
+> Task :core:network:extractDeepLinksDebug UP-TO-DATE
+> Task :core:network:processDebugManifest UP-TO-DATE
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processDebugManifestForPackage
+> Task :core:database:mapDebugSourceSetPaths UP-TO-DATE
+> Task :core:database:compileDebugLibraryResources UP-TO-DATE
+> Task :core:network:mapDebugSourceSetPaths UP-TO-DATE
+> Task :core:network:compileDebugLibraryResources UP-TO-DATE
+> Task :app:processDebugResources
+> Task :app:dexBuilderDebug UP-TO-DATE
+> Task :app:mergeProjectDexDebug UP-TO-DATE
+> Task :app:mergeDebugJniLibFolders UP-TO-DATE
+> Task :core:database:mergeDebugJniLibFolders UP-TO-DATE
+> Task :core:database:mergeDebugNativeLibs NO-SOURCE
+> Task :core:database:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :core:network:mergeDebugJniLibFolders UP-TO-DATE
+> Task :core:network:mergeDebugNativeLibs NO-SOURCE
+> Task :core:network:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :app:mergeDebugNativeLibs UP-TO-DATE
+> Task :app:stripDebugDebugSymbols UP-TO-DATE
+> Task :app:validateSigningDebug UP-TO-DATE
+> Task :app:writeDebugAppMetadata UP-TO-DATE
+> Task :app:writeDebugSigningConfigVersions UP-TO-DATE
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect
+> Task :app:assembleDebug
+> Task :app:preReleaseBuild UP-TO-DATE
+> Task :app:mergeReleaseJniLibFolders
+> Task :core:database:mergeReleaseJniLibFolders
+> Task :core:database:mergeReleaseNativeLibs NO-SOURCE
+> Task :core:database:copyReleaseJniLibsProjectOnly
+> Task :core:network:preReleaseBuild UP-TO-DATE
+> Task :core:network:mergeReleaseJniLibFolders
+> Task :core:network:mergeReleaseNativeLibs NO-SOURCE
+> Task :core:network:copyReleaseJniLibsProjectOnly
+> Task :app:mergeReleaseNativeLibs
+
+> Task :app:stripReleaseDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libsqlcipher.so. Run with --info option to learn more.
+
+> Task :app:extractReleaseNativeSymbolTables
+> Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
+> Task :core:network:generateReleaseResources
+> Task :core:network:packageReleaseResources
+> Task :core:network:processReleaseNavigationResources
+> Task :core:network:parseReleaseLocalResources
+> Task :core:network:generateReleaseRFile
+> Task :core:database:kspReleaseKotlin
+
+> Task :core:network:compileReleaseKotlin
+w: file:///C:/Users/saran/OneDrive/Documents/Codex/WealthOS/core/network/src/main/kotlin/com/wealthos/publicdata/OfficialParsers.kt:35:193 Unnecessary non-null assertion (!!) on a non-null receiver of type 'LocalDate'.
+
+> Task :core:network:javaPreCompileRelease
+> Task :core:network:compileReleaseJavaWithJavac NO-SOURCE
+> Task :core:network:mergeReleaseGeneratedProguardFiles
+> Task :core:network:exportReleaseConsumerProguardFiles
+> Task :app:checkReleaseDuplicateClasses
+> Task :app:generateReleaseResources
+> Task :app:packageReleaseResources
+> Task :app:processReleaseNavigationResources
+> Task :app:parseReleaseLocalResources
+> Task :app:generateReleaseRFile
+> Task :core:network:bundleLibCompileToJarRelease
+> Task :app:javaPreCompileRelease
+> Task :core:database:prepareReleaseArtProfile
+> Task :core:network:prepareReleaseArtProfile
+> Task :app:mergeReleaseArtProfile
+> Task :core:database:writeReleaseAarMetadata
+> Task :core:network:writeReleaseAarMetadata
+> Task :app:checkReleaseAarMetadata
+> Task :app:mapReleaseSourceSetPaths
+> Task :app:compileReleaseNavigationResources
+> Task :app:mergeReleaseResources
+> Task :app:createReleaseCompatibleScreenManifests
+> Task :app:extractDeepLinksRelease
+> Task :core:database:extractDeepLinksRelease
+> Task :core:database:processReleaseManifest
+> Task :core:network:extractDeepLinksRelease
+> Task :core:network:processReleaseManifest
+> Task :app:processReleaseMainManifest
+> Task :app:processReleaseManifest
+> Task :app:processReleaseManifestForPackage
+> Task :core:database:mapReleaseSourceSetPaths
+> Task :core:database:compileReleaseLibraryResources
+> Task :core:network:mapReleaseSourceSetPaths
+> Task :core:network:compileReleaseLibraryResources
+> Task :app:processReleaseResources
+> Task :core:network:bundleLibRuntimeToJarRelease
+> Task :app:extractProguardFiles
+> Task :core:network:processReleaseJavaRes
+> Task :app:mergeReleaseStartupProfile
+> Task :app:generateReleaseAssets UP-TO-DATE
+> Task :core:database:generateReleaseAssets UP-TO-DATE
+> Task :core:database:mergeReleaseAssets
+> Task :core:network:generateReleaseAssets UP-TO-DATE
+> Task :core:network:mergeReleaseAssets
+> Task :app:mergeReleaseAssets
+> Task :app:compressReleaseAssets
+> Task :app:extractReleaseVersionControlInfo
+> Task :core:database:extractProguardFiles
+> Task :core:database:prepareLintJarForPublish
+> Task :core:network:createFullJarRelease
+> Task :core:network:extractProguardFiles
+> Task :core:network:generateReleaseLintModel
+> Task :core:network:prepareLintJarForPublish
+> Task :core:database:checkReleaseAarMetadata
+> Task :core:database:extractDeepLinksForAarRelease
+> Task :core:database:extractReleaseAnnotations
+> Task :core:network:checkReleaseAarMetadata
+> Task :core:network:extractDeepLinksForAarRelease
+> Task :core:network:extractReleaseAnnotations
+> Task :core:network:mergeReleaseConsumerProguardFiles
+> Task :core:network:mergeReleaseJavaResource
+> Task :core:network:syncReleaseLibJars
+> Task :core:network:bundleReleaseLocalLintAar
+> Task :core:database:writeReleaseLintModelMetadata
+> Task :core:database:compileReleaseKotlin
+> Task :core:database:compileReleaseJavaWithJavac NO-SOURCE
+> Task :core:database:copyRoomSchemas NO-SOURCE
+> Task :core:database:mergeReleaseGeneratedProguardFiles
+> Task :core:database:exportReleaseConsumerProguardFiles
+> Task :core:database:bundleLibCompileToJarRelease
+> Task :core:network:lintVitalAnalyzeRelease
+> Task :core:database:bundleLibRuntimeToJarRelease
+> Task :core:database:processReleaseJavaRes
+> Task :core:database:createFullJarRelease
+> Task :core:database:generateReleaseLintModel
+> Task :core:database:mergeReleaseConsumerProguardFiles
+> Task :core:database:mergeReleaseJavaResource
+> Task :core:database:syncReleaseLibJars
+> Task :core:database:bundleReleaseLocalLintAar
+> Task :app:compileReleaseKotlin
+> Task :core:database:lintVitalAnalyzeRelease
+> Task :core:network:writeReleaseLintModelMetadata
+> Task :core:database:generateReleaseLintVitalModel
+> Task :core:network:generateReleaseLintVitalModel
+> Task :app:compileReleaseJavaWithJavac NO-SOURCE
+> Task :app:collectReleaseDependencies
+> Task :app:mergeReleaseGeneratedProguardFiles
+> Task :app:processReleaseJavaRes
+> Task :app:expandReleaseArtProfileWildcards
+> Task :app:mergeReleaseJavaResource
+> Task :app:produceReleaseComposeMapping
+> Task :app:reportReleaseComposeMappingErrors
+> Task :app:generateReleaseLintVitalReportModel
+> Task :app:minifyReleaseWithR8
+> Task :app:lintVitalAnalyzeRelease
+> Task :app:lintVitalReportRelease SKIPPED
+> Task :app:lintVitalRelease SKIPPED
+> Task :app:sdkReleaseDependencyData
+> Task :app:writeReleaseAppMetadata
+> Task :app:writeReleaseSigningConfigVersions
+> Task :core:database:checkDebugAarMetadata
+> Task :core:database:extractDebugAnnotations
+> Task :core:database:extractDeepLinksForAarDebug
+> Task :core:database:mergeDebugGeneratedProguardFiles
+> Task :core:database:mergeDebugConsumerProguardFiles
+> Task :core:database:prepareDebugArtProfile
+> Task :core:database:mergeDebugJavaResource
+> Task :core:database:syncDebugLibJars
+> Task :core:database:bundleDebugLocalLintAar
+> Task :core:network:checkDebugAarMetadata
+> Task :core:network:extractDebugAnnotations
+> Task :core:network:extractDeepLinksForAarDebug
+> Task :core:network:mergeDebugGeneratedProguardFiles
+> Task :core:network:mergeDebugConsumerProguardFiles
+> Task :core:network:prepareDebugArtProfile
+> Task :core:network:mergeDebugJavaResource
+> Task :core:network:syncDebugLibJars
+> Task :core:network:bundleDebugLocalLintAar
+> Task :app:bundleDebugClassesToCompileJar UP-TO-DATE
+> Task :app:preDebugAndroidTestBuild SKIPPED
+> Task :core:database:bundleLibRuntimeToJarDebug
+> Task :core:database:createFullJarDebug
+> Task :core:database:writeDebugLintModelMetadata
+> Task :core:network:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :core:network:createFullJarDebug
+> Task :core:network:writeDebugLintModelMetadata
+> Task :app:generateDebugAndroidTestLintModel
+> Task :core:database:generateDebugLintModel
+> Task :core:network:generateDebugLintModel
+> Task :app:generateDebugLintReportModel
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :app:generateDebugUnitTestLintModel
+> Task :core:database:lintAnalyzeDebug
+> Task :app:mergeReleaseComposeMapping
+> Task :app:compileReleaseArtProfile
+> Task :app:convertShrunkResourcesToBinaryRelease
+> Task :app:optimizeReleaseResources
+> Task :app:packageRelease
+> Task :app:createReleaseApkListingFileRedirect
+> Task :app:assembleRelease
+> Task :core:network:lintAnalyzeDebug
+> Task :app:lintAnalyzeDebugAndroidTest
+> Task :app:lintAnalyzeDebugUnitTest
+> Task :core:database:preDebugAndroidTestBuild UP-TO-DATE
+> Task :core:database:generateDebugAndroidTestLintModel
+> Task :core:database:preDebugUnitTestBuild UP-TO-DATE
+> Task :core:database:generateDebugUnitTestLintModel
+> Task :core:database:lintAnalyzeDebugAndroidTest
+> Task :core:database:lintAnalyzeDebugUnitTest
+> Task :core:network:preDebugAndroidTestBuild UP-TO-DATE
+> Task :core:network:generateDebugAndroidTestLintModel
+> Task :core:network:preDebugUnitTestBuild UP-TO-DATE
+> Task :core:network:generateDebugUnitTestLintModel
+> Task :app:lintAnalyzeDebug
+> Task :core:network:lintAnalyzeDebugAndroidTest
+> Task :core:network:lintAnalyzeDebugUnitTest
+> Task :app:generateReleaseLintReportModel
+> Task :core:database:lintAnalyzeRelease
+> Task :core:network:lintAnalyzeRelease
+> Task :app:lintReportDebug
+> Task :app:lintDebug
+> Task :app:lintAnalyzeRelease
+> Task :app:lintReportRelease
+> Task :app:lintRelease
+
+[Incubating] Problems report is available at: file:///C:/Users/saran/OneDrive/Documents/Codex/WealthOS/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 6m 1s
+246 actionable tasks: 176 executed, 70 up-to-date
+Configuration cache entry stored.

@@ -1,0 +1,262 @@
+{
+  "method": "synchronized Compose root or active dialog; fictional test host only",
+  "dailyCaptures": 24,
+  "quickEntryCaptures": 27,
+  "files": [
+    {
+      "file": "ux-daily-adjustment-dark-1.0.png",
+      "sha256": "d769794e518baee3a3c38db0b952e399e73e219a5b1b0f0ac31d7882a21f7ea3",
+      "bytes": 89375
+    },
+    {
+      "file": "ux-daily-adjustment-light-1.0.png",
+      "sha256": "ab31d0d54ba9803c7b8ccb293fba08e15dc44979996eaf14ca22e26c48e2d799",
+      "bytes": 88954
+    },
+    {
+      "file": "ux-daily-adjustment-light-1.5.png",
+      "sha256": "b4fa1bde75e357352f3922183c9fa9d0cc64e2234bfaab571b3c5b88b6ad17a5",
+      "bytes": 99482
+    },
+    {
+      "file": "ux-daily-calendar-dark-1.0.png",
+      "sha256": "d0bd182add9963e038af2feb37eb8b647de6e3bdccb149185c52033528a627e1",
+      "bytes": 76687
+    },
+    {
+      "file": "ux-daily-calendar-light-1.0.png",
+      "sha256": "4119bf98f9b00020bd2893b34e49b7814aec15b61928895a86ec0c8778323855",
+      "bytes": 76439
+    },
+    {
+      "file": "ux-daily-calendar-light-1.5.png",
+      "sha256": "4119bf98f9b00020bd2893b34e49b7814aec15b61928895a86ec0c8778323855",
+      "bytes": 76439
+    },
+    {
+      "file": "ux-daily-correction-dark-1.0.png",
+      "sha256": "c9c70d0ea2d5a1fbf60233ebe036ce3b8ca679c9d30ac348a5195b14411d1d50",
+      "bytes": 76064
+    },
+    {
+      "file": "ux-daily-correction-light-1.0.png",
+      "sha256": "3792c6d6a2157e3b8695344eb735ad78805aa090faf5848a12c613dfe9f229b5",
+      "bytes": 75903
+    },
+    {
+      "file": "ux-daily-correction-light-1.5.png",
+      "sha256": "427be75a840416ca32bd432315a024d0c9a6d940f1d4f42930f17952fce33c39",
+      "bytes": 100615
+    },
+    {
+      "file": "ux-daily-deposit-dark-1.0.png",
+      "sha256": "3693cbc2289da2480f901c2d24eeb3631d929325fec0fd39ec8dc0407d832c5c",
+      "bytes": 105608
+    },
+    {
+      "file": "ux-daily-deposit-light-1.0.png",
+      "sha256": "6fc7d01ab892ec95944673f9759db5f73a0970e24a9497397f31d44e535feb3a",
+      "bytes": 105137
+    },
+    {
+      "file": "ux-daily-deposit-light-1.5.png",
+      "sha256": "c4ff4eeac3980aeac65f66fac01bcbae2e4f746912c548ed743f2ce9e866a08b",
+      "bytes": 122942
+    },
+    {
+      "file": "ux-daily-investment-dark-1.0.png",
+      "sha256": "e10dc4679cf9af8480b636ed43a6687a6f10da9c22e5cda71957219c27e3d6a8",
+      "bytes": 92914
+    },
+    {
+      "file": "ux-daily-investment-light-1.0.png",
+      "sha256": "47f027103f833f6224c9050d2cefdac87f1bfdd3d04f9c703fe36ad4211b24ae",
+      "bytes": 92386
+    },
+    {
+      "file": "ux-daily-investment-light-1.5.png",
+      "sha256": "e14d42e3213a18ac1424c0c4d4963a3bf7f50635cf7757ad26ce5659e44d3c6b",
+      "bytes": 111324
+    },
+    {
+      "file": "ux-daily-loan-dark-1.0.png",
+      "sha256": "d06102f4bda2e34ea3ad1965cca6800de6d915dbe1c18c355740f98d188ae5cd",
+      "bytes": 105869
+    },
+    {
+      "file": "ux-daily-loan-light-1.0.png",
+      "sha256": "c1d1c715254ac2ff5480e68a277982104f3633ba6798fafbcc518577c7272810",
+      "bytes": 105564
+    },
+    {
+      "file": "ux-daily-loan-light-1.5.png",
+      "sha256": "91a41bd448813911c05714e7d6ee1e95f0d3818d1efd269fea789494b45e5aee",
+      "bytes": 121276
+    },
+    {
+      "file": "ux-daily-maturity-dark-1.0.png",
+      "sha256": "0328b84b098fd5e5aa35fb97b2e0161a6493e626232ca517f8ff440af0d37482",
+      "bytes": 95636
+    },
+    {
+      "file": "ux-daily-maturity-light-1.0.png",
+      "sha256": "cde53f110841fd0f04376bced34e9bd5d99f273fb630ac5d4e80438fe2cb4e50",
+      "bytes": 95508
+    },
+    {
+      "file": "ux-daily-maturity-light-1.5.png",
+      "sha256": "03aec2c82973bb0748fac328d917826867971f523cb07bad3d5cc167a0221625",
+      "bytes": 118131
+    },
+    {
+      "file": "ux-daily-price-dark-1.0.png",
+      "sha256": "0c7fdcef68be9d6f791eff9f351cbdd3b60f61fcd93e2c80b38d2af6df4537a3",
+      "bytes": 73044
+    },
+    {
+      "file": "ux-daily-price-light-1.0.png",
+      "sha256": "8e5464744019717a3a44ee3a3c1a1b8483584921ef3981da53e8a5568316f10a",
+      "bytes": 72996
+    },
+    {
+      "file": "ux-daily-price-light-1.5.png",
+      "sha256": "a3c890d4de21054d4b866c2e94b21683d3efd2a4b3dddf94c8708a8946360551",
+      "bytes": 95034
+    },
+    {
+      "file": "ux-quick-bank-dark-1.0.png",
+      "sha256": "c7c70b7c00bb5e3b5fc0dbb446776aa74e9a47c67d67a1077c70994bb16d971c",
+      "bytes": 78386
+    },
+    {
+      "file": "ux-quick-bank-light-1.0.png",
+      "sha256": "30525aaa2dd9623d420a007499d0588f3e6465e1bc97fe06f2a856b5b5c97f8d",
+      "bytes": 77955
+    },
+    {
+      "file": "ux-quick-bank-light-1.5.png",
+      "sha256": "684461a09ff0f1a6c0d032ee6d427384e2f0fcf0a675356cf541a71b52fb69e5",
+      "bytes": 104126
+    },
+    {
+      "file": "ux-quick-calendar-dark-1.0.png",
+      "sha256": "1289f2bbce8c7bbae5e14450c5e3d023a788ba11754e303985e8d9045eb8ca08",
+      "bytes": 76253
+    },
+    {
+      "file": "ux-quick-calendar-light-1.0.png",
+      "sha256": "28e1b1424fee75a0f1787f7aca2205d9da154c7bd9f632debc389d311c4e5acb",
+      "bytes": 76379
+    },
+    {
+      "file": "ux-quick-calendar-light-1.5.png",
+      "sha256": "28e1b1424fee75a0f1787f7aca2205d9da154c7bd9f632debc389d311c4e5acb",
+      "bytes": 76379
+    },
+    {
+      "file": "ux-quick-deposit-dark-1.0.png",
+      "sha256": "0328b84b098fd5e5aa35fb97b2e0161a6493e626232ca517f8ff440af0d37482",
+      "bytes": 95636
+    },
+    {
+      "file": "ux-quick-deposit-light-1.0.png",
+      "sha256": "cde53f110841fd0f04376bced34e9bd5d99f273fb630ac5d4e80438fe2cb4e50",
+      "bytes": 95508
+    },
+    {
+      "file": "ux-quick-deposit-light-1.5.png",
+      "sha256": "03aec2c82973bb0748fac328d917826867971f523cb07bad3d5cc167a0221625",
+      "bytes": 118131
+    },
+    {
+      "file": "ux-quick-fund-dark-1.0.png",
+      "sha256": "a8840dbc11268ca6000ea81010b271327100ae33fb71d12aad9962b40f7aa8b8",
+      "bytes": 97115
+    },
+    {
+      "file": "ux-quick-fund-light-1.0.png",
+      "sha256": "b514618533583510e0b969140b5d53b7aa2678aaf57e79c3fe857b6ff7bdecff",
+      "bytes": 96843
+    },
+    {
+      "file": "ux-quick-fund-light-1.5.png",
+      "sha256": "6e4932c03f39cab530b89e6845165efe81aff687cba69ea3b96948ea74ae2985",
+      "bytes": 120377
+    },
+    {
+      "file": "ux-quick-income-dark-1.0.png",
+      "sha256": "72ad7d6fd47648fd86af8526fe1fd7a600536377a96f8f40f45fef62e12e2354",
+      "bytes": 88049
+    },
+    {
+      "file": "ux-quick-income-light-1.0.png",
+      "sha256": "9dd1cbbe518a4c345ec16de4e6cf5615892196112ef71774d5c3bce09ca1b7d8",
+      "bytes": 87564
+    },
+    {
+      "file": "ux-quick-income-light-1.5.png",
+      "sha256": "586a7616b3554efc5b4ec5b618b8d78c85ba038b1e03f0f966a0811497ca0a2a",
+      "bytes": 125070
+    },
+    {
+      "file": "ux-quick-nav-dark-1.0.png",
+      "sha256": "a21c2da8754711fcef623314c689406159a86f7ba0c3b7e69a85333e660d2422",
+      "bytes": 91596
+    },
+    {
+      "file": "ux-quick-nav-light-1.0.png",
+      "sha256": "0a71dffce6d9904fb64a7a0e01f4ad9c9a25e1c125bb357fe084bb9ed70f9edf",
+      "bytes": 91471
+    },
+    {
+      "file": "ux-quick-nav-light-1.5.png",
+      "sha256": "42521001a2210f33e56095287f73bf3699380bd4ad1763d15165bb65e1fbbd03",
+      "bytes": 110539
+    },
+    {
+      "file": "ux-quick-policy-dark-1.0.png",
+      "sha256": "f58ecae48d0b2ff3e611a782e097a6388280e5dd7ced1ea79eeeed5385450cb6",
+      "bytes": 103359
+    },
+    {
+      "file": "ux-quick-policy-light-1.0.png",
+      "sha256": "a67f53e73bdf454dc5f83d4b2b39c2541064c364f8dd5768baab1090fba2881a",
+      "bytes": 103181
+    },
+    {
+      "file": "ux-quick-policy-light-1.5.png",
+      "sha256": "fbe162a3622a8371171bc441123b9e1736a261cbaeeaf1de4f3379b54ffd6d3b",
+      "bytes": 124225
+    },
+    {
+      "file": "ux-quick-retirement-dark-1.0.png",
+      "sha256": "64b6d2739771a53c06f6294fa5ba52b76b4e12f896cbe8e3c8f65b4026ee919d",
+      "bytes": 69413
+    },
+    {
+      "file": "ux-quick-retirement-light-1.0.png",
+      "sha256": "6b0aaa96b9d1a5869501b87b30662d952a6e08221f662e79570d6c5c2269fb01",
+      "bytes": 69358
+    },
+    {
+      "file": "ux-quick-retirement-light-1.5.png",
+      "sha256": "ef80412c7f9d113c7f6c7ef94736052456059abf0031509113afcc74ae5aac20",
+      "bytes": 90198
+    },
+    {
+      "file": "ux-quick-stock-dark-1.0.png",
+      "sha256": "5729496b5a1c905014359ca19b5fe36a3d10de4acb718bd9b48ac80d37f5cec7",
+      "bytes": 99622
+    },
+    {
+      "file": "ux-quick-stock-light-1.0.png",
+      "sha256": "5051bf1034684bd5361cd1198613a3eb4f5ed02f0ee1d84164255c5f3e4a9038",
+      "bytes": 99392
+    },
+    {
+      "file": "ux-quick-stock-light-1.5.png",
+      "sha256": "91c5bf2eaa5d2a200a471ccdb466793fbc1c554ee3ec17d25bc83b634ff593da",
+      "bytes": 123776
+    }
+  ]
+}
