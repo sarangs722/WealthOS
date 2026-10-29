@@ -1,10 +1,22 @@
 # Statement import and investment access
 
-Research checked on 29 October 2026. Design proposal only: WealthOS 0.6.8 is unchanged. No financial file, broker account, API entitlement or personal credential was accessed. No API subscription was activated. Bank/card issuer names and Groww investment scope have been requested; institution-specific file layouts remain unverified.
+Research checked on 29 October 2026. Design proposal only: WealthOS 0.6.8 is unchanged. No financial file, broker account, API entitlement or personal credential was accessed. No API subscription was activated. The user confirmed HDFC Bank, Tata Neu HDFC Bank Credit Card, and both Groww mutual funds and stocks/ETFs. Institution-specific file layouts remain unverified.
+
+## Confirmed first sources
+
+| Source | Officially documented exports | First implementation target |
+| --- | --- | --- |
+| HDFC Bank account | NetBanking lists PDF, Excel, Text, Delimited and MSMoney downloads. Email statements are PDF. [HDFC NetBanking FAQ](https://www.hdfc.bank.in/need-help/net-banking-faqs). | Prefer the native delimited export, or inspect the actual Excel file. The word Excel does not establish `.xlsx`, `.xls` or an HTML-based export, and Delimited does not establish the delimiter or header layout. |
+| Tata Neu HDFC Bank Credit Card | HDFC's current mobile-banking FAQ lists card statement downloads in PDF, XLS and CSV. This is issuer-level documentation, not proof of a Tata Neu-specific downloaded layout. [HDFC Bank App FAQ](https://www.hdfc.bank.in/need-help/mobile-banking-faqs). | Prefer a CSV downloaded through HDFC's app/card statement flow. Do not assume a monthly email PDF has identical columns or that this particular account exposes every documented format. |
+| Groww mutual funds and stocks/ETFs | Both categories are in scope. The broker/API and consolidated-statement evidence below remains applicable. | Start from separate holdings exports or a suitable consolidated statement. A stock API connector does not satisfy the mutual-fund requirement by itself. |
+
+The missing input for verified one-tap HDFC templates is a sanitized example of each export: column names, preamble/summary structure and a few dummy rows preserving the date/amount/sign layout. Account/customer/card identifiers, PAN, names, addresses and genuine transaction narratives/amounts are unnecessary. A generic mapping flow can be designed independently; exact vendor recognition must not be claimed from guessed headers.
+
+Tata Neu review requirements include purchases versus repayments/refunds, fees and taxes, EMI-related adjustments, statement-cycle coverage and reward sections. Reward-point/NeuCoin tables are not automatically bank cash or income. Available credit and minimum amount due must not become assets or stand in for total outstanding liability. If the downloaded statement covers a billing cycle, month selection must use actual covered transaction/posting dates and identify incomplete calendar-month coverage.
 
 ## Recommended direction
 
-1. Add an on-device monthly statement-import wizard for CSV and `.xlsx`, with saved column mappings, reviewable categorization and duplicate detection. Keep the ordinary interface focused on monthly totals.
+1. Add an on-device monthly statement-import wizard, starting from native CSV/delimited exports and verified Excel adapters, with saved column mappings, reviewable categorization and duplicate detection. Keep the ordinary interface focused on monthly totals. Inspect actual Excel containers before selecting `.xls`/`.xlsx` support; do not require users to rename a file extension.
 2. Add holdings-statement import into the existing current-value/snapshot flow, then validated consolidated account statement (CAS) adapters. Match existing holdings before adding anything.
 3. Investigate an optional Groww stock-holdings connector if the user's account actually has the documented zero-cost entitlement. Keep file import available regardless of API eligibility or outages. Do not describe it as a verified permanent free connection yet.
 
@@ -73,7 +85,7 @@ Required deterministic fixtures include overlapping reimports, identical legitim
 
 ## Implementation sequence
 
-1. Confirm issuer names and sanitized layouts; build bounded CSV/XLSX parsing and the preview/mapping/review flow.
+1. With HDFC Bank/Tata Neu HDFC and both Groww investment categories confirmed, establish sanitized export layouts; build bounded CSV/delimited parsing and verified Excel adapters with the preview/mapping/review flow. Prefer the issuers' native text exports to unnecessary PDF conversion.
 2. Add encrypted provenance, duplicate handling and draft monthly spending applications, with explicit cash-flow semantics and complete backup/migration tests.
 3. Add holdings export adapters and verified local CAS parsing; retain manual-value entry and incomplete-history labels.
 4. If the user's Groww account confirms no-cost holdings access, prototype the documented stock endpoint without paid quotes or trading operations. Do not make API access essential to offline tracking.
