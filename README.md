@@ -52,6 +52,7 @@ Records use SQLCipher and a Keystore-protected random key. Portable files use pa
 
 ## Documentation
 
+* [Requested statement imports and free investment-access research](docs/STATEMENT_IMPORT_AND_INVESTMENT_ACCESS.md) — proposal only; current 0.6.8 has no statement importer or Groww connection.
 * [WealthOS 0.6.8 entry improvements and current artifact status](docs/RELEASE_0_6_8.md)
 * [Previous signed WealthOS 0.6.7 and verification](docs/RELEASE_0_6_7.md)
 * [Guided phone checks to run personally](docs/DEVICE_CHECKS.md)
