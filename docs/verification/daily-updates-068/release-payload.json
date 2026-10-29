@@ -1,0 +1,10 @@
+{
+  "unsignedSha256": "92fc0776659d0363695b8b0655e1a8b537d3af3414be15bf844f9132ac73424e",
+  "signedSha256": "a45ff0805decf5703b6d420c2281fbc8a301ef642c6cd566d01f0de58f31c55c",
+  "identicalPayloadEntries": 98,
+  "addedSigningEntries": [
+    "META-INF/MANIFEST.MF",
+    "META-INF/WEALTHOS.RSA",
+    "META-INF/WEALTHOS.SF"
+  ]
+}

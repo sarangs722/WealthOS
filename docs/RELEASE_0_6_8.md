@@ -25,8 +25,11 @@ The transaction, valuation and contract-event save payloads are byte-identical t
 Actual debug and minified coexisting Release builds passed. Debug/release lint each reported zero errors and zero warnings in the offline run with the existing pinned dependencies. The original development certificate verifies; the unsigned Release passes ZIP/ELF 16 KiB alignment checks. The signed 0.6.7 artifact is unchanged.
 
 - [Original WealthOS development-app update](../.tools/WealthOS-0.6.8-development.apk), retaining the existing development certificate. SHA-256: `efba66c2ab3649a58bad192b4b4b663b94705648ca4bf7d13dd45e82c558fc26`.
-- The unsigned Release candidate is retained locally but is not installable. Production signing awaits the existing-keystore passphrase in the local **WealthOS 0.6.8 - Release signing** window. No password or private key belongs in chat or GitHub.
-- [Build, test and artifact evidence](verification/daily-updates-068/verification.json). The [previous signed Release](RELEASE_0_6_7.md) remains available while signing is pending.
+- [WealthOS Release update](../.tools/production-release/WealthOS-0.6.8.apk), signed with the existing permanent certificate. SHA-256: `a45ff0805decf5703b6d420c2281fbc8a301ef642c6cd566d01f0de58f31c55c`.
+- Independent package verification passed: the expected release identity and single v3 signer, permission/component inventory, OS backup exclusions, release flags and ZIP/ELF 16 KiB alignment for eight native libraries. All 98 application payload entries are byte-identical to the tested unsigned input; only the three signing metadata entries were added. [Package report](verification/daily-updates-068/release-reverified.json), [payload comparison](verification/daily-updates-068/release-payload.json).
+- [Build, test and artifact evidence](verification/daily-updates-068/verification.json). The [previous signed Release](RELEASE_0_6_7.md) remains unchanged and available.
+
+The signing-certificate SHA-256 remains `cf06385769b4d9e0992910521f210a77407cb284e2963290fbb10006b8d88054`. Signing was completed locally on 29 October 2026. No password or private key belongs in chat or GitHub.
 
 Install only the update matching the existing app identity, without uninstalling or clearing its storage.
 
