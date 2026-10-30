@@ -15,7 +15,7 @@
   "originalFilesUnchanged": true,
   "financialValuesLogged": false,
   "phoneAccessed": false,
-  "deviceReportedSymptom": "awaiting user clarification",
+  "deviceReportedSymptom": "transactions missing from both bank and card preview lists",
   "version": "0.6.9",
   "jvm": {
     "finance": {
@@ -32,6 +32,19 @@
     }
   },
   "applicationBehaviorChanged": false,
-  "newAndroidRuntimeRun": false,
-  "rootCause": "not established; awaiting user-observed symptom"
+  "newAndroidRuntimeRun": true,
+  "previewDiagnostic": {
+    "platform": "WealthOS29 / Android 10 / API 29 / x86_64",
+    "applicationId": "com.wealthos.app.uxlab",
+    "build": "debug and Android test builds passed",
+    "tests": 2,
+    "failures": 0,
+    "fixtureSource": "existing independently fictional XLS test assets",
+    "allFixtureRowsReachableByTransactionMonth": true,
+    "bankValueDatePreserved": true,
+    "reviewedCardRowsReappearWhenFilterDisabled": true,
+    "financialSavesPerformed": false,
+    "ordinaryInstalledVaultsAccessed": false
+  },
+  "rootCause": "not established on phone; awaiting result with transaction month selected and review-only filter disabled"
 }
