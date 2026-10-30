@@ -1,3 +1,5 @@
 # WealthOS working preferences
 
+Use the Superpowers plugin workflows for application development, as explicitly requested by the user. Start reported bugs or uncertain behavior with systematic debugging and reproduction before changing code; use test-driven development for confirmed fixes and fresh verification before claiming completion. Preserve financial correctness, local privacy and existing records throughout.
+
 After every version update, include a concise, version-specific manual test checklist in the user-facing release handoff. For each check, give the navigation path/action and expected result. Cover changed features, preservation of existing records, offline persistence and relevant privacy/backup behavior. Separate routine checks from optional tests requiring an empty receiving installation. Link the detailed checklist in `docs/DEVICE_CHECKS.md` and keep it current. Do not treat user-run checks as passed until the user reports results. Never ask the user to send personal financial records, passwords or signing secrets as test evidence.

@@ -1,0 +1,37 @@
+{
+  "status": "INDEPENDENT_READ_ONLY_COMPARISON_PASSED",
+  "files": 2,
+  "allSourceTransactionRowsMatched": true,
+  "matchedFields": [
+    "source row",
+    "transaction date",
+    "value date",
+    "description",
+    "reference",
+    "amount",
+    "debit/credit"
+  ],
+  "bankRunningAndFooterReconciliation": "passed",
+  "originalFilesUnchanged": true,
+  "financialValuesLogged": false,
+  "phoneAccessed": false,
+  "deviceReportedSymptom": "awaiting user clarification",
+  "version": "0.6.9",
+  "jvm": {
+    "finance": {
+      "tests": 116,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "imports": {
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "applicationBehaviorChanged": false,
+  "newAndroidRuntimeRun": false,
+  "rootCause": "not established; awaiting user-observed symptom"
+}
