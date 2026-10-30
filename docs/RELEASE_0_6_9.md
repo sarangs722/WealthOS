@@ -1,6 +1,6 @@
 # WealthOS 0.6.9 — statement spending
 
-Version code 15; Room schema 8. The verified candidate awaits the existing production key's local passphrase. The original-app update is already signed with its established development identity and is minified/non-debuggable. No phone installation or personal-vault reset is part of this development run.
+Version code 15; Room schema 8. Both matching APKs are signed and verified. Production signing used the existing certificate with the passphrase entered locally. The original-app update retains its established development identity; both APKs are minified/non-debuggable. No phone installation or personal-vault reset is part of this development run.
 
 ## Implemented
 
@@ -28,11 +28,13 @@ Passing verification:
 - 14 distinct native import, bank, household, masking and backup cases have passing final results across the recorded runs. The four import cases passed again after final currency/protocol changes. Nine fictional light/dark/1.5× font captures were visually reviewed.
 - Both fictional XLS inputs passed in the actual minified, non-debuggable API-29 application using a framework-only probe, with row/decimal/direction/hash/currency checks. The normal app also cold-launched in minified form. This is x86/4 KiB evidence, not physical ARM/16 KiB assurance.
 - Debug and minified builds completed for the real application identities. Both lint tasks pass: zero errors and one Gradle 9.6.0→9.8.2 update advisory per variant. No code-lint warning remains. The compatible existing toolchain was retained.
-- 19 signing-tool checks passed on the actual shrunk production input with a disposable key; 17 component-policy and four packaging regression checks also passed. APK schema assets match trusted source and compiled Room identity; test statements are absent, notices present, native ELF/ZIP alignment validated. Real production signing is still pending.
+- 19 signing-tool checks passed on the actual shrunk production input with a disposable key; 17 component-policy and four packaging regression checks also passed. APK schema assets match trusted source and compiled Room identity; test statements are absent, notices present, native ELF/ZIP alignment validated. Existing-key production signing and a fresh independent release verification passed on 30 October 2026. All 239 application payload entries match the tested unsigned input byte-for-byte.
 
 The original failing native reader test reproduced an Android Handler message-lifetime defect; copying the request endpoint/payload before background dispatch fixed it. Visual review removed excessive setup text and a misleading unreviewed zero. An existing household workflow exposed a report pushed below the initial viewport; imported spending now follows the original manual cash-flow result. Final restore tests reproduced stale packaged schema JSON after incremental schema generation. Explicit Gradle export-before-assets dependencies and a release verifier comparing packaged schemas and compiled Room identity fixed and guard that failure. Restore rejected the stale package safely; current records were preserved. Financial expected values were retained.
 
-Evidence: [verification record](verification/statement-import-069/verification.json). Development APK SHA-256: `9d2e13c733bacac3e399d40924322257cac3783ffd00749f6c0f2fbbd1c2c907`. Production unsigned input SHA-256: `4fbaa17a1022473ffc7bd5b3089363e42a99d03e128b0363c41935c6ff77feeb`. Production output hashes will be recorded only after existing-key signing and independent verification.
+Evidence: [verification record](verification/statement-import-069/verification.json) and [signed package report](verification/statement-import-069/production-package.json). Development APK SHA-256: `9d2e13c733bacac3e399d40924322257cac3783ffd00749f6c0f2fbbd1c2c907`. Production unsigned input SHA-256: `4fbaa17a1022473ffc7bd5b3089363e42a99d03e128b0363c41935c6ff77feeb`. Signed production APK SHA-256: `1eb17fbb2f1ff2364aba77592b6569d6e1c9aa9d0358039b7ecabf04233ff5a7`.
+
+Local artifacts: `.tools/production-release/WealthOS-0.6.9.apk` updates **WealthOS Release** (`com.wealthos.app.release`); `.tools/WealthOS-0.6.9-development.apk` updates the original **WealthOS** (`com.wealthos.app`). Choose the same app identity already holding your records. Do not uninstall or clear storage to update. APKs and signing material remain excluded from Git.
 
 ## Limits and next work
 

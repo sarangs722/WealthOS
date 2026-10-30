@@ -99,9 +99,18 @@
     "productionUnsigned": {
       "sha256": "4fbaa17a1022473ffc7bd5b3089363e42a99d03e128b0363c41935c6ff77feeb",
       "applicationId": "com.wealthos.app.release"
+    },
+    "productionSigned": {
+      "sha256": "1eb17fbb2f1ff2364aba77592b6569d6e1c9aa9d0358039b7ecabf04233ff5a7",
+      "applicationId": "com.wealthos.app.release",
+      "certificateSha256": "cf06385769b4d9e0992910521f210a77407cb284e2963290fbb10006b8d88054",
+      "v3Verified": true,
+      "minified": true,
+      "debuggable": false,
+      "byteIdenticalApplicationPayloadEntries": 239
     }
   },
-  "productionSigning": "pending existing-key local passphrase",
+  "productionSigning": "existing key signed and independently verified 2026-10-30",
   "phoneAccessed": false,
   "ordinaryInstalledVaultsModified": false,
   "physicalArm16KiBAcceptance": "pending",

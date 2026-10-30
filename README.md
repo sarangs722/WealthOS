@@ -1,8 +1,8 @@
 # WealthOS
 
-**Current candidate: [0.6.9 statement spending](docs/RELEASE_0_6_9.md)** adds on-device HDFC Bank/Tata Neu HDFC XLS and matching CSV imports, monthly review, overlap handling, encrypted history and schema-8 backup/restore. Existing-key production signing remains pending; the signed update below remains available.
+**Latest signed update: [0.6.9 statement spending](docs/RELEASE_0_6_9.md)** adds on-device HDFC Bank/Tata Neu HDFC XLS and matching CSV imports, monthly review, overlap handling, encrypted history and schema-8 backup/restore. Existing-key production signing and independent package checks passed; all 239 application payload entries match the tested unsigned input byte-for-byte. Install the APK matching your existing app identity, without uninstalling or clearing storage.
 
-**Latest signed update: [0.6.8 easier everyday updates](docs/RELEASE_0_6_8.md)** simplifies investment transactions, price/value updates and loan/deposit events, adds native date selection and displays the installed version correctly. 129 JVM and 17 affected native cases passed; three render cases passed again after the final maturity-title clarification. Debug/minified builds and both lint checks passed with zero reported errors/warnings. Both matching APKs are ready; existing-certificate release signing, independent package checks and byte-identical comparison of 98 application payload entries passed.
+**Previous signed update: [0.6.8 easier everyday updates](docs/RELEASE_0_6_8.md)** simplifies investment transactions, price/value updates and loan/deposit events, adds native date selection and displays the installed version correctly. 129 JVM and 17 affected native cases passed; three render cases passed again after the final maturity-title clarification. Debug/minified builds and both lint checks passed with zero reported errors/warnings. Both matching APKs are retained; existing-certificate release signing, independent package checks and byte-identical comparison of 98 application payload entries passed.
 
 **Previous signed update: [0.6.7 financial-history restore hardening](docs/RELEASE_0_6_7.md)** retains its verified release artifact. Schema 7 and the existing signing identities are unchanged. [0.6.6](docs/RELEASE_0_6_6.md) provides the shorter cash-flow, scenario, goal and calculator forms.
 
@@ -54,7 +54,8 @@ Records use SQLCipher and a Keystore-protected random key. Portable files use pa
 
 ## Documentation
 
-* [Requested statement imports and free investment-access research](docs/STATEMENT_IMPORT_AND_INVESTMENT_ACCESS.md) — proposal only; current 0.6.8 has no statement importer or Groww connection.
+* [Statement spending, signed artifacts and verification](docs/RELEASE_0_6_9.md) — HDFC import is implemented; Groww imports remain future work.
+* [Statement imports and free investment-access research](docs/STATEMENT_IMPORT_AND_INVESTMENT_ACCESS.md) — original proposal and investment-access findings.
 * [WealthOS 0.6.8 entry improvements and current artifact status](docs/RELEASE_0_6_8.md)
 * [Previous signed WealthOS 0.6.7 and verification](docs/RELEASE_0_6_7.md)
 * [Guided phone checks to run personally](docs/DEVICE_CHECKS.md)
