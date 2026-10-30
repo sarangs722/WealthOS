@@ -1,6 +1,8 @@
 # Build, signing and recovery
 
-Latest signed patch: [0.6.2 privacy/accessibility fixes and verification](RELEASE_0_6_2.md). The [guided phone checklist](DEVICE_CHECKS.md) records the remaining user-run acceptance checks; do not treat its unchecked rows as passing results.
+Latest signed patch: [0.6.9 statement spending and verification](RELEASE_0_6_9.md). The [guided phone checklist](DEVICE_CHECKS.md) records the remaining user-run acceptance checks; do not treat its unchecked rows as passing results.
+
+Every version handoff must include a concise checklist in the response: where to navigate, what to test and the expected result for changed features and basic record/offline/privacy regressions. Update the guided checklist for that version and link it. Keep optional empty-receiver restoration separate from routine checks. Report automated results and outstanding user-device checks separately.
 
 The user has completed [local permanent signing of WealthOS 0.6.0](PRODUCTION_RELEASE.md). That page identifies the installable coexisting APK, its independent verification and migration steps. The Gradle build described below intentionally produces the unsigned source candidate; it does not contain the private signing key.
 

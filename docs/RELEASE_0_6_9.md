@@ -36,6 +36,8 @@ Evidence: [verification record](verification/statement-import-069/verification.j
 
 Local artifacts: `.tools/production-release/WealthOS-0.6.9.apk` updates **WealthOS Release** (`com.wealthos.app.release`); `.tools/WealthOS-0.6.9-development.apk` updates the original **WealthOS** (`com.wealthos.app`). Choose the same app identity already holding your records. Do not uninstall or clear storage to update. APKs and signing material remain excluded from Git.
 
+After updating, follow the [focused 0.6.9 device checklist](DEVICE_CHECKS.md#first-focused-069-checks): retained records, both statement previews, classifications/totals, offline persistence, duplicate prevention, privacy/layout and backup preview-cancel. These checks remain user-run and unverified until results are reported; optional full restoration requires an empty receiver.
+
 ## Limits and next work
 
 This first adapter supports the two verified domestic INR layouts, not every HDFC export. Source nicknames are manually chosen account/card labels; bank identity is not authenticated. CSV must have the verified headers/metadata; generic column mapping, additional templates, XLSX/PDF/encrypted workbooks, international card rows and remembered merchant rules remain future work. Files are limited to 256 KiB, 2,000 worksheet rows and 1,500 parsed transactions; overly large result payloads fail safely. Read-only verification of the two supplied originals prints no financial rows and never modifies them; automated fixtures are independently fictional.
