@@ -38,6 +38,7 @@ class MainActivity : ComponentActivity() {
     private val createBackup=registerForActivityResult(ActivityResultContracts.CreateDocument("application/octet-stream")){uri->ViewModelProvider(this)[BankViewModel::class.java].writeExport(uri)}
     private val chooseBackup=registerForActivityResult(ActivityResultContracts.OpenDocument()){uri->ViewModelProvider(this)[BankViewModel::class.java].selectRestoreFile(uri)}
     private val chooseNav=registerForActivityResult(ActivityResultContracts.OpenDocument()){uri->ViewModelProvider(this)[BankViewModel::class.java].navFileReturned(uri)}
+    private val chooseStatement=registerForActivityResult(ActivityResultContracts.OpenDocument()){uri->ViewModelProvider(this)[BankViewModel::class.java].statementFileReturned(uri)}
     private lateinit var preferences: PrivacyPreferences
     private var locked by mutableStateOf(false)
     private var hideAmounts by mutableStateOf(false)
@@ -59,6 +60,7 @@ class MainActivity : ComponentActivity() {
                     createBackupFile={createBackup.launch(it)},
                     chooseBackupFile={chooseBackup.launch(arrayOf("application/octet-stream","application/*","text/*"))},
                     chooseNavFile={id->if(ViewModelProvider(this)[BankViewModel::class.java].prepareNavPicker(id))chooseNav.launch(arrayOf("text/*","application/octet-stream"))},
+                    chooseStatementFile={if(ViewModelProvider(this)[BankViewModel::class.java].prepareStatementPicker())chooseStatement.launch(arrayOf("application/vnd.ms-excel","text/*","application/octet-stream"))},
                     onHide = { savePreference("hideAmounts", !hideAmounts) { hideAmounts = !hideAmounts } },
                     onLock = {
                         if (!appLock && !getSystemService(KeyguardManager::class.java).isDeviceSecure) {

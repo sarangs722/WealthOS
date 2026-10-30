@@ -7,3 +7,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "WealthOS"
 include(":app", ":core:finance", ":core:database", ":core:network", ":core:security")
+include(":core:imports")

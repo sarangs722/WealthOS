@@ -6,6 +6,16 @@ Milestone 6 retains the on-device encryption/key model and schema 6, and adds au
 
 ## Implemented
 
+### Statement reader (0.6.9)
+
+Original HDFC Bank/Tata Neu HDFC XLS and matching UTF-8 CSV are selected explicitly through Android's document picker. The parent bounds file input to 256 KiB and sends bytes to a non-exported, isolated-UID service. That process has no inherited INTERNET permission or access to the vault. It checks its isolation at startup, has an independent 12-second watchdog and exits after returning the result. Parent waits are bounded and provider streams close on cancellation. Incoming results are reconstructed with domain validation and checked against a parent-computed file hash. Expired picker requests never import an unsolicited URI.
+
+Apache POI 6.0.0 is used only for the verified single-sheet binary HSSF read path. Embedded streams/macros, encryption, formulas and unsupported cell types are rejected; no formula evaluator, links, charts or image renderer is used. Reader allocations/text/row/column/result sizes are bounded, POI logging is disabled, and only generic errors cross into the UI. Numeric Excel cells are converted to canonical decimal text with an exact binary re-encoding check before strict paise validation; accounting remains decimal. Isolation contains parser failures but does not establish absence of all vulnerabilities. Official [POI guidance](https://poi.apache.org/security.html) recommends containment of untrusted-document processing.
+
+Only normalized selected-month lines and append-only review decisions enter SQLCipher. Imports do not post bank cash, alter card debt, change investment holdings or merge themselves into the legacy cash-flow summary. Whole-file/month duplicates are rejected; same-source row overlaps require an explicit keep/exclude decision. Source nicknames are user-selected, not verified account identities. Statement descriptions/references are sensitive local records; raw files and unnecessary account/customer/card fields are not persisted or logged. Backup schema 8 includes all four new tables and typed restore validation; portable encryption parameters are unchanged.
+
+Resolved new runtime artifacts are POI 6.0.0, commons-codec 1.23.0, commons-collections4 4.6.0, commons-math3 3.6.1, commons-io 2.22.0, SparseBitSet 1.3 and log4j-api 2.26.1 (no log4j-core). Their supplied licenses/notices or published POM declaration are retained in `app/src/main/assets/licenses/statement-reader.txt`. This is a bounded first-party integration review, not an independent security audit.
+
 * SQLCipher encrypts the entire Room database. A cryptographically random 256-bit database password is generated locally; it is never derived from account names or hard-coded.
 * A separate AES-256-GCM Android Keystore key wraps the database password with fresh provider-generated IVs and authenticated version context. The envelope is atomically stored in app-private `noBackupFilesDir`. Keystore material is non-exportable; hardware backing depends on the device.
 * Existing database/key errors fail closed. Missing or invalid key material does not cause an existing database to be deleted, reset or replaced. Room migration failures also preserve the database.

@@ -16,10 +16,11 @@ import kotlinx.coroutines.withContext
 
 data class BankUiState(val loading: Boolean = true, val book: BankBook = BankBook(), val demo: Boolean = false,
                        val storageError: Boolean = false, val saving: Boolean = false, val formError: String? = null,
-                       val refreshing:PublicProvider?=null,val publicMessage:String?=null,val backup:BackupState=BackupState(),val openPublicScreen:Boolean=false)
+                       val refreshing:PublicProvider?=null,val publicMessage:String?=null,val backup:BackupState=BackupState(),val openPublicScreen:Boolean=false,
+                       val statements:StatementBook=StatementBook(),val statementImport:StatementImportState=StatementImportState(),val statementsLoading:Boolean=false)
 
 class BankViewModel(application: Application) : AndroidViewModel(application) {
-    private val mutable = MutableStateFlow(BankUiState())
+    private val mutable = MutableStateFlow(BankUiState(statementsLoading=true))
     val state = mutable.asStateFlow()
     private var realBook = BankBook()
     private var db: BankDatabase? = null
@@ -35,6 +36,9 @@ class BankViewModel(application: Application) : AndroidViewModel(application) {
     private var exportPickerClaim:String?=null
     private var backupForeground=false
     private var pendingNavFile:UUID?=null
+    private var statementRepository:RoomStatementRepository?=null
+    private var statementPickerPending=false
+    private var statementJob:kotlinx.coroutines.Job?=null
 
     init {
         viewModelScope.launch {
@@ -53,6 +57,12 @@ class BankViewModel(application: Application) : AndroidViewModel(application) {
                 planningRepository=RoomPlanningRepository(opened)
                 publicRepository=RoomPublicRepository(opened)
                 backupRepository=RoomBackupRepository(application,opened)
+                statementRepository=RoomStatementRepository(opened)
+                viewModelScope.launch {
+                    try {statementRepository!!.observe().collect {book->mutable.update {it.copy(statements=book,statementsLoading=false)}}}
+                    catch(e:kotlinx.coroutines.CancellationException){throw e}
+                    catch(_:Exception){mutable.update {it.copy(storageError=true)}}
+                }
                 mutable.update {it.copy(backup=it.backup.copy(safety=backupRepository!!.safetyBackups()))}
                 repository!!.observe().collect { book ->
                     realBook = book
@@ -62,7 +72,40 @@ class BankViewModel(application: Application) : AndroidViewModel(application) {
             catch (_: Exception) { opening?.close();db=null;mutable.update { it.copy(loading = false, storageError = true) } }
         }
     }
-    fun demo(enabled: Boolean) = mutable.update { it.copy(demo = enabled, book = if (enabled) demoBook(true) else realBook, formError = null) }
+    fun demo(enabled: Boolean) {cancelStatement();mutable.update { it.copy(demo = enabled, book = if (enabled) demoBook(true) else realBook, formError = null) }}
+    fun prepareStatementPicker():Boolean {
+        val s=mutable.value
+        if(s.loading || s.saving || s.demo || s.storageError || restorePlan!=null || s.statementImport.busy)return false
+        statementPickerPending=true;return true
+    }
+    fun statementFileReturned(uri:android.net.Uri?) {
+        val expected=statementPickerPending;statementPickerPending=false
+        if(uri==null || !expected){mutable.update {it.copy(statementImport=StatementImportState(openScreen=true,message=if(uri==null)"File selection cancelled." else "File selection expired. Choose the statement again."))};return}
+        val s=mutable.value
+        if(s.demo || s.storageError || s.saving || restorePlan!=null)return
+        mutable.update {it.copy(statementImport=StatementImportState(busy=true,openScreen=true))}
+        statementJob=viewModelScope.launch {
+            try {
+                val parsed=kotlinx.coroutines.withTimeout(20000) {
+                    val bytes=readStatementDocument(uri)
+                    try{StatementReaderClient.parse(getApplication(),bytes)}finally{bytes.fill(0)}
+                }
+                mutable.update {it.copy(statementImport=StatementImportState(parsed=parsed,openScreen=true))}
+            }catch(_:kotlinx.coroutines.TimeoutCancellationException){mutable.update {it.copy(statementImport=StatementImportState(openScreen=true,message="Reading timed out. Try a shorter statement export."))}}
+            catch(e:kotlinx.coroutines.CancellationException){throw e}
+            catch(_:Exception){mutable.update {it.copy(statementImport=StatementImportState(openScreen=true,message="This file could not be validated. Choose an original HDFC Bank or Tata Neu HDFC XLS, or a matching UTF-8 CSV, up to 256 KB."))}}
+            finally {mutable.update {it.copy(statementImport=it.statementImport.copy(busy=false))}}
+        }
+    }
+    fun consumeStatementNavigation(){mutable.update {it.copy(statementImport=it.statementImport.copy(openScreen=false))}}
+    fun cancelStatement(){statementPickerPending=false;statementJob?.cancel();mutable.update {it.copy(statementImport=StatementImportState())}}
+    fun saveStatement(parsed:ParsedStatement,name:String,month:java.time.YearMonth,categories:Map<Int,SpendingCategory>,keep:Set<Int>,complete:Boolean,done:()->Unit)=save(done) {
+        requireNotNull(statementRepository).save(parsed,name,month,categories,keep,complete)
+        mutable.update {it.copy(statementImport=StatementImportState(message="Statement saved. Your bank balances and cash-flow summary were not changed."))}
+    }
+    fun reviseStatement(id:UUID,revision:Int,categories:Map<Int,SpendingCategory>,keep:Set<Int>,complete:Boolean,voided:Boolean,done:()->Unit)=save(done) {
+        requireNotNull(statementRepository).revise(id,revision,categories,keep,complete,voided)
+    }
     fun clearFormError() = mutable.update { it.copy(formError = null) }
 
     fun add(name: String, bank: String, currency: CurrencyCode, kind: AccountKind, amount: String, date: String, done: () -> Unit) = save(done) {

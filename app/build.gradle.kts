@@ -11,6 +11,11 @@ val uiLab = providers.gradleProperty("wealthos.uiLab").orNull?.let {
     require(it in listOf("true", "false")) { "wealthos.uiLab must be true or false" }
     it.toBoolean()
 } ?: false
+val readerProbe = providers.gradleProperty("wealthos.readerProbe").orNull?.let {
+    require(it in listOf("true", "false")) { "wealthos.readerProbe must be true or false" }
+    it.toBoolean()
+} ?: false
+require(!readerProbe || uiLab) { "The framework reader probe is restricted to the fictional UI Lab." }
 android {
     namespace = "com.wealthos.app"
     compileSdk = 37
@@ -19,11 +24,11 @@ android {
         applicationId = "com.wealthos.app"
         minSdk = 29
         targetSdk = 37
-        versionCode = 14
-        versionName = "0.6.8"
+        versionCode = 15
+        versionName = "0.6.9"
         manifestPlaceholders["appLabel"] = "WealthOS"
         manifestPlaceholders["backupTestAuthority"] = if(uiLab) "com.wealthos.app.uxlab.test.truncated-backup" else "com.wealthos.app.test.truncated-backup"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = if(readerProbe)"com.wealthos.app.StatementReaderInstrumentation" else "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures { compose = true }
     compileOptions { sourceCompatibility = JavaVersion.VERSION_21; targetCompatibility = JavaVersion.VERSION_21 }
@@ -39,7 +44,12 @@ android {
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             // Explicit opt-in: a newly signed release can coexist with the user's development vault.
-            if (coexistingRelease) {
+            if (uiLab) {
+                // Minified runtime verification uses only the disposable fictional vault.
+                applicationIdSuffix = ".uxlab"
+                manifestPlaceholders["appLabel"] = "WealthOS UI Lab"
+                signingConfig = signingConfigs.getByName("debug")
+            } else if (coexistingRelease) {
                 applicationIdSuffix = ".release"
                 manifestPlaceholders["appLabel"] = "WealthOS Release"
             }
@@ -48,6 +58,7 @@ android {
     lint { abortOnError = true }
 }
 dependencies {
+    implementation(project(":core:imports"))
     implementation(project(":core:database"))
     implementation(project(":core:network"))
     implementation(platform("androidx.compose:compose-bom:2026.09.00"))

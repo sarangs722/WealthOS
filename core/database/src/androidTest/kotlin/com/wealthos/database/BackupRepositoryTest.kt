@@ -31,6 +31,8 @@ class BackupRepositoryTest {
     private fun seal(s:VaultSnapshot)=BackupEnvelope.encrypt(SnapshotCodec.encode(s),password)
     private suspend fun bank(amount:String="1234.50")=RoomBankRepository(db,clock).addAccount("Fictional bank தமிழ்","Test",CurrencyCode.INR,AccountKind.SAVINGS,amount.toBigDecimal(),day)
     private suspend fun populateAllTables(){
+        val row=StatementInputRow(1,day,null,"Fictional statement shop","", "10.25".toBigDecimal(),StatementDirection.DEBIT)
+        RoomStatementRepository(db,clock).save(ParsedStatement(StatementKind.HDFC_BANK,"a".repeat(64),day,day,listOf(row)),"Fictional statement account",YearMonth.from(day),mapOf(1 to SpendingCategory.ESSENTIAL),emptySet(),true)
         val bank=RoomBankRepository(db,clock);val p=RoomPortfolioRepository(db,clock);val h=RoomHouseholdRepository(db,clock);val planning=RoomPlanningRepository(db,clock);val public=RoomPublicRepository(db,clock)
         val cash=bank.addAccount("Fictional savings தமிழ்","Test",CurrencyCode.INR,AccountKind.SAVINGS,"10000.25".toBigDecimal(),day);bank.recordBalance(cash,"10001.25".toBigDecimal(),day,"Keep correction history")
         val reserve=bank.addAccount("Fictional reserve","",CurrencyCode.INR,AccountKind.CURRENT,"2000.00".toBigDecimal(),day)
@@ -61,7 +63,7 @@ class BackupRepositoryTest {
         public.cache(PublicProvider.ECB,listOf(fx),at,at,"Fixture FX");public.applyFx(db.readBook().publicData.observations.single {it.datum.kind==PublicKind.FX}.id,false)
     }
     @Test fun everyTableAndDecimalRestoresUnderADifferentKeyWithProvenance()=runTest(timeout=5.minutes) {
-        populateAllTables();val original=snapshot();assertEquals(31,original.tables.size);assertTrue(original.tables.all {it.rows.isNotEmpty()});val wealth=WealthValuation.at(db.readBook(),day).netWorthInr
+        populateAllTables();val original=snapshot();assertEquals(35,original.tables.size);assertTrue(original.tables.all {it.rows.isNotEmpty()});val wealth=WealthValuation.at(db.readBook(),day).netWorthInr
         val file=backup.export(password);db.close();context.deleteDatabase(name);val newKey=ByteArray(32).also(java.security.SecureRandom()::nextBytes);assertFalse(key.contentEquals(newKey));db=BankDatabase.open(context,newKey,name);backup=RoomBackupRepository(context,db,clock,safety)
         val plan=backup.prepare(file,password);assertEquals(0,plan.currentRecords);backup.restore(plan);val after=snapshot()
         original.tables.forEach {t->val a=after.tables.single {it.name==t.name};when(t.name){"audit_events"->{assertTrue(a.rows.containsAll(t.rows));assertEquals(t.rows.size+1,a.rows.size)};"public_settings"->{val network=t.columns.indexOf("networkEnabled");assertEquals(t.rows.map {r->r.toMutableList().also {it[network]=Cell.Integer(0)}} ,a.rows)};else->assertEquals("Preserve ${t.name}",t,a)}}
@@ -84,14 +86,14 @@ class BackupRepositoryTest {
     @Test fun schemaSixPortableBackupMigratesWithoutLosingBankHistory()=runTest(timeout=5.minutes) {
         bank();val current=snapshot()
         val newColumns=setOf("reportedInvested","reportedUnits","reportedPrice","calculatedTotal")
-        val old=current.copy(schema=6,tables=current.tables.map {table->
+        val old=current.copy(schema=6,tables=current.tables.filterNot {it.name.startsWith("statement_") && it.name!="statement_references"}.map {table->
             if(table.name!="asset_valuations")table else {
                 val keep=table.columns.indices.filter {table.columns[it] !in newColumns}
                 table.copy(columns=keep.map {table.columns[it]},rows=table.rows.map {row->keep.map {row[it]}})
             }
         })
         bank("77.00");val plan=backup.prepare(seal(old),password)
-        assertEquals(7,plan.info.schema);backup.restore(plan)
+        assertEquals(8,plan.info.schema);backup.restore(plan)
         assertEquals(current.tables.single {it.name=="bank_accounts"},snapshot().tables.single {it.name=="bank_accounts"})
         assertEquals(current.tables.single {it.name=="balance_observations"},snapshot().tables.single {it.name=="balance_observations"})
     }

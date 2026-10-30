@@ -1,0 +1,109 @@
+{
+  "date": "2026-10-30",
+  "version": "0.6.9",
+  "versionCode": 15,
+  "schema": 8,
+  "jvm": {
+    "finance": {
+      "tests": 116,
+      "failures": 0,
+      "errors": 0
+    },
+    "imports": {
+      "tests": 12,
+      "failures": 0,
+      "errors": 0
+    },
+    "security": {
+      "tests": 12,
+      "failures": 0,
+      "errors": 0
+    },
+    "network": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0
+    }
+  },
+  "jvmTotal": 150,
+  "encryptedPersistence": {
+    "fullSuitePassed": 81,
+    "finalAffectedPassed": 10,
+    "finalIncludesExplicitCurrencyAndCorrectPackagedSchema": true
+  },
+  "native": {
+    "distinctFinalPassing": 14,
+    "finalImportRerun": 4,
+    "cases": {
+      "com.wealthos.app.StatementImportTest#documentResultParsesOnlyAfterAnExplicitPickerRequest": 0,
+      "com.wealthos.app.StatementImportTest#isolatedXlsReaderWorksOnAndroid10WithoutInternetOrVaultAccess": 0,
+      "com.wealthos.app.StatementImportTest#malformedFileFailsSafelyAndBankRecordsRemainUnchanged": 0,
+      "com.wealthos.app.StatementImportTest#cardReviewSaveMonthAndReopenKeepSettlementOutOfSpending": 0,
+      "com.wealthos.app.StatementUiTest#reviewAndEmptyScreensHaveAccessibleFixedActionAndRespectMasking[dark=false,font=1]": 0,
+      "com.wealthos.app.StatementUiTest#reviewAndEmptyScreensHaveAccessibleFixedActionAndRespectMasking[dark=true,font=1]": 0,
+      "com.wealthos.app.StatementUiTest#reviewAndEmptyScreensHaveAccessibleFixedActionAndRespectMasking[dark=false,font=1.5]": 0,
+      "com.wealthos.app.StatementReleaseReaderTest#packagedReaderParsesBothFictionalXlsFilesInIsolation": 0,
+      "com.wealthos.app.BankWorkflowTest#addUpdateCorrectHistoryAndEditPersistAcrossActivityRecreation": 0,
+      "com.wealthos.app.HouseholdWorkflowTest#salarySummaryEarmarksAndInsuranceRemainSeparateFromBankCash": 0,
+      "com.wealthos.app.HouseholdPrivacyTest#reserveAndInsuranceReadViewsObscureAllCurrencyAmounts": 0,
+      "com.wealthos.app.BackupWorkflowTest#exportReadbackPreviewCancelAndConfirmedReplacementKeepHistory": 0,
+      "com.wealthos.app.BackupWorkflowTest#truncatedDocumentProviderCannotReportExportSuccessOrChangeVault": 0,
+      "com.wealthos.app.BackupWorkflowTest#passwordConfirmationAndRecreationDoNotPersistPassword": 0
+    },
+    "fictionalCapturesReviewed": 9,
+    "minifiedFrameworkFixturesPassed": 2,
+    "platform": "Android 10 / API 29 / x86 / 4096-byte pages"
+  },
+  "signingToolsPassed": 19,
+  "componentPolicyPassed": 17,
+  "packagingRegressionsPassed": 4,
+  "lint": {
+    "debug": {
+      "errors": 0,
+      "warnings": [
+        {
+          "id": "AndroidGradlePluginVersion",
+          "message": "A newer version of Gradle than 9.6.0 is available: 9.8.2"
+        }
+      ]
+    },
+    "release": {
+      "errors": 0,
+      "warnings": [
+        {
+          "id": "AndroidGradlePluginVersion",
+          "message": "A newer version of Gradle than 9.6.0 is available: 9.8.2"
+        }
+      ]
+    }
+  },
+  "builds": {
+    "debug": "passed",
+    "coexistingMinifiedRelease": "passed",
+    "originalIdentityMinifiedRelease": "passed"
+  },
+  "sourceOriginals": {
+    "validation": "read-only local adapter check passed",
+    "financialContentsPrinted": false,
+    "copiedIntoTests": false
+  },
+  "artifacts": {
+    "development": {
+      "sha256": "9d2e13c733bacac3e399d40924322257cac3783ffd00749f6c0f2fbbd1c2c907",
+      "applicationId": "com.wealthos.app",
+      "minified": true,
+      "debuggable": false,
+      "certificateSha256": "dd7d62a4506fd0cd64cb1dddaa11a56f838694a64b7ec8c6f79f6461c5589f73",
+      "v3Verified": true
+    },
+    "productionUnsigned": {
+      "sha256": "4fbaa17a1022473ffc7bd5b3089363e42a99d03e128b0363c41935c6ff77feeb",
+      "applicationId": "com.wealthos.app.release"
+    }
+  },
+  "productionSigning": "pending existing-key local passphrase",
+  "phoneAccessed": false,
+  "ordinaryInstalledVaultsModified": false,
+  "physicalArm16KiBAcceptance": "pending",
+  "independentSecurityReview": "pending"
+}

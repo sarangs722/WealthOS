@@ -2,6 +2,8 @@
 .kotlin/
 .tools/
 .codex-attachments/
+__pycache__/
+*.py[cod]
 **/build/
 local.properties
 *.iml

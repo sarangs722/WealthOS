@@ -108,6 +108,6 @@ class EncryptedRepositoryTest {
         val observation=db.bankDao().read().single().observations.single()
         assertEquals("999.99",observation.amount)
         assertEquals("",observation.note)
-        assertEquals(7,db.openHelper.readableDatabase.version)
+        assertEquals(8,db.openHelper.readableDatabase.version)
     }
 }

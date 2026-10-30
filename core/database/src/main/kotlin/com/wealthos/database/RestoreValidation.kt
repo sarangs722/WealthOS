@@ -7,6 +7,7 @@ import java.util.UUID
 
 /** Reject incompatible records before touching the current vault, beyond SQL/FK validation. */
 internal suspend fun validateRestoredBook(db:BankDatabase){
+    StatementRules.validate(db.readStatements())
     val b=db.readBook();val p=b.portfolio
     val entriesByInstrument=p.entries.groupBy {it.instrumentId}
     val starts=entriesByInstrument.mapValues {(_,rows)->rows.filter {it.kind==TradeKind.OPENING}.minWithOrNull(compareBy<InvestmentEntry> {it.date}.thenBy {it.sequence})}

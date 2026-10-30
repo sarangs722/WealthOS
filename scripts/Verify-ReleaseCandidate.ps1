@@ -10,6 +10,7 @@ param(
 )
 $ErrorActionPreference='Stop'
 . "$PSScriptRoot/Release-Common.ps1"
+. "$PSScriptRoot/Release-Components.ps1"
 $java=Get-ReleaseJava $JavaDirectory
 $signer=Get-ReleaseTool $SdkDirectory 'build-tools/36.1.0/lib/apksigner.jar'
 $zipalign=Get-ReleaseTool $SdkDirectory 'build-tools/36.1.0/zipalign.exe'
@@ -38,15 +39,7 @@ if($ExpectedApplicationId -eq 'com.wealthos.app.release' -and $attributes['label
 $permissions=@($nodes | Where-Object tag -eq 'uses-permission' | ForEach-Object {$_.attributes['name']} | Sort-Object)
 $allowed=@('android.permission.INTERNET','android.permission.USE_BIOMETRIC',"$ExpectedApplicationId.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION") | Sort-Object
 if(@(Compare-Object $permissions $allowed).Count -ne 0){throw 'The release permission set changed and requires review.'}
-$components=@($nodes | Where-Object {$_.tag -in @('activity','activity-alias','provider','service','receiver')})
-$approved=@{'com.wealthos.app.MainActivity'=@('activity','true');'androidx.startup.InitializationProvider'=@('provider','false');'androidx.room.MultiInstanceInvalidationService'=@('service','false');'androidx.profileinstaller.ProfileInstallReceiver'=@('receiver','true')}
-if($components.Count -ne $approved.Count){throw 'The Android component inventory changed and requires review.'}
-foreach($component in $components){
-    $name=$component.attributes['name']
-    if(-not $approved.ContainsKey($name) -or $component.tag -ne $approved[$name][0] -or $component.attributes['exported'] -ne $approved[$name][1]){throw 'Unexpected/exported Android component.'}
-    if($component.tag -eq 'receiver' -and $component.attributes['permission'] -ne 'android.permission.DUMP'){throw 'The AndroidX profile receiver lost its signature-protected permission.'}
-    if($component.tag -eq 'provider' -and $component.attributes['authorities'] -ne "$ExpectedApplicationId.androidx-startup"){throw 'Provider authority does not belong to this release identity.'}
-}
+Assert-ReleaseComponents -Nodes $nodes -ApplicationId $ExpectedApplicationId -VersionCode ([int]$manifest[0].attributes['versionCode'])
 $resources=Invoke-ReleaseProcess $aapt @('dump','resources',$apkPath) -Operation 'Backup resource inspection'
 foreach($pair in @(@('fullBackupContent','full-backup-content'),@('dataExtractionRules','data-extraction-rules'))){
     $reference=$attributes[$pair[0]]
@@ -64,6 +57,9 @@ foreach($pair in @(@('fullBackupContent','full-backup-content'),@('dataExtractio
 $null=Invoke-ReleaseProcess $zipalign @('-c','-P','16','4',$apkPath) -Operation 'APK ZIP alignment verification'
 $native=Invoke-ReleaseProcess $PythonExecutable @((Join-Path $PSScriptRoot 'Verify-ApkPackaging.py'),$apkPath) -Operation 'Native ELF alignment verification'
 $nativeReport=$native | ConvertFrom-Json
+if([int]$manifest[0].attributes['versionCode'] -ge 15){
+    $null=Invoke-ReleaseProcess $PythonExecutable @((Join-Path $PSScriptRoot 'Verify-StatementPackaging.py'),$apkPath) -Operation 'Packaged financial schema verification'
+}
 $after=(Get-FileHash -LiteralPath $apkPath -Algorithm SHA256).Hash.ToLowerInvariant()
 if($before -ne $after -or $nativeReport.sha256 -ne $after){throw 'The APK changed during verification.'}
 $report=[ordered]@{status='PACKAGE_AND_SIGNATURE_VERIFIED';applicationId=$ExpectedApplicationId;versionName=$manifest[0].attributes['versionName'];versionCode=[int]$manifest[0].attributes['versionCode'];apkSha256=$after;certificateSha256=$expected;minSdk=29;targetSdk=37;debuggable=$false;testOnly=$false;osBackupExcluded=$true;cleartext=$false;permissions=$permissions;componentInventory='reviewed';nativeLibraries=$nativeReport.libraries.Count;elfAndZip16KiB='passed';phoneAccessed=$false;physicalDeviceReview='pending';independentSecurityReview='pending'}

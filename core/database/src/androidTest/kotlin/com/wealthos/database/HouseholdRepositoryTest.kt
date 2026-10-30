@@ -119,7 +119,7 @@ class HouseholdRepositoryTest {
             execSQL("INSERT INTO audit_events VALUES (?, ?, 'INVESTMENT_EVENT', ?, NULL, 'Original audit')",arrayOf(audit,trade,stamp))
         }
         helper.close();db=BankDatabase.open(context,key,name);bank=RoomBankRepository(db,clock)
-        val book=bank.observe().first();assertEquals(7,db.openHelper.readableDatabase.version)
+        val book=bank.observe().first();assertEquals(8,db.openHelper.readableDatabase.version)
         assertEquals(account,book.accounts.single().id.toString());assertEquals("10000.25",book.observations.single().amount.toPlainString());assertEquals("Existing bank note",book.observations.single().note)
         assertEquals(asset,book.portfolio.instruments.single().id.toString());assertEquals("5.00",book.portfolio.entries.single().units.toPlainString());assertEquals("100.123456",book.portfolio.valuations.single().value.toPlainString())
         assertEquals(movement,book.portfolio.cashMovements.single().id.toString());assertEquals(audit,db.bankDao().audits().single().id)

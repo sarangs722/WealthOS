@@ -102,7 +102,7 @@ class PublicRepositoryTest {
         val oldTables=mutableMapOf<String,List<List<String?>>>()
         fun rows(sql:SupportSQLiteDatabase,t:String):List<List<String?>> {sql.query("SELECT * FROM `$t` ORDER BY rowid").use {c->val all=mutableListOf<List<String?>>();while(c.moveToNext())all+=List(c.columnCount){if(c.isNull(it))null else c.getString(it)};return all}}
         val es=schema.getJSONArray("entities");for(n in 0 until es.length()){val t=es.getJSONObject(n).getString("tableName");oldTables[t]=rows(helper.readableDatabase,t)};helper.close()
-        db=BankDatabase.open(context,key,name);bank=RoomBankRepository(db,clock);val b=book();assertEquals(7,db.openHelper.readableDatabase.version)
+        db=BankDatabase.open(context,key,name);bank=RoomBankRepository(db,clock);val b=book();assertEquals(8,db.openHelper.readableDatabase.version)
         oldTables.forEach {(t,expected)->assertEquals("Preserve $t",expected,rows(db.openHelper.readableDatabase,t).map {if(t=="asset_valuations")it.take(10)else it})};assertFalse(b.publicData.networkEnabled);assertTrue(b.publicData.observations.isEmpty());assertEquals("12345.67",b.observations.single().amount.toPlainString());assertEquals("Existing plan",b.planning.scenarios.single().name);assertEquals("0.060000000001",b.planning.assets.single().annualReturn.toPlainString());assertEquals("Existing goal",b.planning.goals.single().name);assertFalse(String(context.getDatabasePath(name).readBytes().take(16).toByteArray()).startsWith("SQLite format"))
     }
 }

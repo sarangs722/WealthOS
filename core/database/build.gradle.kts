@@ -15,6 +15,17 @@ android {
 }
 androidComponents {onVariants {variant->variant.sources.assets?.addStaticSourceDirectory("schemas")}}
 room { schemaDirectory("$projectDir/schemas") }
+
+// A changed schema must be exported before any APK/AAR snapshots its assets.
+// Otherwise a first incremental build can package yesterday's trusted restore
+// schema even though today's Room implementation already uses the new columns.
+tasks.matching { it.name=="copyRoomSchemas" }.configureEach {
+    dependsOn("kspDebugKotlin", "kspReleaseKotlin")
+}
+tasks.matching {
+    (it.name.startsWith("merge") && it.name.endsWith("Assets")) ||
+        it.name.startsWith("copyRoomSchemasToAndroidTestAssets")
+}.configureEach { dependsOn("copyRoomSchemas") }
 dependencies {
     api(project(":core:finance"))
     api(project(":core:security"))

@@ -2,7 +2,13 @@
 
 The requested six milestones have functional software implementations. Remaining release acceptance includes the user's guided phone checks, physical ARM/16 KiB assurance and independent security review; emulator evidence cannot complete those items.
 
-## Current bounded follow-up: 0.6.8
+## Current bounded follow-up: 0.6.9
+
+Implemented native statement spending for the two verified HDFC exports: XLS/matching CSV, month selection, review/drafts, overlap decisions, append-only corrections/voids, separate spending and bank-cash metrics, isolated parsing and encrypted schema 8 with explicit native currency. Backup restoration accepts schemas 6/7/8 and validates all new rows. See [release status and limits](RELEASE_0_6_9.md). Passing evidence covers 150 JVM cases, 81 encrypted storage cases plus ten final affected reruns, 14 distinct native workflows plus four final import reruns, two minified XLS probes, 19 signing-tool checks, 17 component checks and four packaging regressions. Actual identity builds/lint/package/schema checks pass; production signing awaits the local passphrase. Lint retains one toolchain-update advisory, not a code warning. No user phone or ordinary installed vault was modified.
+
+Groww holdings/CAS import is the recommended next development slice after this candidate; it remains unimplemented. Physical-device and independent security acceptance below are separate requirements.
+
+## Completed previous follow-up: 0.6.8
 
 Implemented concise follow-up entry for transactions, valuations and loan/deposit events, native calendars including deposit maturity, and the installed-version label. Financial save payloads, core modules, schema 7 and crypto formats are unchanged. 129 JVM cases and all 17 affected native cases passed; the three render cases passed again after the final explicit maturity-payout title. Actual debug/minified Release builds and both lint checks passed, with zero reported lint errors/warnings in this offline run. Both matching APKs are verified. Existing-key production signing, independent package checks and byte-identical comparison of 98 application payload entries completed on 29 October 2026; no phone installation or personal-data changes occurred. See [release notes](RELEASE_0_6_8.md), [plan](DAILY_UPDATES_0_6_8_PLAN.md) and [evidence](verification/daily-updates-068/verification.json).
 

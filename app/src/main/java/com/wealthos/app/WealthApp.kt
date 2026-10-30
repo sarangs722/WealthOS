@@ -25,7 +25,7 @@ import java.util.UUID
 
 @Composable fun WealthApp(hidden: Boolean, appLock: Boolean, privacyMessage: String?, onHide: () -> Unit, onLock: () -> Unit,
                          createBackupFile:(String)->Unit,chooseBackupFile:()->Unit,
-                         chooseNavFile:(UUID)->Unit,
+                         chooseNavFile:(UUID)->Unit,chooseStatementFile:()->Unit={},
                          model: BankViewModel = viewModel()) {
     val state by model.state.collectAsStateWithLifecycle()
     var tab by rememberSaveable { mutableIntStateOf(0) }
@@ -38,6 +38,7 @@ import java.util.UUID
     var selectedPolicy by rememberSaveable {mutableStateOf<String?>(null)}
     var selectedScenario by rememberSaveable {mutableStateOf<String?>(null)}
     var selectedGoal by rememberSaveable {mutableStateOf<String?>(null)}
+    var selectedStatement by rememberSaveable {mutableStateOf<String?>(null)}
     var selectedCalculator by rememberSaveable {mutableStateOf(CalculatorKind.INFLATION.name)}
     var selectedMonth by rememberSaveable {mutableStateOf(YearMonth.now().toString())}
     var summaryCurrency by rememberSaveable {mutableStateOf(CurrencyCode.INR.name)}
@@ -50,10 +51,13 @@ import java.util.UUID
     fun navigate(next: String) { model.clearFormError(); route = next }
     LaunchedEffect(state.backup.openScreen){if(state.backup.openScreen){route="backups";model.consumeBackupNavigation()}}
     LaunchedEffect(state.openPublicScreen){if(state.openPublicScreen){route="public-data";model.consumePublicNavigation()}}
+    LaunchedEffect(state.statementImport.openScreen){if(state.statementImport.openScreen){selectedStatement=null;route=if(state.statementImport.parsed!=null)"statement-review" else "statements";model.consumeStatementNavigation()}}
     fun parent()=when(route) {
         "balance","edit"->"detail"
         "unit-tracking","investment-entry","asset-valuation","contract-event","edit-asset"->"asset-detail"
         "cashflow-edit"->"cashflow"
+        "statement-review"->"statements"
+        "statements"->"cashflow"
         "income-sources"->"cashflow"
         "add-income-source","income-source-detail"->"income-sources"
         "edit-income-source","income-rate","income-record"->"income-source-detail"
@@ -70,7 +74,7 @@ import java.util.UUID
         route=="settings"->"Settings"
         route=="backups"->"Backup & restore"
         route in listOf("public-data","nav-binding","economic-reference")->"Market data"
-        route in listOf("cashflow","cashflow-edit")->"Cash flow"
+        route in listOf("cashflow","cashflow-edit","statements","statement-review")->"Cash flow"
         route.startsWith("income") || route in listOf("add-income-source","edit-income-source")->"Income"
         route.startsWith("scenario") || route in listOf("goals","goal-edit","analytics")->"Planning"
         route in listOf("calculator")->"Tools"
@@ -106,7 +110,9 @@ import java.util.UUID
                 route == "transfer" -> TransferForm(state,model) {navigate("main")}
                 route == "fx" -> FxForm(state,model,hidden) {navigate("main")}
                 route == "reference" -> ReferenceForm(state,model,account) {navigate("main")}
-                route == "cashflow" -> CashFlowScreen(state,hidden,onEdit={month,currency->selectedMonth=month.toString();summaryCurrency=currency.name;navigate("cashflow-edit")},onIncome={navigate("income-sources")})
+                route == "statements" -> StatementsScreen(state,hidden,chooseStatementFile){selectedStatement=it?.toString();navigate("statement-review")}
+                route == "statement-review" -> StatementReviewScreen(state,hidden,model,selectedStatement?.let(UUID::fromString),openSaved={selectedStatement=it.toString();navigate("statement-review")}){navigate("statements")}
+                route == "cashflow" -> CashFlowScreen(state,hidden,onEdit={month,currency->selectedMonth=month.toString();summaryCurrency=currency.name;navigate("cashflow-edit")},onIncome={navigate("income-sources")},onStatements={navigate("statements")})
                 route == "cashflow-edit" -> CashFlowForm(YearMonth.parse(selectedMonth),CurrencyCode.valueOf(summaryCurrency),state,model) {navigate("cashflow")}
                 route == "income-sources" -> IncomeSourcesScreen(state,hidden,{navigate("add-income-source")}) {selectedSource=it.toString();navigate("income-source-detail")}
                 route == "add-income-source" -> IncomeSourceForm(state,model,null) {selectedSource=it.toString();navigate("income-source-detail")}

@@ -1,6 +1,6 @@
 # Portable backup format v1
 
-Implemented in `core:security` (pure JVM/JCA) and `RoomBackupRepository`. Application 0.6.5 uses Room schema 7. The encrypted envelope remains format 1. There is no server, account, device identifier, embedded database password or Keystore material in a portable backup.
+Implemented in `core:security` (pure JVM/JCA) and `RoomBackupRepository`. Application 0.6.9 uses Room schema 8. The encrypted envelope remains format 1. There is no server, account, device identifier, embedded database password or Keystore material in a portable backup.
 
 ## Envelope
 
@@ -34,7 +34,7 @@ Financial source dates remain separate from retrieval timestamps. Future-date va
 
 Export captures all financial, household, planning, public cache/application/consent and audit rows within one Room transaction, ordered deterministically by table dependencies and primary keys. The database/WAL/Keystore files are never copied. No plaintext temporary backup is written.
 
-Restore first creates an encrypted staging database using a fresh random key and the **packaged schema 6 or 7 JSON**, selected by the validated incoming schema version, not DDL supplied in the file. Incoming rows use bound inserts in foreign-key order. Storage types, canonical UUIDs, plain decimal bounds, booleans/revisions, SQL integrity/foreign keys and domain/financial reconciliation are checked. The stage then opens through the normal Room migration chain, including explicit migration 6 to 7. This release accepts schemas 6 and 7; it never guesses a schema or performs destructive fallback. Staging files are closed/deleted on ordinary success/error/cancellation; a killed process may leave an encrypted, unrecoverable orphan staging file until app data removal.
+Restore first creates an encrypted staging database using a fresh random key and the **packaged schema 6, 7 or 8 JSON**, selected by the validated incoming schema version, not DDL supplied in the file. Incoming rows use bound inserts in foreign-key order. Storage types, canonical UUIDs, plain decimal bounds, booleans/revisions, SQL integrity/foreign keys and domain/financial reconciliation are checked. The stage then opens through the normal Room migration chain, including explicit migrations 6 to 7 and 7 to 8. This release accepts schemas 6, 7 and 8; it never guesses a schema or performs destructive fallback. Staging files are closed/deleted on ordinary success/error/cancellation; a killed process may leave an encrypted, unrecoverable orphan staging file until app data removal.
 
 The preview records a SHA-256 fingerprint of the receiving vault, excluding capture time. Final confirmation opens one write transaction, checks that fingerprint again, writes and verifies an authenticated encrypted safety copy of the old vault, replaces rows, disables public networking, appends a restore audit event, revalidates and commits. Failed inserts/audit/integrity/cancellation roll back all live rows. A safety copy can remain after a failed restore; this preserves the old data and does not represent a successful replacement. Nothing merges accounts or invents new financial history.
 
@@ -53,3 +53,9 @@ There is no password reset. A verified portable file plus its original password 
 ## Schema 7 holding snapshots
 
 `asset_valuations` adds nullable decimal TEXT `reportedInvested`, `reportedUnits`, `reportedPrice`, plus `calculatedTotal` INTEGER NOT NULL DEFAULT 0. Existing records retain their values and dates; new optional figures remain unknown. Metadata is valid only for total-value investment observations, including preserved pre-conversion snapshots. Calculated totals must equal units times price rounded HALF_EVEN to currency scale. Financial decimals and boolean flags are validated before replacing the live vault. Older app versions reject schema-7 backups; update the receiving app first. No envelope, KDF or device-key changes are needed.
+
+## Schema 8 statement spending
+
+Four new normalized tables retain statement imports, selected-month lines, review revisions and per-line decisions. They store decimal TEXT with explicit INR currency on the related import, transaction/value dates, optional requested bank period, source nickname/type, file hash, parser version and recorded timestamps. The original XLS/CSV file and unused customer/card/reward metadata are not retained. Earlier reviews and voided imports remain in the portable backup. Restore validates complete per-review decisions, line/month relationships, sequential revisions, category/direction compatibility, UUIDs, dates and coverage flags before replacing live records.
+
+Schemas 6/7 migrate with empty statement tables. Schema-8 backups need WealthOS 0.6.9 or newer; older apps reject them. The envelope/KDF and independent-device password recovery are unchanged. Existing whole-vault backup byte/row limits still apply, including statement history.

@@ -16,14 +16,16 @@ import java.time.LocalDate
 import java.time.YearMonth
 import java.util.UUID
 
-@Composable fun CashFlowScreen(state:BankUiState,hidden:Boolean,onEdit:(YearMonth,CurrencyCode)->Unit,onIncome:()->Unit) {
+@Composable fun CashFlowScreen(state:BankUiState,hidden:Boolean,onEdit:(YearMonth,CurrencyCode)->Unit,onIncome:()->Unit,onStatements:()->Unit={}) {
     var monthText by rememberSaveable {mutableStateOf(YearMonth.now().toString())};var currencyName by rememberSaveable {mutableStateOf(CurrencyCode.INR.name)}
     var error by remember {mutableStateOf(false)}
     val month=runCatching {YearMonth.parse(monthText)}.getOrNull()?.takeIf {it.year>=1900 && it<=YearMonth.now()}
     val currency=CurrencyCode.valueOf(currencyName);val h=state.book.household
     val result=month?.let {CashFlows.at(h,it,currency)}
+    val imported=month?.takeIf {currency==CurrencyCode.INR && !state.demo}?.let {state.statements.totals(it)}
     LazyColumn(Modifier.fillMaxSize(),contentPadding=PaddingValues(20.dp),verticalArrangement=Arrangement.spacedBy(16.dp)) {
         item {Text("Monthly cash flow",style=MaterialTheme.typography.headlineMedium);Text("Summary-level tracking. Income, expenses and investments never change bank balances automatically.")}
+        if(!state.demo)item {OutlinedButton(onClick=onStatements,modifier=Modifier.fillMaxWidth()) {Text("Statement spending & imports")}}
         item {Field("Review month (YYYY-MM)",monthText,{monthText=it;error=false})}
         item {Choice("Review currency",currencyName,CurrencyCode.entries.map {it.name to it.name}) {currencyName=it}}
         if(error)item {Text("Enter a month from 1900 through the current month.",color=MaterialTheme.colorScheme.error)}
@@ -46,6 +48,7 @@ import java.util.UUID
             Text("Revision ${s.revision} · Entered ${recordedLabel(s.recordedAt)}",style=MaterialTheme.typography.bodyMedium)
             if(s.note.isNotBlank())Text(if(hidden)"Note hidden" else s.note)
         }}
+        if(imported!=null && imported.sources>0)item {SectionCard("Spending from statements") {Text(if(imported.reviewedRows==0)"Not reviewed" else money(imported.netSpending,CurrencyCode.INR,hidden),style=MaterialTheme.typography.headlineSmall);Text(if(imported.sourceCoverageConfirmed)"Reviewed for imported sources" else "Partial / draft · ${imported.unresolved} items need review");TextButton(onClick=onStatements){Text("Review imported spending")}}}
         val history=h.cashFlows.filter {month!=null && it.month==month && it.currency==currency}.sortedByDescending {it.revision}
         if(history.size>1)item {Text("Summary revision history",style=MaterialTheme.typography.titleLarge)}
         items(history.drop(1),key={it.id}) {s->SectionCard("Revision ${s.revision} · retained") {

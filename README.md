@@ -1,12 +1,14 @@
 # WealthOS
 
+**Current candidate: [0.6.9 statement spending](docs/RELEASE_0_6_9.md)** adds on-device HDFC Bank/Tata Neu HDFC XLS and matching CSV imports, monthly review, overlap handling, encrypted history and schema-8 backup/restore. Existing-key production signing remains pending; the signed update below remains available.
+
 **Latest signed update: [0.6.8 easier everyday updates](docs/RELEASE_0_6_8.md)** simplifies investment transactions, price/value updates and loan/deposit events, adds native date selection and displays the installed version correctly. 129 JVM and 17 affected native cases passed; three render cases passed again after the final maturity-title clarification. Debug/minified builds and both lint checks passed with zero reported errors/warnings. Both matching APKs are ready; existing-certificate release signing, independent package checks and byte-identical comparison of 98 application payload entries passed.
 
 **Previous signed update: [0.6.7 financial-history restore hardening](docs/RELEASE_0_6_7.md)** retains its verified release artifact. Schema 7 and the existing signing identities are unchanged. [0.6.6](docs/RELEASE_0_6_6.md) provides the shorter cash-flow, scenario, goal and calculator forms.
 
 Native, offline-first Android personal wealth tracker. **Previous data-entry refinement: [0.6.5 quick entry](docs/RELEASE_0_6_5.md)** starts investment holdings with name and current value, keeps other figures optional and uses shorter native forms. The signed update retains the existing release identity; [0.6.4](docs/RELEASE_0_6_4.md) is retained. **Milestone 6 (0.6.0)** adds password-protected portable backups, validated transactional restore, encrypted pre-restore safety copies and release hardening. Existing bank, portfolio, income, protection, planning and optional public-data features remain local and offline-first.
 
-**Updating from 0.1.0–0.5.0:** install the new APK over the existing app, retaining the same application/signing identity. Do not uninstall or clear storage: the encrypted vault and device key are reused, and explicit migrations reach schema 7. After updating, create a portable backup and validate its original password/records before relying on it. Network refresh defaults off.
+**Updating from older versions:** install the matching verified APK over the existing app, retaining the same application/signing identity. Do not uninstall or clear storage: the encrypted vault and device key are reused, and explicit migrations in the current source reach schema 8. After updating, create a portable backup and validate its original password/records before relying on it. Network refresh defaults off.
 
 ## Run
 
@@ -18,7 +20,7 @@ PowerShell example for this development machine:
 $env:JAVA_HOME = 'C:\Program Files\Android\Android Studio1\jbr'
 $env:ANDROID_HOME = 'C:\Users\saran\AppData\Local\Android\Sdk'
 $env:ANDROID_SERIAL = 'emulator-5554' # Explicitly restrict instrumentation to the isolated WealthOS AVD.
-.\gradlew.bat :core:finance:test :core:security:test :app:assembleDebug :app:lintDebug
+.\gradlew.bat :core:finance:test :core:imports:test :core:security:test :app:assembleDebug :app:lintDebug
 .\gradlew.bat :core:network:testDebugUnitTest :core:network:connectedDebugAndroidTest
 .\gradlew.bat :core:database:connectedDebugAndroidTest
 .\gradlew.bat :app:connectedDebugAndroidTest

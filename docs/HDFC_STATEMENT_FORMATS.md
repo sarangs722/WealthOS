@@ -2,6 +2,8 @@
 
 Inspected locally on 30 October 2026, using the two user-supplied exports. This is a verified input contract and implementation plan, not a shipped importer. WealthOS remains 0.6.8, schema 7. The original workbooks were read only; no financial record, bank balance or installed application was changed.
 
+Subsequent development: [0.6.9 candidate](RELEASE_0_6_9.md) implements these adapters. Reader verification also found a bank transaction date outside the requested period while its value date is within it. Preserve requested periods separately, group by actual transaction dates and flag the mismatch; never discard that row merely to fit the requested range. The historical inspection status above describes the initial review, not the later implementation.
+
 Only generic headers, formats and validation outcomes are recorded here. Do not commit the source workbooks, their names, identifiers, narratives, amounts or source-derived fixture rows. `.codex-attachments/` and `.tools/` are excluded from Git. Test fixtures must be independently fictional.
 
 ## Verified bank export

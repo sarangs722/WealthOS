@@ -1,0 +1,41 @@
+# WealthOS 0.6.9 — statement spending
+
+Version code 15; Room schema 8. The verified candidate awaits the existing production key's local passphrase. The original-app update is already signed with its established development identity and is minified/non-debuggable. No phone installation or personal-vault reset is part of this development run.
+
+## Implemented
+
+- Native **Cash flow → Statement spending & imports**: choose a document, detect the verified HDFC Bank/Tata Neu HDFC layout, select a calendar month, review categories and save. Ordinary card debits can be confirmed together; transfers, repayments, refunds, overlaps and loan/EMI entries remain reviewable. A filter focuses on unresolved items. Dates/coverage and source nickname editing are secondary actions; Save stays reachable at large font sizes.
+- Binary XLS and matching UTF-8 comma/tab-delimited files. Bank running balances and debit/credit/opening/closing totals reconcile before a preview is accepted. Transaction and value dates remain distinct. Requested bank periods are retained separately from actual transaction dates, including dates outside the requested period. Card billing cycles can span months; rewards and EMI summary sections are not imported as ordinary transactions.
+- Reviewed monthly spending and bank cash change are separate metrics. Card repayments, own transfers and investments do not become living expenses. Refunds reduce spending in their actual month. Unsplit loan payments and unreviewed rows remain incomplete; no unreviewed spending figure is presented as a known zero. Imports never update bank balances, liabilities, investments or existing manual cash-flow summaries implicitly.
+- SQLCipher stores normalized selected-month rows and append-only review decisions. Same file/month is idempotent, including a different nickname. Candidate overlaps require an explicit duplicate/exclude/keep decision; legitimate identical transactions are retained. Review corrections and void/restore append revisions, guarded against stale edits. Raw statement files and unused customer/card/reward fields are not retained.
+- Explicit migration 7→8 creates four related tables. Portable backup/restore includes all import rows, source metadata and revisions; schemas 6 and 7 migrate through trusted packaged schemas with empty statement history. Existing cryptography and signing identities are retained.
+- A bounded parser runs under an isolated Android UID without INTERNET/vault permissions. It rejects unsupported containers, formulas and embedded content, terminates on a watchdog and reports generic errors. The parent checks the returned file hash and domain invariants. No backend, account login or financial upload is added. See [security notes](SECURITY.md) and [backup format](BACKUP_FORMAT.md).
+
+## Architecture
+
+`core:finance/Statements.kt` owns the Android-independent decimal records, classification rules, overlap candidates and spending totals. New pure JVM `core:imports` adapts the two verified formats using Apache POI 6.0.0 for XLS. Android isolation/document reading stays in `app`; Room relationships, transactions, migration and backup validation stay in `core:database`.
+
+Schema 8 adds `statement_imports`, `statement_lines`, `statement_reviews` and `statement_decisions`, with UUID relationships, unique file/month and source-row/revision keys, restrictive foreign keys, decimal TEXT and recorded timestamps. Earlier account/investment/cash-flow records are neither rewritten nor reinterpreted.
+
+POI's optional AWT rendering/cell-formatting and Log4j OSGi/build-annotation references need exact missing-type R8 rules. No desktop stubs or broad suppression is used. Those APIs are outside this reader's supported path; the minified reader must execute successfully on API 29 before release. Packaged license/notice text covers all seven resolved reader artifacts.
+
+## Verification
+
+Passing verification:
+
+- 150 JVM cases: finance 116, import parsing 12, security 12, public data 10. Security/public-data cases ran in the full rerun; affected finance/import cases ran again after final changes.
+- Full encrypted persistence suite: 81 cases passed during development. The ten affected import/backup/migration cases passed again against final schema 8, including explicit-currency validation, schemas 6/7 restoration, all 35 tables, a fresh receiver key and injected transaction failure.
+- 14 distinct native import, bank, household, masking and backup cases have passing final results across the recorded runs. The four import cases passed again after final currency/protocol changes. Nine fictional light/dark/1.5× font captures were visually reviewed.
+- Both fictional XLS inputs passed in the actual minified, non-debuggable API-29 application using a framework-only probe, with row/decimal/direction/hash/currency checks. The normal app also cold-launched in minified form. This is x86/4 KiB evidence, not physical ARM/16 KiB assurance.
+- Debug and minified builds completed for the real application identities. Both lint tasks pass: zero errors and one Gradle 9.6.0→9.8.2 update advisory per variant. No code-lint warning remains. The compatible existing toolchain was retained.
+- 19 signing-tool checks passed on the actual shrunk production input with a disposable key; 17 component-policy and four packaging regression checks also passed. APK schema assets match trusted source and compiled Room identity; test statements are absent, notices present, native ELF/ZIP alignment validated. Real production signing is still pending.
+
+The original failing native reader test reproduced an Android Handler message-lifetime defect; copying the request endpoint/payload before background dispatch fixed it. Visual review removed excessive setup text and a misleading unreviewed zero. An existing household workflow exposed a report pushed below the initial viewport; imported spending now follows the original manual cash-flow result. Final restore tests reproduced stale packaged schema JSON after incremental schema generation. Explicit Gradle export-before-assets dependencies and a release verifier comparing packaged schemas and compiled Room identity fixed and guard that failure. Restore rejected the stale package safely; current records were preserved. Financial expected values were retained.
+
+Evidence: [verification record](verification/statement-import-069/verification.json). Development APK SHA-256: `9d2e13c733bacac3e399d40924322257cac3783ffd00749f6c0f2fbbd1c2c907`. Production unsigned input SHA-256: `4fbaa17a1022473ffc7bd5b3089363e42a99d03e128b0363c41935c6ff77feeb`. Production output hashes will be recorded only after existing-key signing and independent verification.
+
+## Limits and next work
+
+This first adapter supports the two verified domestic INR layouts, not every HDFC export. Source nicknames are manually chosen account/card labels; bank identity is not authenticated. CSV must have the verified headers/metadata; generic column mapping, additional templates, XLSX/PDF/encrypted workbooks, international card rows and remembered merchant rules remain future work. Files are limited to 256 KiB, 2,000 worksheet rows and 1,500 parsed transactions; overly large result payloads fail safely. Read-only verification of the two supplied originals prints no financial rows and never modifies them; automated fixtures are independently fictional.
+
+Selected-month rows are saved; another month in the same file can be imported separately. Completeness is a user confirmation for imported sources, not proof that every account or card is represented. Category decisions do not establish tax treatment, infer an EMI split or post revolving-card debt. Whole-vault portable-backup limits still apply to retained statement history. Groww holdings/CAS imports and free-access API research remain separate follow-ups. Physical ARM/16 KiB assurance, guided user-device checks and independent security review remain outstanding from the wider release process.

@@ -151,7 +151,7 @@ class PortfolioRepositoryTest {
         db=BankDatabase.open(context,key,name);bank=RoomBankRepository(db,clock)
         val book=bank.observe().first();assertEquals(accountId,book.accounts.single().id.toString());assertEquals(observationId,book.observations.single().id.toString())
         assertEquals("12345678901234567890.12",book.observations.single().amount.toPlainString());assertEquals("Existing private note",book.observations.single().note)
-        assertEquals(auditId,db.bankDao().audits().single().id);assertTrue(book.portfolio.instruments.isEmpty());assertEquals(7,db.openHelper.readableDatabase.version)
+        assertEquals(auditId,db.bankDao().audits().single().id);assertTrue(book.portfolio.instruments.isEmpty());assertEquals(8,db.openHelper.readableDatabase.version)
     }
     private fun summary(i:Instrument,value:String="1234.56",date:LocalDate=start)=AssetValuation(UUID.randomUUID(),i.id,ValuationKind.OBSERVED_TOTAL,value.toBigDecimal(),date,0,clock.instant())
     @Test fun valueOnlyFundPersistsWithoutInventingUnitsCostOrCash()=runTest {
@@ -226,7 +226,7 @@ class PortfolioRepositoryTest {
         sql.execSQL("INSERT INTO instruments VALUES (?,?,?,?,?,?,?,?,?,?,?)",arrayOf<Any?>(id,"Fictional legacy fund","MUTUAL_FUND","INR","TRANSACTIONS",start.toString(),clock.instant().toString(),1,"INDIA","units",null))
         sql.execSQL("INSERT INTO asset_valuations VALUES (?,?,?,?,?,?,?,?,?,?)",arrayOf<Any?>(valuation,id,"UNIT_PRICE","123.456789012345",start.toString(),1,clock.instant().toString(),"Fictional old quote",0,0))
         helper.close();db=BankDatabase.open(context,key,name);bank=RoomBankRepository(db,clock)
-        val p=bank.observe().first().portfolio;assertEquals(7,db.openHelper.readableDatabase.version)
+        val p=bank.observe().first().portfolio;assertEquals(8,db.openHelper.readableDatabase.version)
         assertEquals(id,p.instruments.single().id.toString());assertEquals("123.456789012345",p.valuations.single().value.toPlainString())
         assertNull(p.valuations.single().reportedUnits);assertFalse(p.valuations.single().calculatedTotal)
         db.openHelper.readableDatabase.query("PRAGMA cipher_version").use {assertTrue(it.moveToFirst());assertTrue(it.getString(0).isNotBlank())}
