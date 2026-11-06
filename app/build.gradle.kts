@@ -24,8 +24,8 @@ android {
         applicationId = "com.wealthos.app"
         minSdk = 29
         targetSdk = 37
-        versionCode = 15
-        versionName = "0.6.9"
+        versionCode = 16
+        versionName = "0.6.10"
         manifestPlaceholders["appLabel"] = "WealthOS"
         manifestPlaceholders["backupTestAuthority"] = if(uiLab) "com.wealthos.app.uxlab.test.truncated-backup" else "com.wealthos.app.test.truncated-backup"
         testInstrumentationRunner = if(readerProbe)"com.wealthos.app.StatementReaderInstrumentation" else "androidx.test.runner.AndroidJUnitRunner"

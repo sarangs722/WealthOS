@@ -17,7 +17,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import java.io.File
 
-/** Fictional native form captures; real MainActivity screenshot protection stays enabled. */
+/** Fictional native form captures; capture is also allowed in MainActivity. */
 @RunWith(Parameterized::class)
 class QuickFormsUiTest(private val dark:Boolean,private val scale:Float) {
     companion object {@JvmStatic @Parameterized.Parameters(name="dark={0},font={1}") fun cases()=listOf(arrayOf<Any>(false,1f),arrayOf<Any>(true,1f),arrayOf<Any>(false,1.5f))}

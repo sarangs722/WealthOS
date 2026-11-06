@@ -1,5 +1,7 @@
 # Guided physical-device checks — WealthOS 0.6.9
 
+The 0.6.10 source candidate is work in progress and has not been released. Its [version-specific checklist](RELEASE_0_6_10.md#user-checks-after-updating) covers import-month counts, View transactions, screenshots/recording, amount obscuring and retained records. Use that checklist only after a matching verified update is available. In 0.6.10, capture is intentionally allowed, replacing the protected-screenshot expectation in the historical 0.6.9 checklist below.
+
 These checks are for the user to run locally. They have **not** been executed or marked passed by the agent. Report only pass/fail, the phone model and Android version; do not send financial amounts, passwords, keystores, backup files or screenshots of personal records.
 
 The [verified signed 0.6.9 Release and matching development update](RELEASE_0_6_9.md) are ready. Phone results below still require your own checks. Every version handoff must include a short checklist of changed flows with expected results; keep these user checks separate from automated verification.

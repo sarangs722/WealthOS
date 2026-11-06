@@ -2,7 +2,11 @@
 
 The requested six milestones have functional software implementations. Remaining release acceptance includes the user's guided phone checks, physical ARM/16 KiB assurance and independent security review; emulator evidence cannot complete those items.
 
-## Current bounded follow-up: 0.6.9
+## Current bounded follow-up: 0.6.10
+
+The reported one-row preview matched the latest transaction month's source count in a file spanning multiple months. No source-reader row loss was reproduced. Initial month selection, per-month/file counts, saved transaction navigation and user-requested screen capture changes are implemented as work in progress. Three new regressions failed before implementation. The subsequent debug/test builds succeeded; the recorded native run passed 13 of 16 cases, with three backup cases timing out while waiting for Home. Diagnose those startup timeouts and finish minified/lint/package/signing checks before release. The user requested committing and pushing the current code on 7 November 2026. See [release status and user checklist](RELEASE_0_6_10.md). Keep user financial files out of Git and preserve existing records.
+
+## Completed previous follow-up: 0.6.9
 
 Implemented native statement spending for the two verified HDFC exports: XLS/matching CSV, month selection, review/drafts, overlap decisions, append-only corrections/voids, separate spending and bank-cash metrics, isolated parsing and encrypted schema 8 with explicit native currency. Backup restoration accepts schemas 6/7/8 and validates all new rows. See [release status and limits](RELEASE_0_6_9.md). Passing evidence covers 150 JVM cases, 81 encrypted storage cases plus ten final affected reruns, 14 distinct native workflows plus four final import reruns, two minified XLS probes, 19 signing-tool checks, 17 component checks and four packaging regressions. Actual identity builds/lint/package/schema checks passed. Existing-key production signing, fresh independent package verification and byte-identical comparison of 239 application payload entries completed on 30 October 2026. Lint retains one toolchain-update advisory, not a code warning. No user phone or ordinary installed vault was modified.
 
@@ -27,7 +31,7 @@ Completed the first-party financial-history restore review: reject transactions 
 
 ## Acceptance still requiring external evidence
 
-- User-run phone checks: current-record preservation, offline cold-open, device lock/cancel, TalkBack and large fonts, protected screenshots/recents, export readback and preview-cancel. Full restore uses an empty receiver only.
+- User-run phone checks: current-record preservation, offline cold-open, device lock/cancel, TalkBack and large fonts, user-requested screenshot/recording access and amount masking, export readback and preview-cancel. Full restore uses an empty receiver only.
 - Physical ARM/16 KiB execution and OEM interrupted-operation/performance assurance. Existing x86 emulator and ELF/ZIP alignment evidence do not establish these.
 - Independent security review and independently retained signing key and backup passwords. No secrets or personal financial files belong in GitHub.
 

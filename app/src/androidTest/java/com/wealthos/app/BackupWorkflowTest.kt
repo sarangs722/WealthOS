@@ -43,7 +43,7 @@ class BackupWorkflowTest {
         rule.waitUntil(30_000){rule.onAllNodesWithTag("backup-screen").fetchSemanticsNodes().isNotEmpty()}
         rule.onNodeWithText("Backup password").performScrollTo().assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString("")))
         rule.onNodeWithText("Confirm backup password").performScrollTo().assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString("")))
-        rule.activityRule.scenario.onActivity {assertTrue(it.window.attributes.flags and android.view.WindowManager.LayoutParams.FLAG_SECURE!=0)}
+        rule.activityRule.scenario.onActivity {assertFalse(it.window.attributes.flags and android.view.WindowManager.LayoutParams.FLAG_SECURE!=0)}
     }
     @Test fun exportReadbackPreviewCancelAndConfirmedReplacementKeepHistory(){
         ready();val suffix=System.nanoTime();val name="Fictional backup UI $suffix";add(name,"100.10")

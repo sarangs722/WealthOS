@@ -10,6 +10,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
+import java.time.LocalDate
 
 /** Actual parser-to-preview checks with independently fictional XLS assets; no financial saves. */
 class StatementPreviewTest {
@@ -22,17 +23,17 @@ class StatementPreviewTest {
     private fun revealRow(index: Int) = reveal(hasTestTag("statement-category-$index"))
 
     private fun chooseSeptember() {
-        reveal(hasText("Month: 2026-10"))
-        rule.onNodeWithText("Month: 2026-10").performClick()
-        rule.onNodeWithText("2026-09").performClick()
+        reveal(hasText("Month: Oct 2026 (2)"))
+        rule.onNodeWithText("Month: Oct 2026 (2)").performClick()
+        rule.onNodeWithText("Sep 2026 (1)").performClick()
     }
 
-    private fun showFixture(name: String): ParsedStatement {
+    private fun showFixture(name: String, change: (ParsedStatement) -> ParsedStatement = { it }): ParsedStatement {
         val context = ApplicationProvider.getApplicationContext<android.content.Context>()
         check(context.packageName == "com.wealthos.app.uxlab")
         val bytes = InstrumentationRegistry.getInstrumentation().context.assets
             .open("statements/$name").use { it.readBytes() }
-        val parsed = try { runBlocking { StatementReaderClient.parse(context, bytes) } }
+        val parsed = try { change(runBlocking { StatementReaderClient.parse(context, bytes) }) }
             finally { bytes.fill(0) }
         rule.setContent {
             WealthTheme {
@@ -46,9 +47,34 @@ class StatementPreviewTest {
         return parsed
     }
 
+    @Test fun bankStartsWithRequestedPeriodInsteadOfOneLaterPosting() {
+        showFixture("fictional-bank.xls") { parsed ->
+            parsed.copy(periodStart = LocalDate.parse("2026-09-01"), periodEnd = LocalDate.parse("2026-09-30"),
+                rows = parsed.rows.map { if (it.index == 6) it.copy(date = LocalDate.parse("2026-09-30")) else it })
+        }
+        rule.onNodeWithText("Month: Sep 2026 (2)").assertExists()
+        rule.onNodeWithText("Transactions: 2 of 3 · 2 to review").assertExists()
+        revealRow(5)
+        rule.onNodeWithText("Fictional shop").assertExists()
+    }
+
+    @Test fun cardStartsWithMostPopulatedMonthAndKeepsSmallOtherMonthSelectable() {
+        showFixture("fictional-card.xls") { parsed ->
+            parsed.copy(rows = parsed.rows.map { if (it.index == 4) it.copy(date = LocalDate.parse("2026-09-30")) else it })
+        }
+        rule.onNodeWithText("Month: Sep 2026 (2)").assertExists()
+        rule.onNodeWithText("Transactions: 2 of 3 · 2 to review").assertExists()
+        reveal(hasText("Month: Sep 2026 (2)"))
+        rule.onNodeWithText("Month: Sep 2026 (2)").performClick()
+        rule.onNodeWithText("Oct 2026 (1)").performClick()
+        rule.onNodeWithText("Transactions: 1 of 3 · 1 to review").assertExists()
+        revealRow(5)
+        rule.onNodeWithText("Fictional card payment").assertExists()
+    }
+
     @Test fun bankPreviewKeepsAllRowsReachableByTransactionMonthAndPreservesValueDate() {
         assertEquals(3, showFixture("fictional-bank.xls").rows.size)
-        rule.onNodeWithText("Month: 2026-10").assertExists()
+        rule.onNodeWithText("Month: Oct 2026 (2)").assertExists()
         revealRow(6)
         rule.onNodeWithText("Fictional salary").assertExists()
         rule.onNodeWithText("1 Oct 2026 · Credit ₹500.00").assertExists()

@@ -13,6 +13,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.wealthos.finance.*
 import java.time.YearMonth
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 import java.util.UUID
 
 data class StatementImportState(val busy:Boolean=false,val parsed:ParsedStatement?=null,val openScreen:Boolean=false,val message:String?=null)
@@ -45,6 +47,7 @@ data class StatementImportState(val busy:Boolean=false,val parsed:ParsedStatemen
                     Text(if(hidden)batch.kind.label else batch.sourceName,style=MaterialTheme.typography.titleMedium)
                     Text("${batch.kind.label} · Revision ${review.revision}${if(review.voided)" · Voided" else ""}")
                     Text("Dates in file ${dateLabel(batch.firstCovered)} – ${dateLabel(batch.lastCovered)}")
+                    Text("View transactions",color=MaterialTheme.colorScheme.primary,style=MaterialTheme.typography.labelLarge)
                 }}
             }
         } else item {SectionCard("Start with a statement") {Text("HDFC Bank and Tata Neu HDFC card: original XLS or matching UTF-8 CSV, up to 256 KB. Files stay on your device.")}}
@@ -61,7 +64,10 @@ data class StatementImportState(val busy:Boolean=false,val parsed:ParsedStatemen
     key(parsed.fileHash,existingId,savedReview?.revision) {
         val knownNames=book.imports.filter {it.kind==parsed.kind}.map {it.sourceName}.distinct()
         var name by rememberSaveable {mutableStateOf(batch?.sourceName ?: knownNames.singleOrNull() ?: if(knownNames.isEmpty())parsed.kind.label else "")}
-        var monthText by rememberSaveable {mutableStateOf((batch?.month ?: parsed.months().first()).toString())}
+        val monthCounts=parsed.rows.groupingBy {YearMonth.from(it.date)}.eachCount()
+        val initialMonth=parsed.periodEnd?.let(YearMonth::from)?.takeIf {it in monthCounts}
+            ?: monthCounts.keys.maxWith(compareBy<YearMonth> {monthCounts.getValue(it)}.thenBy {it})
+        var monthText by rememberSaveable {mutableStateOf((batch?.month ?: initialMonth).toString())}
         val month=YearMonth.parse(monthText);val rows=parsed.rows.filter {YearMonth.from(it.date)==month}
         val alreadyImported=if(batch==null)book.imports.find {it.fileHash==parsed.fileHash && it.month==month} else null
         val initial=if(savedReview==null)emptyMap() else book.decisions.filter {it.reviewId==savedReview.id}.associate {d->book.lines.single {it.id==d.lineId}.row.index to d.category}
@@ -81,13 +87,13 @@ data class StatementImportState(val busy:Boolean=false,val parsed:ParsedStatemen
                 item {Text(if(batch==null)"Review statement" else "Revise statement",style=MaterialTheme.typography.titleLarge)}
                 if(batch==null) {
                     item {Row(Modifier.fillMaxWidth(),verticalAlignment=androidx.compose.ui.Alignment.CenterVertically) {Text(if(hidden)parsed.kind.label else name.ifBlank {"Choose account / card"},Modifier.weight(1f),style=MaterialTheme.typography.titleMedium);TextButton(onClick={showName=true}){Text("Change")}}}
-                    item {Choice("Month",monthText,parsed.months().map {it.toString() to it.toString()}){monthText=it}}
+                    item {Choice("Month",monthText,parsed.months().map {it.toString() to "${it.format(DateTimeFormatter.ofPattern("MMM uuuu",Locale.ENGLISH))} (${monthCounts.getValue(it)})"}){monthText=it}}
                 }
                 if(alreadyImported!=null)item {SectionCard("This file and month are already saved") {Button(onClick={openSaved(alreadyImported.id)},modifier=Modifier.fillMaxWidth()){Text("Open saved statement")};Text("Revise the saved import or choose another month. Totals will not be added twice.")}}
                 item {Card(Modifier.fillMaxWidth()) {Column(Modifier.padding(16.dp),verticalArrangement=Arrangement.spacedBy(4.dp)) {
                     Text("Reviewed spending · INR",style=MaterialTheme.typography.labelLarge)
                     Text(if(categories.values.none {it !in listOf(SpendingCategory.UNREVIEWED,SpendingCategory.LOAN_PAYMENT)})"Not reviewed" else money(net,CurrencyCode.INR,hidden),style=MaterialTheme.typography.headlineMedium)
-                    Text("${rows.size} items · $remaining need review",style=MaterialTheme.typography.bodyMedium)
+                    Text(if(batch==null)"Transactions: ${rows.size} of ${parsed.rows.size} · $remaining to review" else "${batch.month} · Transactions: ${rows.size} · $remaining to review",style=MaterialTheme.typography.bodyMedium)
                 }}}
                 item {TextButton(onClick={showDates=true}){Text("Dates & coverage")}}
                 parsed.periodStart?.let {start->if(parsed.firstCovered<start || parsed.lastCovered>parsed.periodEnd!!)item {Text("Some transaction dates extend beyond the requested period.",style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.error)}}

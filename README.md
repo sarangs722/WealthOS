@@ -1,5 +1,7 @@
 # WealthOS
 
+**Current candidate: [0.6.10 clearer import months and screen capture](docs/RELEASE_0_6_10.md)** shows per-month/file transaction counts, chooses a useful initial review month, labels saved imports with View transactions and allows screenshots/recording as requested. Verification and existing-key production signing are pending; 0.6.9 remains the latest signed update below.
+
 **Latest signed update: [0.6.9 statement spending](docs/RELEASE_0_6_9.md)** adds on-device HDFC Bank/Tata Neu HDFC XLS and matching CSV imports, monthly review, overlap handling, encrypted history and schema-8 backup/restore. Existing-key production signing and independent package checks passed; all 239 application payload entries match the tested unsigned input byte-for-byte. Install the APK matching your existing app identity, without uninstalling or clearing storage.
 
 **Previous signed update: [0.6.8 easier everyday updates](docs/RELEASE_0_6_8.md)** simplifies investment transactions, price/value updates and loan/deposit events, adds native date selection and displays the installed version correctly. 129 JVM and 17 affected native cases passed; three render cases passed again after the final maturity-title clarification. Debug/minified builds and both lint checks passed with zero reported errors/warnings. Both matching APKs are retained; existing-certificate release signing, independent package checks and byte-identical comparison of 98 application payload entries passed.

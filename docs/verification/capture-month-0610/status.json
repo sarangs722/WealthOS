@@ -1,0 +1,33 @@
+{
+  "version": "0.6.10",
+  "versionCode": 16,
+  "schema": 8,
+  "status": "WORK_IN_PROGRESS",
+  "gitHandoffDate": "2026-11-07",
+  "testsRerunForGitHandoff": false,
+  "recordedDebugAndAndroidTestBuilds": "passed",
+  "recordedPreFixRegressions": {
+    "executed": 3,
+    "failedAsExpectedBeforeImplementation": 3
+  },
+  "recordedNativeRun": {
+    "applicationId": "com.wealthos.app.uxlab",
+    "emulator": "WealthOS29 / API 29",
+    "executed": 16,
+    "passed": 13,
+    "failed": 3,
+    "failures": [
+      "BackupWorkflowTest.exportReadbackPreviewCancelAndConfirmedReplacementKeepHistory",
+      "BackupWorkflowTest.truncatedDocumentProviderCannotReportExportSuccessOrChangeVault",
+      "BackupWorkflowTest.passwordConfirmationAndRecreationDoNotPersistPassword"
+    ],
+    "failureStage": "ready(): waiting for home-list, 30000 ms timeout",
+    "failureRootCause": "not established"
+  },
+  "minifiedReleaseVerification": "pending",
+  "lint": "pending",
+  "packageVerification": "pending",
+  "productionSigning": "pending",
+  "phoneAccessed": false,
+  "personalStatementsCommitted": false
+}

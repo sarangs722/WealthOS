@@ -24,7 +24,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.util.UUID
 
-/** Fictional host captures only; MainActivity keeps FLAG_SECURE. */
+/** Fictional host captures; MainActivity follows the user-requested capture policy. */
 @RunWith(Parameterized::class)
 class DailyUpdatesUiTest(private val dark:Boolean,private val scale:Float) {
     companion object {@JvmStatic @Parameterized.Parameters(name="dark={0},font={1}") fun cases()=listOf(arrayOf<Any>(false,1f),arrayOf<Any>(true,1f),arrayOf<Any>(false,1.5f))}

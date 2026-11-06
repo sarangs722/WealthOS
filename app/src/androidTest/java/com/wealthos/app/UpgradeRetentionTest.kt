@@ -56,15 +56,10 @@ class UpgradeRetentionTest(private val expected:String) {
         rule.onNodeWithContentDescription("Settings").performClick()
         rule.onNodeWithText("Manage backups").performScrollTo().performClick()
         rule.onNodeWithText("Demo · Fictional records").assertExists()
-        // Only fictional demo records are rendered. Production screenshot protection is restored immediately.
-        rule.activityRule.scenario.onActivity {it.window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE)}
-        try {
-            val context=androidx.test.core.app.ApplicationProvider.getApplicationContext<android.content.Context>()
-            java.io.File(context.filesDir,"m6-demo-backups.png").outputStream().use {
-                rule.onRoot().captureToImage().asAndroidBitmap().compress(android.graphics.Bitmap.CompressFormat.PNG,100,it)
-            }
-        } finally {
-            rule.activityRule.scenario.onActivity {it.window.addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE)}
+        // Only fictional demo records are rendered; capture uses the user's normal app policy.
+        val context=androidx.test.core.app.ApplicationProvider.getApplicationContext<android.content.Context>()
+        java.io.File(context.filesDir,"m6-demo-backups.png").outputStream().use {
+            rule.onRoot().captureToImage().asAndroidBitmap().compress(android.graphics.Bitmap.CompressFormat.PNG,100,it)
         }
     }
 }

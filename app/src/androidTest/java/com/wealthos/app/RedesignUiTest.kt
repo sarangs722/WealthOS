@@ -21,7 +21,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import java.io.File
 
-/** Native rendered fixtures only. MainActivity's screenshot protection stays enabled. */
+/** Native rendered fixtures only. MainActivity also allows user screen capture. */
 @RunWith(Parameterized::class)
 class RedesignUiTest(private val dark:Boolean,private val textScale:Float) {
     companion object {@JvmStatic @Parameterized.Parameters(name="dark={0}, font={1}") fun cases()=listOf(arrayOf<Any>(false,1f),arrayOf<Any>(true,1f),arrayOf<Any>(false,1.5f))}
